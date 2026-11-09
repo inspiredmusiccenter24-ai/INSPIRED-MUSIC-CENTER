@@ -1,0 +1,1715 @@
+<!-- aha-build-id: bmw6s00w83886k7s3 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INSPIRED MUSIC CENTRE — Discover. Learn. Create. Inspire.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#202020; --ink2:#5c564e; --muted:#8a8278;
+  --paper:#FAF8F3; --card:#F2EDE5; --line:#e6ddd2;
+  --accent:#D4AF37; --accent2:#2f5d50; --gold:#D4AF37;
+  --shadow:0 12px 40px rgba(22,20,18,.07); --r:18px;
+  --serif:'Fraunces',Georgia,serif; --sans:'Outfit',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer;border:none;background:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,248,243,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:14px;padding:10px 0;flex-wrap:nowrap}
+.logo{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.03em;white-space:nowrap;flex-shrink:0}
+.logo img{height:40px;width:40px;object-fit:cover;border-radius:10px}
+.logo span{color:var(--gold)}
+header.nav a.logo{display:flex;align-items:center;gap:10px;line-height:1;color:#202020;text-decoration:none}
+header.nav a.logo .mark{width:28px;height:28px;flex-shrink:0}
+header.nav a.logo .wordstack{display:flex;flex-direction:column;justify-content:center;gap:2px}
+header.nav a.logo .wordstack strong{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.12em;color:#202020;line-height:1}
+header.nav a.logo .wordstack em{font-style:normal;font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.22em;color:#D4AF37;line-height:1}
+.links{display:flex;align-items:center;justify-content:center;gap:4px;flex:1;flex-wrap:nowrap;white-space:nowrap}
+.links a,.links button.navlink{padding:8px 10px;border-radius:10px;color:var(--ink2);font-size:13.5px;white-space:nowrap}
+.links a:hover,.links button.navlink:hover,.links a.on{background:#fff;color:var(--ink)}
+.drop{position:relative}
+.drop-menu{display:none;position:absolute;top:100%;left:0;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:var(--shadow);z-index:60}
+.drop:hover .drop-menu,.drop:focus-within .drop-menu,.drop.open .drop-menu{display:block}
+.drop-menu a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink2);font-size:14px;white-space:nowrap}
+.drop-menu a:hover{background:#f7f3ec;color:var(--ink)}
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.search{display:flex;align-items:center;width:44px;height:44px;justify-content:center;background:#fff;border:1.5px solid #D4AF37;border-radius:999px;padding:0;min-width:44px;overflow:hidden;transition:width .2s;color:#202020;flex-shrink:0}
+.search span{font-size:20px;line-height:1;color:#202020}
+.search:focus-within{width:200px;padding:0 12px;justify-content:flex-start;gap:8px}
+.search input{border:0;outline:0;background:transparent;width:0;font-size:14px}
+.search:focus-within input{width:100%}
+.nav-r #navAuth{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 18px;font-weight:600;font-size:14.5px;transition:background .2s,transform .15s,border-color .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible,.links a:focus-visible,.cat:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn-p{background:var(--ink);color:#fff}
+.btn-p:hover{background:var(--accent)}
+.btn-g{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn-g:hover{border-color:var(--ink)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff}
+.mobile{display:none;padding:8px 0 16px;border-top:1px solid var(--line)}
+.mobile a,.mobile button{display:block;width:100%;text-align:left;padding:12px 4px;font-size:16px}
+.hero{padding:56px 0 32px;display:grid;grid-template-columns:1fr 1.05fr;gap:36px;align-items:center}
+.hero-mosaic{display:grid;grid-template-columns:1.15fr .95fr;grid-template-rows:148px 148px;gap:10px;height:306px}
+.hero-mosaic img{width:100%;height:100%;object-fit:cover;border-radius:16px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(32,32,32,.08)}
+.hero-mosaic img:first-child{grid-row:1 / span 2}
+.hero-mosaic img:last-child{object-fit:contain;object-position:center;background:#F2EDE5;padding:4px}
+@media (prefers-reduced-motion:reduce){.card:hover,.btn:hover{transform:none}}
+.kicker{letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--accent);font-weight:600}
+.hero h1.welcome-hero{font-family:var(--serif);font-size:clamp(32px,4.6vw,52px);font-weight:600;line-height:1.18;letter-spacing:-.02em;color:#171717;margin:0 0 16px}
+h1{font-family:var(--serif);font-size:clamp(40px,5.6vw,68px);line-height:1.05;letter-spacing:-.035em;margin:14px 0 16px}
+.lead{font-size:19px;color:var(--ink2);max-width:460px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.stack{position:relative;height:460px}
+.preview{position:absolute;background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
+.preview img{width:100%;height:150px;object-fit:cover}
+.preview .pbody{padding:14px 16px}
+.badge{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#f3e6d8;color:var(--accent);padding:4px 8px;border-radius:999px;font-weight:600}
+.p1{width:240px;top:0;left:40px;transform:rotate(-6deg)}
+.p2{width:250px;top:30px;right:10px;transform:rotate(5deg)}
+.p3{width:260px;bottom:20px;left:0;transform:rotate(3deg)}
+.p4{width:230px;bottom:0;right:30px;transform:rotate(-4deg)}
+.sec{padding:72px 0}
+.sec h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,40px);letter-spacing:-.03em}
+.sub{color:var(--ink2);margin:8px 0 28px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 6px 24px rgba(28,22,18,.05);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(28,22,18,.1)}
+.card img.cover{width:100%;height:220px;object-fit:cover;background:#F2EDE5}
+.card img.cover.contain{object-fit:contain;object-position:center}
+.explore-page{padding-top:28px}
+.ex-search{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:720px;margin:20px 0 16px}
+.ex-search input{padding:14px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;width:100%;font-size:15px}
+.ex-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+.ex-chips button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink2);font-size:13.5px;font-weight:600}
+.ex-chips button.on,.ex-chips button:hover{background:#202020;color:#fff;border-color:#202020}
+.ex-sort{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit}
+.cbody{padding:16px}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin:8px 0}
+.creator{text-align:left}
+.avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;margin-bottom:10px;border:2px solid #D4AF37}
+.contact-wrap{max-width:1100px;margin:0 auto;padding-bottom:24px}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start}
+@media(max-width:800px){.contact-grid{grid-template-columns:1fr}}
+.events-page{max-width:1100px;margin:0 auto}
+.ev-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;margin-bottom:56px}
+.ev-hero img{width:100%;height:auto;max-height:520px;object-fit:contain;background:#171717;border-radius:20px;border:1px solid var(--line)}
+.ev-meta{display:flex;flex-wrap:wrap;gap:10px 18px;color:var(--ink2);font-size:14.5px;margin:14px 0 20px}
+.ev-meta span{display:inline-flex;align-items:center;gap:6px}
+.ev-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.ev-section{margin:48px 0 24px}
+.ev-section h2{margin-bottom:8px}
+.ev-empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:28px 22px;color:var(--ink2)}
+@media(max-width:800px){.ev-hero{grid-template-columns:1fr;gap:20px}.events-page .card[style*="grid-template-columns"]{grid-template-columns:1fr !important}}
+.ccard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.ccard h3{font-size:15px;margin-bottom:4px}
+.ccard p{color:var(--ink2);font-size:14.5px}
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;max-width:1100px;margin:0 auto;padding:8px 0 32px}
+@media(max-width:800px){.about-split{grid-template-columns:1fr;gap:20px}}
+.about-split img{width:100%;height:420px;object-fit:cover;border-radius:20px;border:1px solid var(--line)}
+.about-split .motto-line{letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:600;color:#D4AF37;margin:14px 0 8px}
+.about-split .place{color:var(--ink2);font-size:14px;margin:0 0 18px}
+.cat{padding:18px 16px;border-radius:16px;min-height:128px;color:#FAF8F3;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;font-weight:600;cursor:pointer;border:1px solid var(--line);text-align:left;box-shadow:0 6px 18px rgba(32,32,32,.06);transition:transform .2s,box-shadow .2s,border-color .2s}
+.cat:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(32,32,32,.12);border-color:#D4AF37}
+.cat .ci{width:28px;height:28px;margin-bottom:auto;color:#D4AF37}
+.cat strong{font-size:15px;letter-spacing:.01em;display:block}
+.cat em{font-style:normal;font-weight:400;font-size:12.5px;color:#e8e0d4;line-height:1.35}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:var(--card);border-radius:var(--r);padding:28px;border:1px solid var(--line)}
+.num{font-family:var(--serif);font-size:32px;color:var(--accent)}
+.promo{background:var(--ink);color:#fff;border-radius:28px;padding:56px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.promo h2{color:#fff}
+foot,footer{background:#171717;color:#F8F5EF;border-top:0;padding:56px 0 0;margin-top:24px}
+footer .logo{color:#F8F5EF}
+footer .logo span{color:#D4AF37}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;padding-bottom:36px}
+.fgrid strong{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#D4AF37;margin-bottom:12px}
+.fgrid a,.fgrid button{display:block;color:#B9B5AF;font-size:14px;margin:8px 0;background:none;border:0;text-align:left;cursor:pointer;transition:color .15s}
+.fgrid a:hover,.fgrid button:hover{color:#D4AF37}
+.fgrid a:focus-visible{outline:2px solid #D4AF37;outline-offset:3px;border-radius:4px}
+.f-brand p{color:#B9B5AF;margin-top:10px;max-width:320px;font-size:14.5px}
+.f-brand .motto{color:#F8F5EF;font-weight:600;margin-top:12px}
+.social{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.social a{width:40px;height:40px;border-radius:50%;border:1px solid #3a3a3a;display:grid;place-items:center;color:#F8F5EF;font-size:12px;font-weight:600;margin:0}
+.social a:hover{border-color:#D4AF37;color:#D4AF37}
+.fbar{border-top:1px solid #2c2c2c;padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#B9B5AF;font-size:13px}
+.page{display:none;padding:40px 0 48px}
+.page.on{display:block}
+.coming{max-width:560px}
+.coming h1{font-size:42px}
+.form{max-width:560px;display:grid;gap:12px;margin-top:20px}
+.form textarea{width:100%}
+.form label{font-size:13px;color:var(--ink2)}
+.form input,.form select{padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;width:100%}
+.err{color:#9a2f1a;font-size:12.5px;min-height:16px;margin-top:4px}
+.rolepick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rolecard{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;text-align:left;cursor:pointer}
+.rolecard.on{border-color:var(--accent);box-shadow:0 0 0 3px rgba(196,92,38,.15)}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px}
+.auth-extra{margin-top:14px;color:var(--ink2);font-size:14px}
+.btn-wide{width:100%}
+.field-hint{font-size:12px;color:var(--muted);margin-top:4px}
+.session-chip{font-size:13px;color:var(--ink2);padding:8px 10px}
+.modal{position:fixed;inset:0;background:rgba(28,22,18,.45);display:none;align-items:center;justify-content:center;z-index:80;padding:20px}
+.modal.on{display:flex}
+.dialog{background:var(--card);border-radius:24px;padding:28px;max-width:420px;width:100%}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;display:none;z-index:90}
+.dash{display:grid;grid-template-columns:230px 1fr;gap:28px;align-items:start}
+.side{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;position:sticky;top:88px}
+.side a,.side button.navi{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:var(--ink2);font-size:14px;margin:2px 0}
+.side a.on,.side a:hover{background:#f3e6d8;color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.kpi b{display:block;font-family:var(--serif);font-size:28px}
+.banner{background:#f3e6d8;border-radius:16px;padding:14px 16px;margin:0 0 18px;font-size:14px}
+.qacts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.table-wrap{overflow:auto}
+table.prod{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden}
+table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
+.store-hero{display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.tabs button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.tabs button.on{background:var(--ink);color:#fff}
+.mob-side{display:none}
+@media(max-width:960px){
+  .dash{grid-template-columns:1fr}
+  .side{position:static}
+  .kpis,.qacts{grid-template-columns:1fr 1fr}
+  .store-hero{grid-template-columns:1fr}
+  .mob-side{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+}
+@media(max-width:1080px){
+  .links{display:none}
+  .burger{display:grid;place-items:center}
+}
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding:40px 0 24px}
+  .hero-mosaic{height:260px;grid-template-rows:125px 125px}
+  .grid4,.grid3,.steps,.fgrid,.promo,.grid5{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr !important}
+}
+@media(max-width:640px){
+  .hero-mosaic{height:200px;grid-template-rows:95px 95px}
+  .grid4,.grid3,.steps,.fgrid,.promo,.grid5{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#/" onclick="go('/')" aria-label="INSPIRED MUSIC CENTRE home">
+      <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="12" fill="none" stroke="#D4AF37" stroke-width="1.5"/><path d="M14 7.2v13.6M9.6 11.4L14 14.4l4.4-3" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="wordstack"><strong>INSPIRED</strong><em>MUSIC CENTRE</em></span>
+    </a>
+    <nav class="links" id="deskNav">
+      <a href="#/" data-r="/">Home</a>
+      <a href="#/explore" data-r="/explore">Explore Marketplace</a>
+      <div class="drop">
+        <a href="#/imc-services" data-r="/imc-services" class="navlink">Our Services ▾</a>
+        <div class="drop-menu" role="menu">
+          <a href="#/imc-services">Audio & Event Sound</a>
+          <a href="#/imc-quote?service=jingle">Jingle Production</a>
+          <a href="#/imc-quote?service=live">Live Studio Recording</a>
+          <a href="#/imc-quote?service=hire">Sound System Hire</a>
+          <a href="#/imc-quote?service=photo">Photography</a>
+          <a href="#/imc-quote?service=video">Videography</a>
+          <a href="#/imc">IMC Overview</a>
+        </div>
+      </div>
+      <a href="#/imc-quote?service=lessons" data-r="/imc-quote">Music Academy</a>
+      <a href="#/creators" data-r="/creators">Creators</a>
+      <a href="#/events" data-r="/events">Events</a>
+      <a href="#/about" data-r="/about">About Us</a>
+      <a href="#/contact" data-r="/contact">Contact</a>
+    </nav>
+    <div class="nav-r">
+      <label class="search" title="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#202020" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="Search" aria-label="Search"></label>
+      <a class="btn btn-g" href="#/become-a-creator">Become a Creator</a>
+      <span id="navAuth"></span>
+      <button class="burger" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+    </div>
+  </div>
+  <div class="wrap mobile" id="mobileMenu">
+    <a href="#/">Home</a>
+    <a href="#/explore">Explore Marketplace</a>
+    <a href="#/imc-services">Our Services</a>
+    <a href="#/imc-quote?service=lessons">Music Academy</a>
+    <a href="#/creators">Creators</a>
+    <a href="#/events">Events</a>
+    <a href="#/about">About Us</a>
+    <a href="#/contact">Contact</a>
+    <a href="#/imc">INSPIRED MUSIC CENTRE</a>
+    <a href="#/categories">Categories</a>
+    <a href="#/become-a-creator">Become a Creator</a>
+    <div id="navAuthMobile"></div>
+  </div>
+</header>
+
+<main>
+  <section class="page on" id="home">
+    <div class="wrap hero">
+      <div>
+        <h1 class="welcome-hero">Where Creativity Meets Opportunity.</h1>
+        <p class="lead">INSPIRED MUSIC CENTRE brings together music education, professional creative production, innovative services, and a growing marketplace where independent creators can showcase their work and connect with new opportunities.</p>
+        <div class="cta">
+          <a class="btn btn-p" href="#/explore">Explore Marketplace</a>
+          <a class="btn btn-g" href="#/imc-services">Discover Our Services</a>
+        </div>
+      </div>
+      <div class="hero-mosaic" aria-hidden="false">
+        <img src="./student-violin.png" alt="Student practising violin at Inspired Music Centre">
+        <img src="./article-hands.png" alt="Hands holding printed creative work">
+        <img src="./peace-concert.jpeg" alt="The Peace Concert Season 2 poster">
+      </div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:0">
+      <h2>Explore a World of Creativity</h2>
+      <p class="sub">Discover inspiring work, talented people, and creative opportunities across different industries.</p>
+      <div class="grid4" id="cats"></div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:0">
+      <h2>Meet the Creators</h2>
+      <p class="sub">The INSPIRED MUSIC CENTRE marketplace is where independent creators share skills, stories, and original work.</p>
+      <div class="card cbody"><h3>Be among the first creators on the IMC marketplace</h3><p>Join our creative community and showcase your work. Independent storefronts appear here after approval.</p><div class="cta"><a class="btn btn-p" href="#/become-a-creator">Become a Creator</a></div></div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:0">
+      <h2>Discover Something Inspiring</h2>
+      <p class="sub">Genuine INSPIRED MUSIC CENTRE listings. Independent products appear after creators publish.</p>
+      <div class="grid3" id="trending"></div>
+      <a class="btn btn-g" href="#/explore" style="margin-top:16px">View All Products</a>
+    </div>
+
+    <div class="wrap sec" style="padding-top:0">
+      <h2>How the IMC Marketplace Works</h2>
+      <div class="steps" style="margin-top:24px;grid-template-columns:repeat(4,1fr)">
+        <div class="step"><div class="num">01</div><h3>Discover</h3><p>Explore creative products, services, and talented creators.</p></div>
+        <div class="step"><div class="num">02</div><h3>Create</h3><p>Build your profile and showcase your original work.</p></div>
+        <div class="step"><div class="num">03</div><h3>Sell</h3><p>Publish products, courses, or services and receive customer orders.</p></div>
+        <div class="step"><div class="num">04</div><h3>Grow</h3><p>Build an audience and develop your creative business.</p></div>
+      </div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:0">
+      <h2>INSPIRED MUSIC CENTRE</h2>
+      <p class="sub">We are a multidisciplinary creative organisation bringing together music education, professional recording, production, photography, videography, event sound, and a marketplace for independent creators.</p>
+      <div class="grid3" style="margin:18px 0 22px">
+        <article class="card"><img class="cover" src="./building-storefront.png" alt="Inspired Music Centre storefront mural in Njoro"><div class="cbody"><h3>Our storefront</h3><p>Find us in Njoro. <a href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Google Maps</a></p></div></article>
+        <article class="card"><img class="cover" src="./building-corridor.png" alt="Welcome mural in the Inspired Music Centre corridor"><div class="cbody"><h3>Welcome to the Centre</h3><p>Walk in for lessons, studio time, and community events.</p></div></article>
+        <article class="card"><img class="cover" src="./studio.jpeg" alt="Inspired Music Centre recording studio"><div class="cbody"><h3>Record with us</h3><p>Live and mobile studio sessions, quoted per project.</p></div></article>
+      </div>
+      <div class="cta"><a class="btn btn-p" href="#/imc">Explore IMC</a><a class="btn btn-g" href="#/imc-quote?service=live">Book a Session</a><a class="btn btn-g" href="#/imc-services">View Our Services</a></div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>Professional Sound. Creative Excellence.</h2>
+      <p class="sub">From recording your next masterpiece to delivering powerful sound for memorable events.</p>
+      <div class="grid3">
+        <article class="card"><img class="cover" src="./studio.jpeg" alt="Studio used for jingle production"><div class="cbody"><h3>Jingle Production</h3><p>Original musical jingles for brands and campaigns.</p><a class="btn btn-p" href="#/imc-quote?service=jingle">Book Now</a></div></article>
+        <article class="card"><img class="cover" src="./article-hands.png" alt="Advert recording"><div class="cbody"><h3>Advert Recording</h3><p>Commercials, announcements, and advertisements.</p><a class="btn btn-p" href="#/imc-quote?service=advert">Book Now</a></div></article>
+        <article class="card"><img class="cover" src="./studio-recording.png" alt="Live studio recording at Inspired Music Centre"><div class="cbody"><h3>Bring Your Sound to Life</h3><p>Live studio sessions for vocalists, instrumentalists, and groups.</p><a class="btn btn-p" href="#/imc-quote?service=live">Book a Recording Session</a></div></article>
+        <article class="card"><img class="cover" src="./building-storefront.png" alt="Mobile studio recording"><div class="cbody"><h3>Mobile Studio Recording</h3><p>On-location recording for choirs, groups, and events.</p><a class="btn btn-p" href="#/imc-quote?service=mobile">Book Now</a></div></article>
+        <article class="card"><img class="cover" src="./peace-concert.jpeg" alt="Sound system hire"><div class="cbody"><h3>Sound System Hire</h3><p>Equipment rental for concerts and functions.</p><a class="btn btn-p" href="#/imc-quote?service=hire">Request a Quote</a></div></article>
+        <article class="card"><img class="cover" src="./building-corridor.png" alt="Event sound services"><div class="cbody"><h3>Event Sound Services</h3><p>Setup and support for weddings, concerts, and gatherings.</p><a class="btn btn-p" href="#/imc-quote?service=event">Request a Quote</a></div></article>
+      </div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>Learn. Practice. Perform.</h2>
+      <p class="sub">Music lessons at INSPIRED MUSIC CENTRE — tell us the instrument when you book.</p>
+      <div class="cta"><a class="btn btn-p" href="#/imc-quote?service=lessons">Book a Music Lesson</a></div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>Awards, merch & community</h2>
+      <p class="sub">Recognition, merch, and The Peace Concert — more on IMC and Events.</p>
+      <div class="grid3">
+        <article class="card"><img class="cover" src="./award-trophy.png" alt="Digitally Fit Music School trophy"><div class="cbody"><span class="badge">Award</span><h3>Digitally Fit Music School Trophy</h3></div></article>
+        <article class="card"><img class="cover" src="./award-certificate.png" alt="Recognition certificate"><div class="cbody"><span class="badge">Certificate</span><h3>Recognition certificate</h3></div></article>
+        <article class="card"><img class="cover" src="./merch-hoodie.jpeg" alt="IMC custom hoodie from KSh 2500"><div class="cbody"><span class="badge">Merchandise</span><h3>Custom hoodie</h3><p>From KSh 2,500.</p><a class="btn btn-g" href="#/imc">View details</a></div></article>
+      </div>
+      <a class="btn btn-g" href="#/imc" style="margin-top:16px">View more at IMC</a>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>What Our Community Says</h2>
+      <p class="sub">Real experiences from students, customers, and creators who have engaged with INSPIRED MUSIC CENTRE.</p>
+      <div id="homeReviews"></div>
+      <div class="cta"><a class="btn btn-p" href="#/reviews">Write a Review</a></div>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>The Peace Concert</h2>
+      <p class="sub">28th November 2026 — gather, listen, and stand for peace.</p>
+      <article class="card" style="max-width:520px">
+        <img class="cover" src="./peace-concert.jpeg" alt="The Peace Concert Season 2 poster, 28 November 2026, theme colour white">
+        <div class="cbody"><span class="badge">Event</span><h3 style="margin:8px 0">The Peace Concert Season 2</h3>
+          <p><a href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Venue on Google Maps</a></p>
+          <a class="btn btn-p" href="#/events" style="margin-top:10px">View event</a></div>
+      </article>
+    </div>
+
+    <div class="wrap sec" style="padding-top:8px">
+      <h2>Our team</h2>
+      <p class="sub">The people behind INSPIRED MUSIC CENTRE. Full story on About.</p>
+      <div class="grid3" id="teamGrid">
+        <article class="card cbody"><img class="avatar" src="./portrait-keraro.png" alt="Professional portrait of Peter Keraro"><h3>Peter Keraro</h3><p>Chief Executive Officer</p></article>
+        <article class="card cbody"><img class="avatar" src="./portrait-karani.png" alt="Professional portrait of Robert Karani"><h3>Robert Karani</h3><p>General Manager</p></article>
+        <article class="card cbody"><img class="avatar" src="./portrait-kingasia.png" alt="Professional portrait of Samuel Kingasia"><h3>Samuel Kingasia</h3><p>Head of Artists and Repertoire (A&R)</p></article>
+        <article class="card cbody"><img class="avatar" src="./portrait-ayora.png" alt="Professional portrait of Michael Ayora"><h3>Michael Ayora</h3><p>Head of Branding and Design</p></article>
+        <article class="card cbody"><img class="avatar" src="./portrait-mogambi.png" alt="Professional portrait of Elizabeth Mogambi"><h3>Elizabeth Mogambi</h3><p>Chief Marketing Officer</p></article>
+        <article class="card cbody"><img class="avatar" src="./portrait-kwamboka.png" alt="Professional portrait of Esther Kwamboka"><h3>Esther Kwamboka</h3><p>Web designer</p></article>
+      </div>
+    </div>
+
+    <div class="wrap sec">
+      <div class="promo">
+        <div>
+          <h2>Your Creativity Deserves a Bigger Stage.</h2>
+          <p style="opacity:.85;margin-top:10px;max-width:480px">Whether you're a musician, writer, designer, educator, photographer, or independent creator, INSPIRED MUSIC CENTRE is building a place where your work can be discovered.</p>
+        </div>
+        <div class="cta"><a class="btn" style="background:#fff;color:var(--ink)" href="#/become-a-creator">Become a Creator</a><a class="btn btn-g" style="border-color:#fff;color:#fff" href="#/explore">Explore Marketplace</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page wrap" id="explore"></section>
+  <section class="page wrap" id="creators"></section>
+  <section class="page wrap" id="categories"></section>
+  <section class="page wrap" id="events"></section>
+  <section class="page wrap" id="become"></section>
+  <section class="page wrap" id="signin"></section>
+  <section class="page wrap" id="signup"></section>
+  <section class="page wrap" id="forgot"></section>
+  <section class="page wrap" id="reset"></section>
+  <section class="page wrap" id="account"></section>
+  <section class="page wrap" id="creatorShell"></section>
+  <section class="page wrap" id="publicStore"></section>
+  <section class="page wrap" id="terms"></section>
+  <section class="page wrap" id="creatorAgreement"></section>
+  <section class="page wrap" id="privacy"></section>
+  <section class="page wrap" id="about"></section>
+  <section class="page wrap" id="help"></section>
+  <section class="page wrap" id="contact"></section>
+  <section class="page wrap" id="imc"></section>
+  <section class="page wrap" id="copyright"></section>
+  <section class="page wrap" id="imcServices"></section>
+  <section class="page wrap" id="imcServiceDetail"></section>
+  <section class="page wrap" id="imcQuote"></section>
+  <section class="page wrap" id="adminBookings"></section>
+  <section class="page wrap" id="adminAvail"></section>
+  <section class="page wrap" id="searchPage"></section>
+  <section class="page wrap" id="payPage"></section>
+  <section class="page wrap" id="adminInbox"></section>
+  <section class="page wrap" id="adminCreators"></section>
+  <section class="page wrap" id="reviewsPage"></section>
+  <section class="page wrap" id="adminReviews"></section>
+</main>
+
+<footer>
+  <div class="wrap fgrid">
+    <div class="f-brand">
+      <div class="logo" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;line-height:1"><strong style="letter-spacing:.12em;font-size:16px">INSPIRED</strong><em style="font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.2em;color:#D4AF37;font-weight:600">MUSIC CENTRE</em></div>
+      <p class="motto">Discover. Learn. Create. Inspire.</p>
+      <p>INSPIRED MUSIC CENTRE is a multidisciplinary creative organisation in Njoro offering education, recording, events, visual services, and a marketplace for independent creators.</p>
+      <div class="social">
+        <a href="https://youtube.com/@inspiredmusiccenternjoro?si=gW0MDHSIRnWv8U2c" target="_blank" rel="noopener" aria-label="YouTube Inspired Music Center Njoro">YT</a>
+        <a href="https://youtube.com/@passionateblessedsingers?si=-cPp_UO1ECg84JmO" target="_blank" rel="noopener" aria-label="YouTube Passionate Blessed Singers">YT</a>
+        <a href="https://wa.me/254791716872" target="_blank" rel="noopener" aria-label="WhatsApp Inspired Music Centre 0791716872">WA</a>
+      </div>
+    </div>
+    <div>
+      <strong>Explore</strong>
+      <a href="#/explore">Explore Marketplace</a>
+      <a href="#/creators">Creators</a>
+      <a href="#/categories">Categories</a>
+      <a href="#/events">Events</a>
+      <a href="#/become-a-creator">Become a Creator</a>
+    </div>
+    <div>
+      <strong>Our Services</strong>
+      <a href="#/imc-services">Audio & Event Sound</a>
+      <a href="#/imc-quote?service=lessons">Music Academy</a>
+      <a href="#/imc-quote?service=live">Studio Recording</a>
+      <a href="#/imc-quote?service=photo">Photography</a>
+      <a href="#/about">About IMC</a>
+      <a href="#/contact">Contact & Support</a>
+    </div>
+    <div>
+      <strong>Legal & Payments</strong>
+      <a href="#/terms">Terms of Service</a>
+      <a href="#/privacy">Privacy Policy</a>
+      <a href="#/creator-agreement">Creator Agreement</a>
+      <a href="#/copyright">Copyright Policy</a>
+      <a href="#/payments">Payment Information</a>
+      <a href="#/help">Help Centre</a>
+      <a href="./inspired-music-centre.zip" download>Download site files (ZIP)</a>
+    </div>
+  </div>
+  <div class="wrap fbar">
+    <span>© <span id="yearCopy"></span> INSPIRED MUSIC CENTRE. All rights reserved.</span>
+    <span>Discover. Learn. Create. Inspire.</span>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="dialog">
+    <h3 id="mTitle"></h3>
+    <p id="mBody" style="color:var(--ink2);margin:10px 0 18px"></p>
+    <button class="btn btn-p" onclick="closeModal()">Close</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const ROLES = {
+  buyer: { label: 'Buyer / Reader', can: ['Discover content','Purchase books and articles','Subscribe to creators','Take classes','Buy event tickets','Manage a personal library'] },
+  creator: { label: 'Creator', can: ['Create a profile','Upload products','Set prices','Sell content','Create memberships','Create classes','Organize events','Track sales'] },
+  admin: { label: 'Admin', can: ['Manage users','Approve creators','Moderate content','Manage categories','Monitor payments','Manage payouts','Handle disputes'] }
+};
+const state = { role: localStorage.getItem('inspired.role') || 'buyer' };
+
+const CREATORS = [
+  {name:'Amina Okello', cat:'Leadership', bio:'Helps first-time managers lead without losing themselves.', works:12, seed:'Amina'},
+  {name:'David Mwangi', cat:'Finance', bio:'Writes plain-language money guides for young professionals.', works:9, seed:'David'},
+  {name:'Sofia Reyes', cat:'Creativity', bio:'Studio essays on making art beside a day job.', works:18, seed:'Sofia'},
+  {name:'Jonas Berg', cat:'Technology', bio:'Teaches product thinking for non-engineers.', works:7, seed:'Jonas'},
+  {name:'Lila Cherono', cat:'Career', bio:'Career coach for people changing industries mid-stream.', works:11, seed:'Lila'},
+  {name:'Omar Haddad', cat:'Entrepreneurship', bio:'Documents how small studios find their first 100 customers.', works:14, seed:'Omar'}
+];
+const WORKS = [
+  {type:'Book', title:'The Quiet Room', creator:'Amina Okello', rating:'4.8', price:'$18', alt:'Hardcover leadership book The Quiet Room on linen'},
+  {type:'Article', title:'Evenings, not hustle', creator:'Sofia Reyes', rating:'4.6', price:'$4', alt:'Printed essay pages about creative evenings'},
+  {type:'Document', title:'Studio Cash Map', creator:'Omar Haddad', rating:'4.9', price:'$12', alt:'Printed financial planning document on a desk'},
+  {type:'Book', title:'Salary, Then Life', creator:'David Mwangi', rating:'4.7', price:'$16', alt:'Personal finance paperback beside a coffee cup'},
+  {type:'Article', title:'Ship without the jargon', creator:'Jonas Berg', rating:'4.5', price:'Free', alt:'Laptop article about product language'},
+  {type:'Document', title:'90-Day Role Switch', creator:'Lila Cherono', rating:'4.8', price:'$9', alt:'Career transition workbook with handwritten notes'}
+];
+const CATS = [
+  ['music','Music & Audio','#3a3732'],
+  ['books','Books & Publications','#8a7a62'],
+  ['courses','Online Courses','#5c5346'],
+  ['photo','Photography & Videography','#6b5e4a'],
+  ['art','Art & Design','#7a6248'],
+  ['services','Creative Services','#4a4540'],
+  ['events','Events & Experiences','#9a7b4f'],
+  ['digital','Digital Products','#202020']
+];
+const IMC_LISTINGS = [
+  {cat:'events', type:'Events & Experiences', title:'The Peace Concert Season 2', creator:'Inspired Music Centre', price:'From KSh 300', img:'./peace-concert.jpeg', alt:'The Peace Concert Season 2 poster', href:'#/events', cta:'View Event', group:'events', fit:'contain'},
+  {cat:'digital', type:'Merchandise', title:'IMC custom hoodie', creator:'Inspired Music Centre', price:'KSh 2,500', img:'./merch-hoodie.jpeg', alt:'IMC custom hoodie with centre artwork', href:'#/payments', cta:'View Details', group:'merch', fit:'contain'},
+  {cat:'digital', type:'Merchandise', title:'IMC custom T-shirt', creator:'Inspired Music Centre', price:'KSh 1,000', img:'./merch-tshirt.jpeg', alt:'IMC custom T-shirt design', href:'#/payments', cta:'View Details', group:'merch', fit:'contain'},
+  {cat:'digital', type:'Merchandise', title:'Hoodie showcase', creator:'Inspired Music Centre', price:'KSh 2,500', img:'./merch-hoodie-showcase.png', alt:'Inspired Music Centre hoodie showcase', href:'#/payments', cta:'View Details', group:'merch', fit:'contain'},
+  {cat:'services', type:'Recording Services', title:'Live Studio Recording', creator:'Inspired Music Centre', price:'Request a Quote', img:'./studio-recording.png', alt:'Focused recording studio session at Inspired Music Centre', href:'#/imc-quote?service=live', cta:'Book Now', group:'music', quote:false},
+  {cat:'courses', type:'Music Education', title:'Music Lessons', creator:'Inspired Music Centre', price:'Request a Quote', img:'./student-violin.png', alt:'Student practising violin at Inspired Music Centre', href:'#/imc-quote?service=lessons', cta:'Book Now', group:'courses'},
+  {cat:'music', type:'Audio Production', title:'Jingle Production', creator:'Inspired Music Centre', price:'Request a Quote', img:'./studio.jpeg', alt:'Inspired Music Centre studio used for jingle production', href:'#/imc-quote?service=jingle', cta:'Request a Quote', group:'music', quote:true}
+];
+const IMC_GALLERY = [
+  {img:'./building-storefront.png', alt:'Inspired Music Centre storefront mural in Njoro'},
+  {img:'./building-corridor.png', alt:'Welcome mural in the Inspired Music Centre corridor'}
+];
+
+function avatar(n){return 'https://api.dicebear.com/7.x/avataaars/svg?seed='+encodeURIComponent(n)}
+function creatorCard(c){
+  return `<article class="card creator cbody">
+    <img class="avatar" src="${avatar(c.seed)}" alt="Portrait of ${c.name}">
+    <h3>${c.name}</h3>
+    <div class="badge">${c.cat}</div>
+    <p style="color:var(--ink2);margin:8px 0">${c.bio}</p>
+    <div class="meta"><span>${c.works} works</span></div>
+    <button class="btn btn-g" onclick="openModal('${c.name}','${c.bio} Profile pages arrive in a later step.')">View Profile</button>
+  </article>`;
+}
+function workCard(w){
+  return `<article class="card">
+    <img class="cover" src="cover.jpg" alt="${w.alt}">
+    <div class="cbody">
+      <span class="badge">${w.type}</span>
+      <h3 style="margin:8px 0 4px">${w.title}</h3>
+      <p style="color:var(--ink2)">${w.creator}</p>
+      <div class="meta"><span>★ ${w.rating}</span><strong>${w.price}</strong></div>
+      <button class="btn btn-p" onclick="openModal('${w.title}','Full marketplace checkout comes later. This is a preview.')">View</button>
+    </div>
+  </article>`;
+}
+
+document.getElementById('trending').innerHTML = IMC_LISTINGS.slice(0,6).map(imcCard).join('');
+const CAT_META = {
+  music:['IMC studio work plus audio from independent creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'],
+  books:['IMC publications and writing from registered creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'],
+  courses:['IMC lessons and courses from registered creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>'],
+  photo:['IMC visual services and creator photography & film.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3l2-3h8l2 3h3a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>'],
+  art:['IMC design plus art from independent creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><circle cx="8" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="14" r="1.2" fill="currentColor"/></svg>'],
+  services:['IMC production and services from registered creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'],
+  events:['IMC concerts and experiences hosted by creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'],
+  digital:['IMC merch and digital products from creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>']
+};
+document.getElementById('cats').innerHTML = CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>'];return `<button class="cat" type="button" style="background:${c}" onclick="go('/category/'+id)">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('');
+const SVC_BOOKINGS_KEY='inspired.serviceBookings';
+const AVAIL_KEY='inspired.bookingAvail';
+const ADMIN_PIN_KEY='inspired.adminPin';
+const WA_IMC='254791716872';
+function loadSvcBookings(){ try{ return JSON.parse(localStorage.getItem(SVC_BOOKINGS_KEY)||'[]'); }catch(e){ return []; } }
+function saveSvcBookings(a){ localStorage.setItem(SVC_BOOKINGS_KEY, JSON.stringify(a)); }
+function loadAvail(){
+  try{
+    const v=JSON.parse(localStorage.getItem(AVAIL_KEY)||'null');
+    if(v&&Array.isArray(v.times)) return v;
+  }catch(e){}
+  return { times:['09:00','11:00','14:00','16:00'], closedDates:[] };
+}
+function saveAvail(v){ localStorage.setItem(AVAIL_KEY, JSON.stringify(v)); }
+function nextRef(){
+  const n=String(Date.now()).slice(-8);
+  return 'IMC-'+n;
+}
+function quoteFormHtml(pre){
+  const opts=IMC_AUDIO.map(s=>`<option value="${s.id}" ${s.id===pre?'selected':''}>${s.name}</option>`).join('');
+  const av=loadAvail();
+  const timeOpts=av.times.map(t=>`<option value="${t}">${t}</option>`).join('');
+  const today=new Date().toISOString().slice(0,10);
+  const svc=IMC_AUDIO.find(x=>x.id===pre);
+  const waText=encodeURIComponent('Hello Inspired Music Centre, I would like to inquire about booking '+(svc?svc.name:'a service')+'. Please share availability and pricing information.');
+  return `<div class="coming" style="max-width:640px"><div class="kicker">Booking request</div><h1>Book with Inspired Music Centre</h1><p class="lead">Preferred date and time are requests, not guaranteed reservations. Our team confirms availability before a booking is Confirmed.</p>
+  <form class="form" id="quoteForm">
+    <label>Full Name<input id="qName" required autocomplete="name"></label>
+    <label>Phone Number<input id="qPhone" required autocomplete="tel" placeholder="07…"></label>
+    <label>Email Address<input id="qEmail" type="email" required autocomplete="email"></label>
+    <label>Service Required<select id="qService">${opts}</select></label>
+    <label>Preferred Booking Date<input id="qDate" type="date" required min="${today}"></label>
+    <label>Preferred Time<select id="qTime"><option value="">Select a preferred time</option>${timeOpts}</select></label>
+    <label>Event or Recording Location<input id="qLoc" placeholder="Studio, venue, or address"></label>
+    <label>Number of Participants or Expected Audience<input id="qAud" inputmode="numeric" placeholder="Optional"></label>
+    <label>Additional Requirements or Message<textarea id="qMore" style="min-height:90px;padding:12px;border-radius:12px;border:1px solid var(--line);font:inherit"></textarea></label>
+    <button class="btn btn-p btn-wide" type="submit">Submit Booking Request</button>
+    <a class="btn btn-g btn-wide" id="qWa" href="https://wa.me/${WA_IMC}?text=${waText}" target="_blank" rel="noopener">Book via WhatsApp</a>
+    <p class="err" id="qErr"></p>
+  </form>
+  <p id="qOk" class="sub" style="display:none"></p></div>`;
+}
+function bindQuoteForm(){
+  const sel=document.getElementById('qService');
+  const wa=document.getElementById('qWa');
+  function syncWa(){
+    const s=IMC_AUDIO.find(x=>x.id===sel.value);
+    const name=s?s.name:'a service';
+    wa.href='https://wa.me/'+WA_IMC+'?text='+encodeURIComponent('Hello Inspired Music Centre, I would like to inquire about booking '+name+'. Please share availability and pricing information.');
+  }
+  sel.addEventListener('change', syncWa); syncWa();
+  document.getElementById('quoteForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const err=document.getElementById('qErr');
+    const name=document.getElementById('qName').value.trim();
+    const phone=document.getElementById('qPhone').value.trim();
+    const email=document.getElementById('qEmail').value.trim();
+    const date=document.getElementById('qDate').value;
+    const time=document.getElementById('qTime').value;
+    const loc=document.getElementById('qLoc').value.trim();
+    const aud=document.getElementById('qAud').value.trim();
+    const more=document.getElementById('qMore').value.trim();
+    const svcId=sel.value;
+    const svcName=sel.options[sel.selectedIndex].text;
+    const today=new Date().toISOString().slice(0,10);
+    if(!name||!phone||!email||!date){ err.textContent='Please complete name, phone, email, and preferred date.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err.textContent='Enter a valid email address.'; return; }
+    if(date<today){ err.textContent='Preferred date cannot be in the past.'; return; }
+    const av=loadAvail();
+    if((av.closedDates||[]).includes(date)){ err.textContent='That date is marked unavailable. Please choose another preferred date.'; return; }
+    err.textContent='';
+    const rec={ id:'bk_'+Date.now(), ref:nextRef(), name, phone, email, serviceId:svcId, service:svcName, preferredDate:date, preferredTime:time, location:loc, audience:aud, message:more, status:'Pending Confirmation', notes:'', createdAt:Date.now(), history:[{at:Date.now(), status:'Pending Confirmation'}] };
+    const all=loadSvcBookings(); all.unshift(rec); saveSvcBookings(all);
+    const saved=loadSvcBookings().some(x=>x.ref===rec.ref);
+    if(!saved){ err.textContent='Could not save this booking. Please try again.'; return; }
+    document.getElementById('quoteForm').style.display='none';
+    const ok=document.getElementById('qOk'); ok.style.display='block';
+    ok.innerHTML='Thank you for choosing Inspired Music Centre! Your booking request has been received successfully. Our team will contact you to confirm availability, pricing, and the next steps.<br><br><strong>Booking reference: '+rec.ref+'</strong><br>Status: Pending Confirmation. Preferred date '+rec.preferredDate+(rec.preferredTime?' at '+rec.preferredTime:'')+' is a request, not a confirmed reservation.<br><br>Email alerts are not connected in this environment, so staff should check the Bookings dashboard. You can also message us on WhatsApp using 0791716872.';
+    toast('Booking saved · '+rec.ref);
+  });
+}
+function loadReviews(){ try{ return JSON.parse(localStorage.getItem('inspired.reviews')||'[]'); }catch(e){ return []; } }
+function saveReviews(a){ localStorage.setItem('inspired.reviews', JSON.stringify(a)); }
+function publishedReviews(){ return loadReviews().filter(r=>r.status==='published'); }
+function reviewsFor(target){ return publishedReviews().filter(r=>r.target===target); }
+function ratingStats(target){ const rows=reviewsFor(target); if(!rows.length) return {avg:0,count:0,label:'No reviews yet'}; const avg=rows.reduce((s,r)=>s+Number(r.stars),0)/rows.length; return {avg, count:rows.length, label:avg.toFixed(1)+' ★ · '+rows.length+' review'+(rows.length===1?'':'s')}; }
+function starsHtml(n){ const s=Math.round(Number(n)||0); return '<span aria-label="'+s+' out of 5 stars">'+('★'.repeat(s)+'☆'.repeat(5-s))+'</span>'; }
+function reviewerEligible(email, target){
+  const books=JSON.parse(localStorage.getItem('inspired.serviceBookings')||'[]');
+  if(books.some(b=>b.email===email && (b.status==='Confirmed'||b.status==='Completed'))) return true;
+  const tix=JSON.parse(localStorage.getItem('inspired.bookings')||'[]');
+  if(tix.some(b=>b.name)) return true;
+  return false;
+}
+function ratingLine(target){ const st=ratingStats(target); return '<p class="sub" style="margin:6px 0">'+st.label+'</p>'; }
+function listingCta(r){
+  if(r.cta) return r.cta;
+  if(r.kind==='event'||r.cat==='events') return 'View Event';
+  if(r.quote) return 'Request a Quote';
+  if(r.kind==='service') return 'Book Now';
+  return 'View Details';
+}
+function imcCard(w){
+  return `<article class="card">
+    <img class="cover ${w.fit==='contain'?'contain':''}" src="${w.img}" alt="${w.alt}">
+    <div class="cbody">
+      <span class="badge">${w.type}</span>
+      <h3 style="margin:8px 0 4px">${w.title}</h3>
+      <p style="color:var(--ink2)">${w.creator}</p>
+      <div class="meta"><span>${(CATS.find(c=>c[0]===w.cat)||[])[1]||w.type}</span><strong>${w.price}</strong></div>
+      ${ratingLine(w.title||w.href)}
+      <a class="btn btn-p" href="${w.href}">${listingCta(w)}</a>
+    </div>
+  </article>`;
+}
+
+function coming(title, text){
+  return `<div class="coming"><div class="kicker">Coming soon</div><h1>${title}</h1><p class="lead" style="margin-top:12px">${text}</p><a class="btn btn-p" style="margin-top:20px" href="#/">Back home</a></div>`;
+}
+function listingPrice(w){
+  const m=String(w.price||'').replace(/,/g,'').match(/(\d+)/);
+  return m?Number(m[1]):null;
+}
+const EX_GROUPS=[
+  ['','All Listings'],
+  ['merch','Products & Merchandise'],
+  ['music','Music & Audio'],
+  ['services','Creative Services'],
+  ['courses','Courses & Lessons'],
+  ['events','Events & Tickets'],
+  ['creators','Independent Creators']
+];
+function marketItems(){
+  const pub=JSON.parse(localStorage.getItem('inspired.products')||'[]').filter(p=>p.status==='published').map(p=>{
+    const cr=(JSON.parse(localStorage.getItem('inspired.profiles')||'[]').find(x=>x.id===p.creator_id)||{});
+    const cat=p.category_id||'digital';
+    const group=cat==='events'?'events':(cat==='courses'?'courses':(cat==='services'||cat==='photo'?'services':(cat==='music'?'music':'merch')));
+    return { cat, type:p.product_type||'Product', title:p.title, creator:cr.display_name||'Creator', price:'KSh '+p.price, img:p.cover||'./imc-logo.jpeg', alt:p.title, href:'#/explore', quote:false, kind:'product', group:'creators', cta:'View Details', fit:'contain' };
+  });
+  const imc=IMC_LISTINGS.map(w=>({...w, kind:w.cat==='events'?'event':'listing'}));
+  const seen=new Set(imc.map(x=>x.title.toLowerCase()));
+  const svc=IMC_AUDIO.filter(s=>!seen.has(s.name.toLowerCase())).map(s=>({
+    cat:s.cat, type:s.id==='lessons'?'Music Education':(s.id==='live'||s.id==='mobile'?'Recording Services':(s.id==='jingle'||s.id==='advert'?'Audio Production':(s.id==='photo'||s.id==='video'?'Creative Services':'Creative Services'))),
+    title:s.name, creator:'Inspired Music Centre', price:'Request a Quote', img:s.img, alt:s.alt, href:'#/imc-quote?service='+s.id,
+    quote:s.id==='hire'||s.id==='event'||s.id==='jingle'||s.id==='advert', kind:'service',
+    group:s.id==='lessons'?'courses':(s.cat==='events'?'events':(s.cat==='music'?'music':'services')),
+    cta:(s.id==='hire'||s.id==='event'||s.id==='jingle'||s.id==='advert')?'Request a Quote':'Book Now',
+    fit:s.img.indexOf('peace')>=0||s.img.indexOf('merch')>=0?'contain':''
+  }));
+  return imc.concat(svc, pub);
+}
+function renderExplore(){
+  const q=(document.getElementById('exQ')||{value:''}).value.trim().toLowerCase();
+  const group=(document.getElementById('exCat')||{value:''}).value;
+  const sort=(document.getElementById('exSort')||{value:'name'}).value;
+  let rows=marketItems();
+  if(q) rows=rows.filter(r=>(r.title+' '+r.creator+' '+r.type).toLowerCase().includes(q));
+  if(group==='creators') rows=rows.filter(r=>r.kind==='product');
+  else if(group) rows=rows.filter(r=>r.group===group);
+  if(sort==='az') rows.sort((a,b)=>a.title.localeCompare(b.title));
+  if(sort==='lo') rows.sort((a,b)=>(listingPrice(a)||999999)-(listingPrice(b)||999999));
+  if(sort==='hi') rows.sort((a,b)=>(listingPrice(b)||0)-(listingPrice(a)||0));
+  const chips=EX_GROUPS.map(([id,n])=>`<button type="button" class="${group===id?'on':''}" onclick="document.getElementById('exCat').value='${id}';renderExplore()">${n}</button>`).join('');
+  document.getElementById('explore').innerHTML=`<div class="explore-page"><div class="kicker">Marketplace</div><h1>Explore Our Creative Marketplace</h1><p class="lead" style="max-width:640px">Shop IMC merchandise, book services, and discover work from registered independent creators. Only real listings appear here.</p>
+    <form class="ex-search" id="exForm">
+      <input id="exQ" value="${esc(q)}" placeholder="Search products, services, lessons, and events..." aria-label="Search marketplace">
+      <button class="btn btn-p" type="submit">Search</button>
+    </form>
+    <div class="ex-chips">${chips}</div>
+    <input type="hidden" id="exCat" value="${esc(group)}">
+    <label class="sub" style="display:block;margin-bottom:16px">Sort
+      <select class="ex-sort" id="exSort" onchange="renderExplore()"><option value="name" ${sort==='name'?'selected':''}>Default</option><option value="az" ${sort==='az'?'selected':''}>Name: A–Z</option><option value="lo" ${sort==='lo'?'selected':''}>Price: Low to High</option><option value="hi" ${sort==='hi'?'selected':''}>Price: High to Low</option></select>
+    </label>
+    <div class="grid3">${rows.length?rows.map(r=>`<article class="card"><img class="cover ${r.fit==='contain'?'contain':''}" src="${r.img}" alt="${esc(r.alt)}"><div class="cbody"><span class="badge">${esc(r.type)}</span><h3 style="margin:8px 0 4px">${esc(r.title)}</h3><p style="color:var(--ink2)">${esc(r.creator)}</p><div class="meta"><span>${esc((CATS.find(c=>c[0]===r.cat)||[])[1]||r.type)}</span><strong>${esc(r.price)}</strong></div>${ratingLine(r.title)}<a class="btn btn-p" href="${r.href}">${listingCta(r)}</a></div></article>`).join(''):`<article class="card cbody"><h3>New creative work is coming soon.</h3><p>Nothing matches this filter yet. Independent creator products appear after approval.</p><a class="btn btn-p" href="#/become-a-creator">Become a Creator</a></article>`}</div>
+    <div class="card cbody" style="margin-top:28px"><h2>Meet the Creators</h2><p class="sub">Be Among the First Creators on INSPIRED. Approved storefronts will appear here.</p><a class="btn btn-p" href="#/become-a-creator">Become a Creator</a></div>
+    <p class="sub" style="margin-top:20px">Inspired Music Centre operates this marketplace and is also a listed provider.</p></div>`;
+  document.getElementById('exForm').onsubmit=e=>{e.preventDefault();renderExplore();};
+}
+function approvedCreators(){ return loadJSON(PROFILES_KEY,[]).filter(p=>p.approval_status==='approved'); }
+function creatorPhoto(p){ return p.profile_image||avatar(p.display_name||p.username||'Creator'); }
+function renderCreatorsDirectory(){
+  const q=(document.getElementById('crQ')||{value:''}).value.trim().toLowerCase();
+  const cat=(document.getElementById('crCat')||{value:''}).value;
+  let rows=approvedCreators();
+  if(q) rows=rows.filter(p=>(p.display_name+' '+(p.bio||'')+' '+(p.category_id||'')+' '+(p.location||'')).toLowerCase().includes(q));
+  if(cat) rows=rows.filter(p=>p.category_id===cat);
+  const cats=[...new Set(approvedCreators().map(p=>p.category_id).filter(Boolean))];
+  const empty=!approvedCreators().length;
+  const cards=rows.map(p=>`<article class="card cbody creator"><img class="avatar" src="${creatorPhoto(p)}" alt="Portrait or logo of ${esc(p.display_name)}"><h3>${esc(p.display_name)}</h3><div class="badge">${esc(p.category_id||'Creator')}</div><p style="color:var(--ink2);margin:8px 0">${esc(p.bio||'This creator is preparing their storefront.')}</p>${p.location?`<p class="sub">${esc(p.location)}</p>`:''}<a class="btn btn-p" href="#/creator/${esc(p.username)}">View Storefront</a></article>`).join('');
+  document.getElementById('creators').innerHTML=`<div class="explore-page"><div class="kicker">Creators</div><h1>Meet Our Creative Community</h1><p class="lead" style="max-width:680px">Discover talented independent creators, explore their work, and connect with a growing community of artists, educators, designers, musicians, and creative professionals.</p>
+  <div class="about-split" style="margin:28px 0 8px;padding:0;max-width:none"><img src="./studio-recording.png" alt="Creative session at Inspired Music Centre" style="height:280px"><img src="./student-violin.png" alt="Music practice at Inspired Music Centre" style="height:280px"></div>
+  ${empty?`<div class="card cbody" style="margin-top:12px;max-width:720px"><h2>Your Creative Journey Starts Here</h2><p class="lead" style="max-width:none">Be among the first independent creators to join the INSPIRED MUSIC CENTRE marketplace. Showcase your talent, share your work, and reach new audiences.</p><div class="cta"><a class="btn btn-p" href="#/become-a-creator">Become a Creator</a><a class="btn btn-g" href="#/imc">Visit Inspired Music Centre</a></div></div>`:`<form class="ex-search" id="crForm"><input id="crQ" value="${esc(q)}" placeholder="Search creators..." aria-label="Search creators"><button class="btn btn-p" type="submit">Search</button></form><div class="ex-chips"><button type="button" class="${!cat?'on':''}" onclick="document.getElementById('crCat').value='';renderCreatorsDirectory()">All</button>${cats.map(c=>`<button type="button" class="${cat===c?'on':''}" onclick="document.getElementById('crCat').value='${esc(c)}';renderCreatorsDirectory()">${esc(c)}</button>`).join('')}</div><input type="hidden" id="crCat" value="${esc(cat)}"><div class="grid3">${cards||`<article class="card cbody"><h3>No creators match this search</h3></article>`}</div>`}</div>`;
+  const f=document.getElementById('crForm'); if(f) f.onsubmit=e=>{e.preventDefault();renderCreatorsDirectory();};
+}
+document.getElementById('categories').innerHTML = `<div class="kicker">Browse</div><h1>Categories</h1><p class="sub">Choose a craft. Each page shows real IMC listings in that group.</p><div class="grid4">${CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.',''];return `<button class="cat" type="button" style="background:${c}" onclick="go('/category/'+id)">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('')}</div>`;
+document.getElementById('events').innerHTML = `<div class="events-page">
+  <div class="kicker">Events</div>
+  <h1>Gather, listen, and stand for peace.</h1>
+  <p class="lead" style="max-width:560px">Official IMC listings only. We do not invent extra concerts, venues, or ticket prices.</p>
+  <div class="ev-section" id="upcoming">
+    <h2>Upcoming Events</h2>
+    <p class="sub">One confirmed date is listed below.</p>
+    <article class="card" style="display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:0;align-items:stretch">
+      <img class="cover" src="./peace-concert.jpeg" alt="The Peace Concert Season 2 official poster, 28 November 2026, theme colour white" style="height:100%;min-height:280px;object-fit:cover;border-radius:0">
+      <div class="cbody" style="padding:28px 24px">
+        <span class="badge">Upcoming · Registration open</span>
+        <h3 style="font-family:var(--serif);font-size:28px;margin:10px 0 8px">The Peace Concert Season 2</h3>
+        <div class="ev-meta">
+          <span>28 November 2026</span>
+          <span>Theme colour white</span>
+          <span>Inspired Music Centre, Njoro, Kenya</span>
+        </div>
+        <p>Gather, listen, and stand for peace. Pay via Pochi la Biashara <strong>0181185334</strong>, KCB Paybill <strong>522533</strong> (account <strong>8023975</strong>), or Equity Paybill <strong>247247</strong> (account <strong>0791716872</strong>).</p>
+        <div class="ev-actions">
+          <a class="btn btn-g" href="#peace-details">View Details</a>
+          <a class="btn btn-g" href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Get Directions</a>
+          <a class="btn btn-p" href="#peace-book">Register / Book</a>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="ev-hero" id="peace-details" style="scroll-margin-top:88px;margin-top:40px">
+    <img src="./peace-concert.jpeg" alt="The Peace Concert Season 2 poster, 28 November 2026">
+    <div>
+      <div class="kicker">Featured event</div>
+      <h2>The Peace Concert Season 2</h2>
+      <div class="ev-meta">
+        <span>Saturday, 28 November 2026</span>
+        <span>Theme colour white</span>
+        <span>Inspired Music Centre, Njoro</span>
+      </div>
+      <p class="sub">This is the only IMC event currently listed with tickets. Venue map matches the centre location we already share on Contact.</p>
+      <div class="ev-actions">
+        <a class="btn btn-g" href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Get Directions</a>
+        <a class="btn btn-p" href="#peace-book">Register / Book</a>
+      </div>
+    </div>
+  </div>
+  <div class="grid3" style="margin:8px 0 28px">
+    <article class="card cbody"><h3>Early birds</h3><b>KSh 400</b></article>
+    <article class="card cbody"><h3>Regular</h3><b>KSh 500</b></article>
+    <article class="card cbody"><h3>Duo</h3><b>KSh 800</b></article>
+    <article class="card cbody"><h3>Three wheelers</h3><b>KSh 1,200</b></article>
+    <article class="card cbody"><h3>VIP</h3><b>KSh 2,000</b></article>
+    <article class="card cbody"><h3>Children</h3><b>KSh 300</b></article>
+  </div>
+  <form class="form" id="bookForm" style="max-width:480px;margin-top:8px;scroll-margin-top:88px">
+    <h2 id="peace-book">Register / Book a seat</h2>
+    <p class="field-hint">Pay via Pochi la Biashara <strong>0181185334</strong>, KCB Paybill 522533 account 8023975, or Equity Paybill 247247 account 0791716872, then tell us so we can hold your seat.</p>
+    <label>Full name<input id="bkName" required></label>
+    <label>Phone<input id="bkPhone" required placeholder="07…"></label>
+    <label>Ticket
+      <select id="bkTicket">
+        <option value="400">Early birds — KSh 400</option>
+        <option value="500">Regular — KSh 500</option>
+        <option value="800">Duo — KSh 800</option>
+        <option value="1200">Three wheelers — KSh 1,200</option>
+        <option value="2000">VIP — KSh 2,000</option>
+        <option value="300">Children — KSh 300</option>
+      </select>
+    </label>
+    <label>Preferred time / note<input id="bkNote" placeholder="e.g. evening, two seats"></label>
+    <label>M-Pesa / Pochi name used<input id="bkPayName" required></label>
+    <button class="btn btn-p btn-wide" type="submit">Confirm booking & payment</button>
+    <p class="err" id="bkErr"></p>
+  </form>
+  <p id="bkOk" class="sub" style="display:none"></p>
+  <div class="ev-section">
+    <h2>Past Events</h2>
+    <p class="sub">We only show concerts IMC has already published here.</p>
+    <div class="ev-empty">No past events are listed yet. When IMC adds an archive, it will appear in this section.</div>
+  </div>
+</div>`;
+document.getElementById('become').innerHTML = `<div class="coming" style="max-width:640px"><div class="kicker">Creators</div><h1>Become a Creator</h1><p class="lead">Register with email and password, then complete your profile, add products, and wait for approval before publishing.</p><p class="sub">You will only see and edit your own listings. Sales and payouts are not live until payments are connected.</p><a class="btn btn-p" href="#/signup?role=creator">Create a creator account</a> <a class="btn btn-g" href="#/signin">Sign in</a></div>`;
+document.getElementById('about').innerHTML = `<div class="about-split"><div><h1>INSPIRED MUSIC CENTRE</h1><p class="place">Njoro, Kenya</p><p class="lead" style="max-width:none">We nurture talent and connect people through music, media, education, and a marketplace for independent creators.</p><p class="motto-line">Discover. Learn. Create. Inspire.</p><div class="cta"><a class="btn btn-p" href="#/imc">Visit IMC</a><a class="btn btn-g" href="#/imc-services">Our Services</a></div></div><img src="./studio-recording.png" alt="Recording at Inspired Music Centre in Njoro"></div><div class="wrap" style="max-width:1100px;margin:8px auto 32px;padding:0"><h2>About IMC gallery</h2><p class="sub">Our building and murals belong here — not as items for sale.</p><div class="grid3">${IMC_GALLERY.map(g=>`<article class="card"><img class="cover" src="${g.img}" alt="${g.alt}"><div class="cbody"><h3>${g.alt}</h3></div></article>`).join('')}</div></div>`;
+document.getElementById('help').innerHTML = `<div class="coming" style="max-width:720px"><div class="kicker">Help Centre</div><h1>How can we help?</h1><p class="lead">For bookings, merch, and studio enquiries, call or send Pochi la Biashara to <a href="tel:0181185334">0181185334</a>.</p><p class="sub">Concert tickets: use the Events page, then pay via Pochi and tell us the name you used. Creator publishing waits on admin approval — you can save drafts after you sign up.</p><a class="btn btn-p" href="#/contact">Contact</a></div>`;
+document.getElementById('contact').innerHTML = `<div class="contact-wrap"><div class="kicker">Contact & Enquiries</div><h1>Let's Create Something Together.</h1><p class="lead" style="max-width:640px">Have a question about music lessons, studio recording, events, photography, videography, or creative services? Our team would love to hear from you.</p>
+<div class="contact-grid" style="margin-top:28px">
+  <div>
+    <div class="ccard"><h3>Visit Us</h3><p>Inspired Music Centre, Njoro, Kenya</p></div>
+    <div class="ccard"><h3>Call Us</h3><p><a href="tel:0181185334">0181185334</a></p></div>
+    <div class="ccard"><h3>WhatsApp</h3><p><a href="https://wa.me/254791716872" target="_blank" rel="noopener">0791716872</a></p></div>
+    <div class="ccard"><h3>Merchandise Enquiries</h3><p><a href="tel:0791716872">0791716872</a> / <a href="tel:0753883875">0753883875</a></p></div>
+    <div class="ccard"><h3>Find Us</h3><p><a href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Open Google Maps</a></p></div>
+  </div>
+  <div class="card cbody">
+    <form class="form" id="inqForm">
+      <label>Full Name<input id="inqName" required></label>
+      <label>Phone Number<input id="inqPhone" required></label>
+      <label>Email Address (optional)<input id="inqEmail" type="email"></label>
+      <label>Service Interested In<select id="inqService" required><option value="">Select a service</option><option>Music lessons</option><option>Studio recording</option><option>Jingle production</option><option>Advert production</option><option>Sound hire</option><option>Photography</option><option>Videography</option><option>Merchandise</option><option>General enquiry</option></select></label>
+      <label>Message<textarea id="inqMsg" required style="min-height:90px;padding:12px;border-radius:12px;border:1px solid var(--line);font:inherit"></textarea></label>
+      <button class="btn btn-p btn-wide" type="submit" id="inqSubmit">Submit Enquiry</button>
+      <p class="err" id="inqErr"></p>
+    </form>
+    <p id="inqOk" class="sub" style="display:none"></p>
+  </div>
+</div></div>`;
+let inqBusy=false;
+document.getElementById('inqForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  if(inqBusy) return;
+  const rec={ id:'inq_'+Date.now(), ref:'IMC-INQ-'+String(Date.now()).slice(-6), name:document.getElementById('inqName').value.trim(), phone:document.getElementById('inqPhone').value.trim(), email:document.getElementById('inqEmail').value.trim(), service:document.getElementById('inqService').value.trim(), message:document.getElementById('inqMsg').value.trim(), at:Date.now(), status:'New' };
+  const err=document.getElementById('inqErr');
+  if(!rec.name||!rec.phone||!rec.service||!rec.message){ err.textContent='Please complete name, phone, service, and message.'; return; }
+  inqBusy=true;
+  document.getElementById('inqSubmit').disabled=true;
+  const all=JSON.parse(localStorage.getItem('inspired.inquiries')||'[]'); all.unshift(rec); localStorage.setItem('inspired.inquiries', JSON.stringify(all));
+  const saved=JSON.parse(localStorage.getItem('inspired.inquiries')||'[]').some(x=>x.id===rec.id);
+  if(!saved){ err.textContent='Could not save this enquiry. Please try again.'; inqBusy=false; document.getElementById('inqSubmit').disabled=false; return; }
+  document.getElementById('inqForm').style.display='none';
+  const ok=document.getElementById('inqOk'); ok.style.display='block';
+  ok.innerHTML='Thank you for contacting Inspired Music Centre. Your enquiry has been received. Our team will review it and respond as soon as possible.<br><br>Reference: <strong>'+rec.ref+'</strong>';
+});
+document.getElementById('copyright').innerHTML = `<div class="coming" style="max-width:720px"><div class="kicker">Legal</div><h1>Copyright Policy</h1><p class="lead">Creators keep the rights they bring. IMC and INSPIRED do not claim your original work merely because it is listed here.</p><p class="sub">To report a copyright concern, contact Inspired Music Centre on 0181185334. Do not upload work you do not have the right to share. This page is guidance, not legal advice.</p><a class="btn btn-g" href="#/terms">Terms of Service</a></div>`;
+const IMC_AUDIO = [
+  {id:'jingle', name:'Jingle Production', cat:'music', img:'./studio.jpeg', alt:'Inspired Music Centre studio used for jingle production', short:'Original, memorable jingles for businesses, brands, organisations, and promotional campaigns.', long:'We create original, memorable jingles for businesses, brands, organizations, and promotional campaigns. Our productions help brands communicate their messages through music and sound.'},
+  {id:'advert', name:'Advert Recording & Production', cat:'services', img:'./article-hands.png', alt:'Hands preparing advertising copy for audio production', short:'Professional audio for radio commercials, promotional advertisements, and marketing campaigns.', long:'We provide professional audio recording and production for radio commercials, promotional advertisements, business announcements, and marketing campaigns.'},
+  {id:'live', name:'Live Studio Recording', cat:'music', img:'./studio-recording.png', alt:'Focused recording studio session at Inspired Music Centre', short:'Capture authentic performances in our recording studio in Njoro.', long:'Capture authentic musical performances in our recording studio. Our services support artists, vocalists, instrumentalists, groups, and other performers who want to record their music.'},
+  {id:'mobile', name:'Mobile Studio Recording', cat:'services', img:'./building-storefront.png', alt:'Inspired Music Centre storefront for on-location recording enquiries', short:'We bring recording services to your preferred location.', long:'We bring recording services to your preferred location. This is suitable for live performances, choirs, music groups, events, and other projects requiring on-location audio recording.'},
+  {id:'hire', name:'Sound System Hire', cat:'events', img:'./peace-concert.jpeg', alt:'Concert setting representing sound system hire', short:'Sound system rental for events and functions. Ask us about availability and a quotation.', long:'We provide sound system rental services for events and functions. Request equipment availability, hire rates, and quotations based on your event requirements. We do not list fixed prices here.'},
+  {id:'event', name:'Event Sound Services', cat:'events', img:'./building-corridor.png', alt:'Music Centre corridor as a welcome to event sound services', short:'Sound support for concerts, weddings, conferences, churches, and corporate gatherings.', long:'We provide event sound support for concerts, weddings, conferences, church events, corporate functions, and other gatherings. Enquire about sound setup, equipment, and technical support.'},
+  {id:'lessons', name:'Music Lessons', cat:'courses', img:'./student-violin.png', alt:'Student practising violin at Inspired Music Centre', short:'Instrument and voice lessons at Inspired Music Centre in Njoro.', long:'Book music lessons at Inspired Music Centre. Tell us the instrument, age group, and preferred days. Availability is confirmed by our tutors.'},
+  {id:'photo', name:'Photography', cat:'photo', img:'./article-hands.png', alt:'Photography session enquiry at Inspired Music Centre', short:'Portraits, events, and studio photography for IMC clients.', long:'Request photography for portraits, recitals, events, or studio sessions. Preferred dates are requests until our team confirms.'},
+  {id:'video', name:'Videography', cat:'services', img:'./peace-concert.jpeg', alt:'Event filming enquiry for Inspired Music Centre', short:'Performance and event videography with IMC coordination.', long:'Request videography for performances, recitals, and events. Share your preferred date and location; we confirm crew availability separately.'}
+];
+function audioCard(s){
+  return `<article class="card">
+    <img class="cover" src="${s.img}" alt="${s.alt}">
+    <div class="cbody">
+      <span class="badge">IMC service</span>
+      <h3 style="margin:8px 0">${s.name}</h3>
+      <p>${s.short}</p>
+      <div class="cta" style="margin-top:12px">
+        <a class="btn btn-g" href="#/imc-service/${s.id}">View details</a>
+        <a class="btn btn-p" href="#/imc-quote?service=${s.id}">${s.id==='hire'?'Hire Sound System':(s.id==='event'?'Request a Quote':'Book Now')}</a>
+      </div>
+    </div>
+  </article>`;
+}
+document.getElementById('imc').innerHTML = `<div class="kicker">Founding institution</div><h1>Inspired Music Centre</h1><p class="lead">Music lessons, recording studio, merch, students, and awards — Njoro, Kenya. Pay via Pochi la Biashara 0181185334, KCB Paybill 522533 (account 8023975), or Equity Paybill 247247 (account 0791716872).</p><p class="sub"><a href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Find us on Google Maps</a></p><div class="grid3">${IMC_LISTINGS.map(imcCard).join('')}</div><div class="grid3" style="margin-top:18px"><article class="card"><img class="cover" src="./award-trophy.png" alt="Digitally Fit Music School trophy"><div class="cbody"><h3>Digitally Fit Music School Trophy</h3></div></article><article class="card"><img class="cover" src="./award-certificate.png" alt="Recognition certificate"><div class="cbody"><h3>Recognition certificate</h3></div></article><article class="card"><img class="cover" src="./imc-logo.jpeg" alt="IMC logo"><div class="cbody"><h3>IMC logo</h3></div></article>
+<h2 style="margin-top:36px">Professional Audio Production & Event Sound Solutions</h2>
+<p class="sub">At Inspired Music Centre, we bring sound, creativity, and professional production together. From memorable commercial jingles and advertising recordings to live studio sessions, mobile recording, and event sound solutions, we help individuals, businesses, artists, and event organizers bring their ideas to life.</p>
+<div class="grid3">${IMC_AUDIO.map(audioCard).join('')}</div>
+<div class="promo" style="margin-top:36px">
+  <div>
+    <h2>Your Sound. Our Expertise.</h2>
+    <p style="opacity:.85;margin-top:10px;max-width:520px">Whether you're creating your next hit, promoting your business, recording a live performance, or organizing an unforgettable event, Inspired Music Centre is ready to help bring your sound to life.</p>
+  </div>
+  <div class="cta">
+    <a class="btn" style="background:#fff;color:var(--ink)" href="#/imc-quote?service=live">Book a recording session</a>
+    <a class="btn btn-g" style="border-color:#fff;color:#fff" href="#/imc-quote?service=hire">Request sound system quotation</a>
+    <a class="btn btn-g" style="border-color:#fff;color:#fff" href="#/contact">Contact IMC</a>
+  </div>
+</div>
+<a class="btn btn-p" style="margin-top:20px" href="#/imc-services">All audio & event sound services</a>
+</div>`;
+document.getElementById('bookForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name=document.getElementById('bkName').value.trim();
+  const phone=document.getElementById('bkPhone').value.trim();
+  const ticket=document.getElementById('bkTicket');
+  const pay=document.getElementById('bkPayName').value.trim();
+  const err=document.getElementById('bkErr');
+  if(!name||!phone||!pay){ err.textContent='Please fill name, phone, and Pochi name.'; return; }
+  err.textContent='';
+  const rec={ id:'bk_'+Date.now(), name, phone, ticket:ticket.options[ticket.selectedIndex].text, amount:ticket.value, note:document.getElementById('bkNote').value.trim(), payName:pay, at:Date.now(), method:'Pochi la Biashara 0181185334' };
+  const all=JSON.parse(localStorage.getItem('inspired.bookings')||'[]'); all.unshift(rec); localStorage.setItem('inspired.bookings', JSON.stringify(all));
+  document.getElementById('bookForm').style.display='none';
+  const ok=document.getElementById('bkOk'); ok.style.display='block';
+  ok.innerHTML='Booking received for <strong>'+name+'</strong>. Pay <strong>KSh '+ticket.value+'</strong> via Pochi la Biashara <a href="tel:0181185334">0181185334</a>. We will confirm your slot.';
+  toast('Slot booked — complete Pochi payment');
+});
+
+const USERS_KEY='inspired.users';
+const SESSION_KEY='inspired.session';
+function loadUsers(){ try{ return JSON.parse(localStorage.getItem(USERS_KEY)||'[]'); }catch(e){ return []; } }
+function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function session(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)||'null'); }catch(e){ return null; } }
+function setSession(u, remember){
+  const s={ email:u.email, name:u.name, role:u.role, at:Date.now() };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+  if(!remember) sessionStorage.setItem('inspired.temp','1');
+  if(u.role==='creator') ensureCreatorProfile(u);
+}
+const PROFILES_KEY='inspired.profiles';
+const PRODUCTS_KEY='inspired.products';
+const FOLLOWS_KEY='inspired.follows';
+function loadJSON(k,d){ try{ return JSON.parse(localStorage.getItem(k)||JSON.stringify(d)); }catch(e){ return d; } }
+function saveJSON(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+function slugify(n){ return String(n||'creator').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'creator'; }
+function ensureCreatorProfile(u){
+  const profiles=loadJSON(PROFILES_KEY,[]);
+  if(profiles.some(p=>p.user_id===u.email)) return;
+  const base=slugify(u.name);
+  let username=base, i=1;
+  while(profiles.some(p=>p.username===username)) username=base+'-'+(++i);
+  profiles.push({ id:'cp_'+Date.now(), user_id:u.email, username, display_name:u.name, bio:'', profile_image:'', category_id:'Entrepreneurship', location:'', website:'', instagram:'', linkedin:'', x:'', approval_status:'pending', created_at:Date.now(), updated_at:Date.now() });
+  saveJSON(PROFILES_KEY, profiles);
+}
+function myProfile(){ const s=session(); if(!s) return null; return loadJSON(PROFILES_KEY,[]).find(p=>p.user_id===s.email)||null; }
+function saveProfile(p){ const all=loadJSON(PROFILES_KEY,[]); const i=all.findIndex(x=>x.id===p.id); if(i<0) return; p.updated_at=Date.now(); all[i]=p; saveJSON(PROFILES_KEY, all); }
+function myProducts(){ const p=myProfile(); if(!p) return []; return loadJSON(PRODUCTS_KEY,[]).filter(x=>x.creator_id===p.id); }
+function followsOf(cid){ return loadJSON(FOLLOWS_KEY,[]).filter(f=>f.creator_id===cid); }
+function signOut(){ localStorage.removeItem(SESSION_KEY); toast('Signed out'); renderAuth(); go('/'); }
+function hashPass(p){ let h=0; for(let i=0;i<p.length;i++) h=((h<<5)-h)+p.charCodeAt(i)|0; return String(h); }
+function ensureAdminAccount(){
+  const users=loadUsers();
+  if(users.some(u=>u.role==='admin')) return;
+  users.push({ name:'IMC Admin', email:'admin@inspired.local', pass:hashPass('inspired-admin'), role:'admin', created:Date.now() });
+  saveUsers(users);
+}
+function renderAdminBookings(){
+  ensureAdminAccount();
+  const s=session();
+  const el=document.getElementById('adminBookings');
+  if(!s || s.role!=='admin'){
+    el.innerHTML=`<div class="coming" style="max-width:520px"><div class="kicker">Staff only</div><h1>Bookings</h1><p class="lead">Sign in with an administrator account to view customer booking details.</p><p class="sub">Staff sign-in: admin@inspired.local · password inspired-admin. Change this after first login in a later security step.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`;
+    return;
+  }
+  const q=(document.getElementById('abSearch')||{value:''}).value.toLowerCase();
+  const st=(document.getElementById('abStatus')||{value:''}).value;
+  const svc=(document.getElementById('abSvc')||{value:''}).value;
+  let rows=loadSvcBookings();
+  if(q) rows=rows.filter(r=>[r.name,r.phone,r.email,r.ref,r.service].join(' ').toLowerCase().includes(q));
+  if(st) rows=rows.filter(r=>r.status===st);
+  if(svc) rows=rows.filter(r=>r.serviceId===svc);
+  const svcOpts=IMC_AUDIO.map(x=>`<option value="${x.id}" ${x.id===svc?'selected':''}>${x.name}</option>`).join('');
+  const statuses=['Pending Confirmation','Confirmed','Completed','Cancelled','Declined'];
+  el.innerHTML=`<div class="kicker">Administrator</div><h1>Bookings</h1><p class="lead">Service requests from the public form. Preferred dates are not guaranteed until you mark Confirmed.</p>
+    <p class="sub"><a href="#/admin/availability">Configure preferred times</a> · <a href="#/admin/inquiries">Customer inquiries</a></p>
+    <div class="cta" style="margin:16px 0;flex-wrap:wrap">
+      <input id="abSearch" placeholder="Search name, phone, reference" value="${esc(q)}" style="padding:10px 12px;border-radius:10px;border:1px solid var(--line);min-width:200px">
+      <select id="abStatus"><option value="">All statuses</option>${statuses.map(x=>`<option ${x===st?'selected':''}>${x}</option>`).join('')}</select>
+      <select id="abSvc"><option value="">All services</option>${svcOpts}</select>
+      <button class="btn btn-g" type="button" id="abGo">Filter</button>
+    </div>
+    <div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody" data-id="${r.id}">
+      <span class="badge">${esc(r.status)}</span>
+      <h3 style="margin:8px 0">${esc(r.ref)}</h3>
+      <p><strong>${esc(r.name)}</strong><br>${esc(r.phone)} · ${esc(r.email)}</p>
+      <p>${esc(r.service)}<br>Preferred date: ${esc(r.preferredDate)} ${esc(r.preferredTime||'')}</p>
+      <p class="sub">${esc(r.location||'')} ${esc(r.audience?' · Audience/participants: '+r.audience:'')}</p>
+      <p>${esc(r.message||'')}</p>
+      <label>Status<select class="abSet">${statuses.map(x=>`<option ${x===r.status?'selected':''}>${x}</option>`).join('')}</select></label>
+      <label>Internal notes<textarea class="abNotes" style="min-height:70px;width:100%;padding:8px;border-radius:10px;border:1px solid var(--line);font:inherit">${esc(r.notes||'')}</textarea></label>
+      <button class="btn btn-p" type="button" data-save="${r.id}">Save</button>
+      <p class="sub">Submitted ${new Date(r.createdAt).toLocaleString()}</p>
+    </article>`).join(''):'<article class="card cbody"><h3>No bookings yet</h3><p>Submitted requests will appear here.</p></article>'}</div>`;
+  document.getElementById('abGo').onclick=()=>renderAdminBookings();
+  el.querySelectorAll('[data-save]').forEach(btn=>{
+    btn.onclick=()=>{
+      const card=btn.closest('[data-id]');
+      const id=card.getAttribute('data-id');
+      const all=loadSvcBookings();
+      const i=all.findIndex(x=>x.id===id);
+      if(i<0) return;
+      const status=card.querySelector('.abSet').value;
+      const notes=card.querySelector('.abNotes').value;
+      all[i].status=status; all[i].notes=notes;
+      all[i].history=all[i].history||[]; all[i].history.push({at:Date.now(), status});
+      saveSvcBookings(all);
+      toast('Booking updated');
+      renderAdminBookings();
+    };
+  });
+}
+function renderAdminAvail(){
+  ensureAdminAccount();
+  const el=document.getElementById('adminAvail');
+  if(!isAdminSession()){
+    el.innerHTML=`<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>`; return;
+  }
+  const av=loadAvail();
+  el.innerHTML=`<div class="coming" style="max-width:560px"><div class="kicker">Availability</div><h1>Preferred times</h1><p class="lead">These times appear on the public form as preferred options. They do not auto-confirm a booking.</p>
+    <label>Times (comma separated, 24-hour)<input id="avTimes" value="${esc(av.times.join(', '))}"></label>
+    <label>Closed dates (YYYY-MM-DD, comma separated)<input id="avClosed" value="${esc((av.closedDates||[]).join(', '))}"></label>
+    <button class="btn btn-p" type="button" id="avSave">Save availability</button>
+    <p><a href="#/admin/bookings">Back to Bookings</a></p></div>`;
+  document.getElementById('avSave').onclick=()=>{
+    const times=document.getElementById('avTimes').value.split(',').map(s=>s.trim()).filter(Boolean);
+    const closedDates=document.getElementById('avClosed').value.split(',').map(s=>s.trim()).filter(Boolean);
+    saveAvail({ times: times.length?times:['09:00','14:00'], closedDates });
+    toast('Availability saved');
+  };
+}
+
+function isAdminSession(){ const s=session(); return !!(s && s.role==='admin'); }
+function setCreatorApproval(id, status){
+  const all=loadJSON(PROFILES_KEY,[]);
+  const i=all.findIndex(p=>p.id===id); if(i<0) return;
+  all[i].approval_status=status; all[i].updated_at=Date.now(); saveJSON(PROFILES_KEY, all);
+  toast(status==='approved'?'Creator approved':status==='rejected'?'Application rejected':'Updated');
+  renderAdminCreators();
+}
+function renderAdminCreators(){
+  ensureAdminAccount();
+  const el=document.getElementById('adminCreators');
+  if(!el) return;
+  if(!isAdminSession()){ el.innerHTML=`<div class="coming"><h1>Staff only</h1><p class="lead">Sign in as IMC admin to review creator applications.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`; return; }
+  const rows=loadJSON(PROFILES_KEY,[]);
+  const label=s=>({pending:'Pending Review',approved:'Approved',rejected:'Rejected',suspended:'Suspended'}[s]||s);
+  el.innerHTML=`<div class="kicker">Administrator</div><h1>Creator applications</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/inquiries">Inquiries</a></p><div class="grid3">${rows.length?rows.map(p=>`<article class="card cbody"><img class="avatar" src="${creatorPhoto(p)}" alt=""><h3>${esc(p.display_name)}</h3><p class="badge">${esc(label(p.approval_status))}</p><p>${esc(p.category_id||'')} ${p.location?' · '+esc(p.location):''}</p><p class="sub">${esc(p.bio||'No biography yet.')}</p><p class="sub">${esc(p.user_id)}</p><div class="cta">${p.approval_status!=='approved'?`<button class="btn btn-p" type="button" onclick="setCreatorApproval('${p.id}','approved')">Approve</button>`:''}${p.approval_status!=='rejected'?`<button class="btn btn-g" type="button" onclick="setCreatorApproval('${p.id}','rejected')">Reject</button>`:''}</div></article>`).join(''):'<article class="card cbody"><h3>No applications yet</h3></article>'}</div>`;
+}
+function reviewTargets(){
+  const list=[{id:'lessons',name:'Music Lessons'},{id:'live',name:'Live Studio Recording'},{id:'jingle',name:'Jingle Production'},{id:'events',name:'The Peace Concert Season 2'},{id:'hoodie',name:'IMC custom hoodie'}];
+  IMC_AUDIO.forEach(s=>{ if(!list.some(x=>x.name===s.name)) list.push({id:s.id,name:s.name}); });
+  return list;
+}
+function renderHomeReviews(){
+  const el=document.getElementById('homeReviews');
+  if(!el) return;
+  const rows=publishedReviews().slice(0,6);
+  if(!rows.length){ el.innerHTML='<article class="card cbody"><p>No reviews yet</p><p class="sub">Signed-in customers can share an experience after a booking or purchase.</p></article>'; return; }
+  el.innerHTML='<div class="grid3">'+rows.map(r=>'<article class="card cbody"><div class="badge">'+esc(r.target)+'</div><h3>'+esc(r.name)+'</h3><p>'+starsHtml(r.stars)+'</p><p>'+esc(r.body)+'</p><p class="sub">'+new Date(r.at).toLocaleDateString()+(r.reply?'<br>IMC: '+esc(r.reply):'')+'</p></article>').join('')+'</div>';
+}
+function renderReviewsPage(){
+  const el=document.getElementById('reviewsPage');
+  const s=session();
+  const rows=publishedReviews();
+  const opts=reviewTargets().map(t=>'<option>'+esc(t.name)+'</option>').join('');
+  el.innerHTML=`<div class="explore-page"><div class="kicker">Reviews</div><h1>What Our Community Says</h1><p class="lead">Real experiences from students, customers, and creators who have engaged with INSPIRED MUSIC CENTRE.</p>
+  <div id="revList">${rows.length?`<div class="grid3">${rows.map(r=>`<article class="card cbody"><div class="badge">${esc(r.target)}</div><h3>${esc(r.name)}</h3><p>${starsHtml(r.stars)}</p><p>${esc(r.body)}</p><p class="sub">${new Date(r.at).toLocaleDateString()}${r.reply?' · IMC reply: '+esc(r.reply):''}</p></article>`).join('')}</div>`:`<article class="card cbody"><h3>No reviews yet</h3><p>Be the first to share a genuine experience after using an IMC service or product.</p></article>`}</div>
+  ${s?`<form class="form" id="revForm" style="max-width:560px;margin-top:28px"><h2>Write a Review</h2><label>Display name<input id="rvName" required value="${esc(s.name)}"></label><label>Related service or product<select id="rvTarget">${opts}</select></label><label>Stars<select id="rvStars"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label><label>Your feedback<textarea id="rvBody" required style="min-height:90px;padding:12px;border-radius:12px;border:1px solid var(--line);font:inherit"></textarea></label><button class="btn btn-p" type="submit">Submit review</button><p class="err" id="rvErr"></p></form>`:`<p class="sub" style="margin-top:20px">Please <a href="#/signin">sign in</a> to write a review.</p>`}</div>`;
+  const f=document.getElementById('revForm');
+  if(f) f.onsubmit=e=>{
+    e.preventDefault();
+    const email=s.email;
+    const target=document.getElementById('rvTarget').value;
+    const body=document.getElementById('rvBody').value.trim();
+    const name=document.getElementById('rvName').value.trim();
+    const stars=Number(document.getElementById('rvStars').value);
+    const err=document.getElementById('rvErr');
+    if(!name||!body||!stars){ err.textContent='Please complete name, stars, and feedback.'; return; }
+    const all=loadReviews();
+    if(all.some(r=>r.email===email && r.target===target && Date.now()-r.at<86400000*30)){ err.textContent='You already reviewed this item recently.'; return; }
+    if(!reviewerEligible(email, target)){ err.textContent='Reviews are for signed-in customers. Complete a booking when you can, then share your experience.'; }
+    all.unshift({id:'rv_'+Date.now(), email, name, target, stars, body, at:Date.now(), status:'pending', reply:''});
+    saveReviews(all);
+    err.textContent='';
+    f.style.display='none';
+    const note=document.createElement('p'); note.className='sub'; note.textContent='Thank you. Your review was received and will appear after IMC moderation.';
+    f.parentNode.appendChild(note);
+    toast('Review submitted for moderation');
+  };
+}
+function setReviewStatus(id, status){
+  const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
+  all[i].status=status; saveReviews(all); renderAdminReviews();
+}
+function replyReview(id){
+  const txt=prompt('Reply as IMC');
+  if(txt==null) return;
+  const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
+  all[i].reply=txt.trim(); saveReviews(all); renderAdminReviews();
+}
+function renderAdminReviews(){
+  const el=document.getElementById('adminReviews');
+  if(!isAdminSession()){ el.innerHTML='<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>'; return; }
+  const rows=loadReviews();
+  el.innerHTML=`<div class="kicker">Administrator</div><h1>Review moderation</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/creators">Creators</a></p><div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody"><span class="badge">${esc(r.status)}</span><h3>${esc(r.name)}</h3><p>${starsHtml(r.stars)} · ${esc(r.target)}</p><p>${esc(r.body)}</p><p class="sub">${esc(r.email)} · ${new Date(r.at).toLocaleString()}${r.reply?'<br>Reply: '+esc(r.reply):''}</p><div class="cta">${r.status!=='published'?`<button class="btn btn-p" type="button" onclick="setReviewStatus('${r.id}','published')">Publish</button>`:''}<button class="btn btn-g" type="button" onclick="setReviewStatus('${r.id}','hidden')">Hide</button><button class="btn btn-g" type="button" onclick="replyReview('${r.id}')">Reply</button></div></article>`).join(''):'<article class="card cbody"><h3>No reviews submitted yet</h3></article>'}</div>`;
+}
+function renderAuth(){
+  const s=session();
+  const desk=document.getElementById('navAuth');
+  const mob=document.getElementById('navAuthMobile');
+  if(s){
+    const extra = s.role==='creator' ? `<a class="btn btn-g" href="#/creator/dashboard">Creator Dashboard</a>` : (s.role==='admin' ? `<a class="btn btn-g" href="#/admin/bookings">Bookings</a><a class="btn btn-g" href="#/admin/creators">Creators</a><a class="btn btn-g" href="#/admin/reviews">Reviews</a>` : '');
+    desk.innerHTML=`${extra}<a class="btn btn-g" href="#/account">Account</a>`;
+    mob.innerHTML=`${s.role==='creator'?`<a href="#/creator/dashboard">Creator Dashboard</a><a href="#/creator/products">My Products</a><a href="#/creator/settings">Settings</a>`:''}${s.role==='admin'?`<a href="#/admin/bookings">Bookings</a><a href="#/admin/creators">Creators</a><a href="#/admin/reviews">Reviews</a>`:''}<a href="#/account">Account (${esc(s.role)})</a><button type="button" onclick="signOut()">Sign Out</button>`;
+  } else {
+    desk.innerHTML=`<a class="btn btn-g" href="#/signin">Account</a>`;
+    mob.innerHTML=`<a href="#/signin">Sign In</a><a href="#/signup">Get Started</a>`;
+  }
+}
+function esc(t){ return String(t||'').replace(/[&<>"]/g, c=>({'&':'&','<':'<','>':'>','"':'"'}[c])); }
+
+let pickRole='buyer';
+function setPick(r){ pickRole=r; document.querySelectorAll('.rolecard').forEach(el=>el.classList.toggle('on', el.dataset.role===r)); }
+
+document.getElementById('signup').innerHTML = `<div class="coming">
+  <h1>Join INSPIRED</h1>
+  <p class="lead">Discover ideas, support creators, and build your personal library of knowledge.</p>
+  <form class="form" id="signupForm" novalidate>
+    <label>Full name<input id="suName" autocomplete="name"><div class="err" id="eName"></div></label>
+    <label>Email<input id="suEmail" type="email" autocomplete="email"><div class="err" id="eEmail"></div></label>
+    <label>Password<input id="suPass" type="password" autocomplete="new-password"><div class="field-hint">At least 8 characters</div><div class="err" id="ePass"></div></label>
+    <label>Confirm password<input id="suPass2" type="password" autocomplete="new-password"><div class="err" id="ePass2"></div></label>
+    <div>
+      <div style="font-size:13px;color:var(--ink2);margin-bottom:8px">I want to:</div>
+      <div class="rolepick">
+        <button type="button" class="rolecard on" data-role="buyer" onclick="setPick('buyer')"><strong>Reader / Buyer</strong><p class="field-hint">Browse, collect, and support creators.</p></button>
+        <button type="button" class="rolecard" data-role="creator" onclick="setPick('creator')"><strong>Become a Creator</strong><p class="field-hint">Publish work and grow an audience.</p></button>
+      </div>
+      <div class="err" id="eRole"></div>
+    </div>
+    <button class="btn btn-p btn-wide" type="submit">Create Account</button>
+    <p class="auth-extra">Already have an account? <a href="#/signin"><strong>Sign in</strong></a></p>
+  </form>
+</div>`;
+
+document.getElementById('signin').innerHTML = `<div class="coming">
+  <h1>Welcome back.</h1>
+  <p class="lead">Continue discovering ideas that inspire you.</p>
+  <form class="form" id="signinForm" novalidate>
+    <label>Email<input id="siEmail" type="email" autocomplete="email"><div class="err" id="siE"></div></label>
+    <label>Password<input id="siPass" type="password" autocomplete="current-password"><div class="err" id="siP"></div></label>
+    <div class="row-between">
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="siRemember" checked> Remember me</label>
+      <a href="#/forgot-password">Forgot password?</a>
+    </div>
+    <button class="btn btn-p btn-wide" type="submit">Sign In</button>
+    <button class="btn btn-g btn-wide" type="button" onclick="toast('Google sign-in is not connected yet')">Continue with Google</button>
+    <p class="auth-extra">Don’t have an account? <a href="#/signup"><strong>Create one</strong></a></p>
+  </form>
+</div>`;
+
+document.getElementById('forgot').innerHTML = `<div class="coming" id="forgotBox">
+  <h1>Forgot your password?</h1>
+  <p class="lead">Enter your email and we’ll help you get back into your account.</p>
+  <form class="form" id="forgotForm" novalidate>
+    <label>Email<input id="fpEmail" type="email"><div class="err" id="fpE"></div></label>
+    <button class="btn btn-p btn-wide" type="submit">Send Reset Link</button>
+  </form>
+</div>`;
+
+document.getElementById('reset').innerHTML = `<div class="coming">
+  <h1>Reset password</h1>
+  <p class="lead">Choose a new password for your INSPIRED account.</p>
+  <form class="form" id="resetForm" novalidate>
+    <label>Email<input id="rpEmail" type="email"><div class="err" id="rpE"></div></label>
+    <label>New password<input id="rpPass" type="password"><div class="err" id="rpP"></div></label>
+    <label>Confirm password<input id="rpPass2" type="password"><div class="err" id="rpP2"></div></label>
+    <button class="btn btn-p btn-wide" type="submit">Update password</button>
+  </form>
+</div>`;
+
+document.getElementById('account').innerHTML = `<div class="coming" id="accountBox"></div>`;
+
+document.getElementById('signupForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name=document.getElementById('suName').value.trim();
+  const email=document.getElementById('suEmail').value.trim().toLowerCase();
+  const p1=document.getElementById('suPass').value;
+  const p2=document.getElementById('suPass2').value;
+  let ok=true;
+  const set=(id,m)=>{ document.getElementById(id).textContent=m; if(m) ok=false; };
+  set('eName', name? '':'Full name is required');
+  set('eEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)? '':'Enter a valid email');
+  set('ePass', p1.length>=8? '':'Password must be at least 8 characters');
+  set('ePass2', p1===p2? '':'Passwords must match');
+  if(pickRole!=='buyer' && pickRole!=='creator') set('eRole','Choose Reader or Creator');
+  if(!ok) return;
+  const users=loadUsers();
+  if(users.some(u=>u.email===email)){ set('eEmail','An account with this email already exists'); return; }
+  users.push({ name, email, pass:hashPass(p1), role:pickRole, created:Date.now() });
+  saveUsers(users);
+  setSession({name,email,role:pickRole}, true);
+  toast('Account created');
+  renderAuth();
+  go(pickRole==='creator'?'/creator/dashboard':'/account');
+});
+
+document.getElementById('signinForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const email=document.getElementById('siEmail').value.trim().toLowerCase();
+  const p=document.getElementById('siPass').value;
+  let ok=true;
+  const set=(id,m)=>{ document.getElementById(id).textContent=m; if(m) ok=false; };
+  set('siE', email? '':'Email is required');
+  set('siP', p? '':'Password is required');
+  if(!ok) return;
+  const u=loadUsers().find(x=>x.email===email && x.pass===hashPass(p));
+  if(!u){ set('siP','Email or password is incorrect'); return; }
+  setSession(u, document.getElementById('siRemember').checked);
+  toast('Welcome back');
+  renderAuth();
+  go(u.role==='creator'?'/creator/dashboard':'/account');
+});
+
+document.getElementById('forgotForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const email=document.getElementById('fpEmail').value.trim().toLowerCase();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ document.getElementById('fpE').textContent='Enter a valid email'; return; }
+  document.getElementById('fpE').textContent='';
+  const exists=loadUsers().some(u=>u.email===email);
+  document.getElementById('forgotBox').innerHTML=`<h1>Check your email</h1><p class="lead">If an account exists for ${esc(email)}, a reset path is ready. Open Reset password to continue. ${exists?'':'We never confirm whether an email is registered in public copy — this demo still lets you proceed.'}</p><a class="btn btn-p" href="#/reset-password">Reset password</a>`;
+});
+
+document.getElementById('resetForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const email=document.getElementById('rpEmail').value.trim().toLowerCase();
+  const p1=document.getElementById('rpPass').value;
+  const p2=document.getElementById('rpPass2').value;
+  const set=(id,m)=>document.getElementById(id).textContent=m;
+  set('rpE',''); set('rpP',''); set('rpP2','');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ set('rpE','Enter a valid email'); return; }
+  if(p1.length<8){ set('rpP','At least 8 characters'); return; }
+  if(p1!==p2){ set('rpP2','Passwords must match'); return; }
+  const users=loadUsers();
+  const i=users.findIndex(u=>u.email===email);
+  if(i<0){ set('rpE','No account found for that email'); return; }
+  users[i].pass=hashPass(p1);
+  saveUsers(users);
+  toast('Password updated');
+  go('/signin');
+});
+
+document.getElementById('terms').innerHTML = `<article class="legal" style="max-width:760px">
+<h1>INSPIRED MUSIC CENTER STUDIOS (IMC)</h1>
+<h2>Website Terms & Conditions</h2>
+<p><strong>Brand:</strong> IMC Creative Journey<br><strong>Motto:</strong> <em>Unleashing Your Unique Creative Journey</em><br>
+<strong>Effective Date:</strong> 6 November 2026<br><strong>Last Updated:</strong> 6 November 2026</p>
+<h3>1. Introduction</h3>
+<p>Welcome to the website of <strong>Inspired Music Center Studios (IMC)</strong> ("IMC", "we", "us", or "our"). IMC is a creative and media organisation providing services including music recording, audio production, video production, livestreaming, music and creative education, dance-related programmes, creative consultancy, event production and other related creative services. These Terms & Conditions govern your access to and use of the IMC website, online platforms, booking systems, forms, digital services and any content or services made available through the website. By accessing or using this website, you acknowledge that you have read, understood and agreed to these Terms. If you do not agree, you should not use the website.</p>
+<h3>2. Eligibility</h3><p>You must provide accurate information. Where a service involves a person below 18, a parent, guardian, school, church or other legally authorised adult may be required to provide consent. IMC may refuse or discontinue a service where appropriate consent has not been provided.</p>
+<h3>3. Our Services</h3><p>Services may include music recording and production; mixing and mastering; composition and arrangement; video recording and production; music videos and promotional videos; photography; event livestreaming; live sound; music and creative education; dance programmes; choir and church music; school programmes; podcast production; creative consultancy; digital content; and other services IMC communicates. Specific prices and timelines may be governed by quotations, invoices, booking confirmations or service agreements.</p>
+<h3>4. Website Information</h3><p>We make reasonable efforts to keep information accurate. Descriptions, prices, availability, programmes, schedules and photographs may change without notice. Publication of a service or price is not a binding offer until IMC confirms the booking.</p>
+<h3>5. Bookings and Appointments</h3><p>A booking may require an online form, IMC confirmation, a deposit, acceptance of a quotation, a separate agreement, or a combination. A booking is confirmed only when IMC communicates confirmation. IMC may decline where facilities, personnel or dates are unavailable.</p>
+<h3>6. Payments</h3><p>Unless otherwise stated, payments must be made via <strong>Pochi la Biashara on 0181185334</strong>. A deposit may be required. The balance and deadlines will be on the quotation or invoice. Late payment may result in cancellation, postponement or suspension. Extra recording time, editing, revisions, personnel, equipment, transport, venue, rush work or other extra requests may attract additional costs.</p>
+<h3>7. Cancellation and Rescheduling</h3><p>Notify IMC as soon as possible. Refund or reschedule terms depend on the service and work already done. IMC may retain amounts reasonably attributable to work performed or resources committed, subject to Kenyan law.</p>
+<h3>8. Client Responsibilities</h3><p>Provide accurate information; arrive on time; supply creative materials; obtain permissions and performer consent; respect staff and facilities; comply with the law; and meet payment obligations. Do not submit material that infringes copyright, privacy, trademark or publicity rights.</p>
+<h3>9. Intellectual Property</h3><p>Unless agreed in writing, ownership of recordings, compositions, photographs, videos, artwork, performances and project files is set by the quotation, service agreement or Creator Agreement. Payment does not automatically transfer every IP right. IMC may retain rights in original materials it creates unless transferred in writing.</p>
+<h3>10. User-Submitted Content</h3><p>You remain responsible for the legal right to submit content. By submitting content for a service, you grant IMC the permissions reasonably necessary to provide that service. IMC does not acquire ownership merely because you upload work, unless transferred under a separate written agreement.</p>
+<h3>11. IMC Portfolio and Promotional Use</h3><p>Where you have given consent, IMC may use selected project materials, photographs, short excerpts, behind-the-scenes footage, testimonials, names or logos for portfolio and marketing. You may contact IMC about withdrawing future promotional use, subject to law and materials already published.</p>
+<h3>12. Website Intellectual Property</h3><p>The IMC website and its original content, branding, logos, graphics, photographs, videos, text, designs and layouts are owned by or licensed to IMC. You may not reproduce, sell or commercially exploit IMC materials without written permission. Do not use the IMC name or logo to suggest unauthorised affiliation.</p>
+<h3>13. Prohibited Use</h3><p>You must not use the website to commit unlawful activity, upload malware, attempt unauthorised access, interfere with security, harvest personal information, infringe IP, submit fraud, impersonate others, harass staff or creators, or use services for purposes prohibited by law.</p>
+<h3>14. Third-Party Services</h3><p>The site may link to payment, social, video, storage or analytics providers. IMC is not responsible for their independent policies. Your use of those services is subject to their terms.</p>
+<h3>15. Availability</h3><p>IMC does not guarantee the website will always be available or error-free. We may suspend or modify it for maintenance, security or upgrades.</p>
+<h3>16. Disclaimer</h3><p>To the extent permitted by law, IMC does not guarantee that all website content is always complete, accurate or current. Nothing excludes liability that cannot lawfully be excluded.</p>
+<h3>17. Limitation of Liability</h3><p>To the extent permitted by law, IMC shall not be liable for indirect, incidental or consequential losses from use of the website or services except where such liability cannot be excluded. Where a separate service agreement applies, that agreement governs liability.</p>
+<h3>18. Indemnity</h3><p>To the extent permitted by law, you agree to indemnify IMC against claims arising from your unlawful use of the website or submission of infringing material.</p>
+<h3>19. Privacy</h3><p>Your use of the website is also subject to the IMC Privacy Policy, which explains how personal information is collected, used, stored, shared and protected.</p>
+<h3>20. Changes</h3><p>IMC may update these Terms. The updated version will be published with a revised Last Updated date. Continued use after an update may constitute acceptance to the extent permitted by law.</p>
+<h3>21. Governing Law</h3><p>These Terms are governed by the laws of the Republic of Kenya.</p>
+<h3>22. Dispute Resolution</h3><p>The parties shall first attempt good-faith negotiation. If unresolved, they may pursue mediation, arbitration or court proceedings as permitted by Kenyan law. Urgent legal relief remains available.</p>
+<h3>23. Severability</h3><p>If any provision is invalid, the remaining provisions continue in effect.</p>
+<h3>24. Contact</h3>
+<p><strong>Inspired Music Center Studios (IMC)</strong><br>Brand: IMC Creative Journey<br>Telephone: <a href="tel:0181185334">0181185334</a> (Pochi la Biashara)<br>YouTube: <a href="https://youtube.com/@inspiredmusiccenternjoro?si=gW0MDHSIRnWv8U2c" target="_blank" rel="noopener">Inspired Music Center Njoro</a></p>
+<p>© 2026 Inspired Music Center Studios. All rights reserved.</p>
+<p><a href="#/creator-agreement">Read the Creator Agreement</a> · <a href="#/privacy">Privacy Policy</a></p>
+</article>`;
+document.getElementById('privacy').innerHTML = `<article class="legal" style="max-width:760px">
+<h1>INSPIRED MUSIC CENTER STUDIOS (IMC)</h1>
+<h2>Privacy Policy</h2>
+<p><strong>Brand:</strong> IMC Creative Journey<br><strong>Motto:</strong> <em>Unleashing Your Unique Creative Journey</em><br>
+<strong>Effective Date:</strong> 6 November 2026<br><strong>Last Updated:</strong> 6 November 2026</p>
+<h3>1. Introduction</h3><p>Inspired Music Center Studios ("IMC", "we", "us", or "our") respects your privacy and is committed to protecting personal information entrusted to us. This Privacy Policy explains how we collect, use, store, disclose and protect personal data when you interact with our website, services, forms, programmes, studio, media production services and other digital platforms. It is intended to operate in accordance with Kenyan data-protection laws, including the Data Protection Act, 2019.</p>
+<h3>2. Information We May Collect</h3><p><strong>Personal information</strong> may include full name, telephone, email, postal or physical address, organisation, church, school or business name, identification where legitimately required, and billing or transaction information.</p><p><strong>Creative information</strong> you voluntarily provide may include artist or stage name, biography, musical and song information, lyrics, audio and video recordings, photographs, artwork, performance information, project files and other creative materials.</p><p><strong>Programme information</strong> may be collected to administer educational, dance or creative programmes. Where a participant is a minor, IMC may require information and consent from a parent or legally authorised guardian.</p>
+<h3>3. Information Collected Automatically</h3><p>When you use our website we may collect IP address, browser type, device information, operating system, pages visited, approximate usage, referring pages and website interaction information. Where cookies are used, additional notices will be provided.</p>
+<h3>4. How We Use Personal Data</h3><p>IMC may process personal data to respond to enquiries, manage bookings, provide creative services, process payments (including Pochi la Biashara on 0181185334), deliver programmes, manage client relationships, communicate and support customers, manage events and productions, create media projects, keep business records, improve the website, send marketing where permitted, protect systems, prevent fraud, comply with law, and exercise or defend legal rights.</p>
+<h3>5. Lawful Basis</h3><p>Processing may be based on consent, performance of a contract, a legal obligation, legitimate interests, public interest, or other lawful grounds. Where consent is relied upon, you may withdraw it subject to legal and contractual limits.</p>
+<h3>6. Marketing</h3><p>Where permitted, IMC may use contact information for services, programmes, events and offers. You may opt out at any time by contacting IMC on 0181185334.</p>
+<h3>7. Creative and Media Content</h3><p>Photographs, videos and recordings are used for the purpose submitted or as authorised by agreement. Ownership is governed separately. Promotional use of a person's image or performance requires appropriate consent where required.</p>
+<h3>8. Sharing Personal Data</h3><p>IMC may share data with payment, hosting, cloud, email, accounting, production, event and technology providers, and with authorities where legally required, using appropriate safeguards.</p>
+<h3>9. International Transfers</h3><p>Some providers may process data outside Kenya. IMC will take steps required by law to ensure appropriate safeguards.</p>
+<h3>10. Data Retention</h3><p>IMC retains personal information only as reasonably necessary for the purposes collected, contracts, legitimate business, legal obligations or legal claims. Different records may be kept for different periods.</p>
+<h3>11. Data Security</h3><p>IMC takes reasonable technical and organisational measures against unauthorised access, loss, misuse, alteration or disclosure. No electronic system can be guaranteed completely secure.</p>
+<h3>12. Your Rights</h3><p>Subject to Kenyan law you may have rights to be informed, access, correct, delete, object, restrict processing, data portability, and withdraw consent, subject to legal exceptions.</p>
+<h3>13. How to Exercise Your Rights</h3><p>Contact Inspired Music Center Studios, telephone <a href="tel:0181185334">0181185334</a>. We may verify your identity before processing certain requests.</p>
+<h3>14. Children's Privacy</h3><p>Where services involve children, IMC may require guardian consent and will process children's information only for appropriate lawful purposes.</p>
+<h3>15. Cookies</h3><p>Cookies may operate the site, remember preferences, understand usage, improve performance, analyse traffic and support marketing where permitted. You may control cookies in your browser.</p>
+<h3>16. Third-Party Links</h3><p>Links to social media, YouTube and payment services have their own privacy practices. Review those policies before submitting information to them.</p>
+<h3>17. Data Breaches</h3><p>IMC will take reasonable measures to identify, contain and respond to breaches and will notify where required by law.</p>
+<h3>18. Complaints</h3><p>Contact IMC first so we can investigate. You may also lodge a complaint with the Office of the Data Protection Commissioner of Kenya.</p>
+<h3>19. Changes</h3><p>IMC may update this Policy. The latest version is published on this page with its Last Updated date.</p>
+<h3>20. Contact</h3><p><strong>Inspired Music Center Studios (IMC)</strong><br>Brand: IMC Creative Journey<br>Telephone: <a href="tel:0181185334">0181185334</a></p>
+<p><a href="#/terms">Terms & Conditions</a></p>
+</article>`;
+document.getElementById('creatorAgreement').innerHTML = `<article class="legal" style="max-width:760px">
+<h1>INSPIRED MUSIC CENTER STUDIOS (IMC)</h1>
+<h2>Creator Agreement</h2>
+<p><strong>Brand:</strong> IMC Creative Journey<br><strong>Motto:</strong> <em>Unleashing Your Unique Creative Journey</em><br><strong>Effective Date:</strong> 6 November 2026</p>
+<p>This Creator Agreement ("Agreement") is entered into between <strong>Inspired Music Center Studios (IMC)</strong> and the Creator/Client named at booking (artist/stage name, telephone, email), together "the Parties."</p>
+<h3>1. Purpose</h3><p>IMC supports creators in developing, recording, producing, publishing and promoting creative work. This Agreement sets general terms for creation, recording, production, delivery, use and ownership of materials produced through IMC.</p>
+<h3>2. Creator's Ownership</h3><p>Unless expressly stated otherwise in writing, the Creator retains IP in original works brought to IMC, including compositions, lyrics, original recordings, artistic works, video concepts, written works, choreography and other original works. Providing material to IMC does not by itself transfer ownership.</p>
+<h3>3. IMC Production Rights</h3><p>The Creator grants IMC a limited, non-exclusive right to access, reproduce, edit, process, store and use materials as reasonably necessary to record, produce audio, mix and master, produce videos, edit media, deliver services, store files, create backups, complete revisions and perform agreed services. This licence does not automatically transfer underlying IP.</p>
+<h3>4. Studio-Created Materials</h3><p>Where IMC independently creates original material, ownership is determined by the quotation or written arrangement. IMC retains its pre-existing IP, tools, templates, systems and proprietary materials unless otherwise agreed in writing.</p>
+<h3>5. Music Production</h3><p>Parties should identify song title, composers, lyricists, producers, performing artists, session musicians, publisher share and master recording owner in writing. If ownership or revenue shares differ, record that in writing.</p>
+<h3>6. Master Recordings</h3><p>Ownership of the final master is determined by the quotation or written agreement. Payment for recording, mixing or mastering does not automatically transfer all copyright. Where the Creator owns the master, IMC may retain copies needed for records, backup, disputes and delivery.</p>
+<h3>7. Composition Rights</h3><p>The Creator is responsible for rights, licences and permissions for compositions, lyrics, samples, beats, interpolations, arrangements and other third-party materials, and must not knowingly provide infringing material.</p>
+<h3>8. Samples and Third-Party Materials</h3><p>The Creator must disclose samples, beats, recordings, photographs, video clips, artwork or other third-party material. The Creator obtains licences unless IMC expressly agrees in writing to obtain them.</p>
+<h3>9. Creator Warranties</h3><p>The Creator represents they have authority to enter this Agreement; have rights for materials supplied; materials do not knowingly infringe others; information is accurate; they will disclose co-creators and rights holders; and they will not instruct IMC to use unlawful material.</p>
+<h3>10. Indemnification</h3><p>To the extent permitted by law, the Creator indemnifies IMC against claims from unauthorised third-party material. This does not apply to losses caused by IMC's own unlawful conduct.</p>
+<h3>11. Credits</h3><p>Where practicable, IMC may be credited (Recorded at Inspired Music Center Studios; Produced, Mixed, Mastered or Video produced by IMC). Specific credits may be in project documentation.</p>
+<h3>12. IMC Portfolio Rights</h3><p>Unless the Creator opts out, IMC may display limited excerpts, photographs, behind-the-scenes material, artwork, titles and credits in its portfolio. IMC should not disclose confidential unreleased material that compromises an agreed release. Embargo dates may be agreed in writing.</p>
+<h3>13. Social Media and Promotional Content</h3><p>Where authorised, IMC may create short clips, photographs, behind-the-scenes content and announcements. Some material may wait until the Creator's official release.</p>
+<h3>14. Confidentiality</h3><p>Each Party shall keep confidential unreleased songs and videos, business information, passwords, private recordings, financial information and creative concepts, except information already public or required by law.</p>
+<h3>15. Project Files</h3><p>IMC may retain project files for a reasonable period. Request stems or sessions within the period IMC communicates. Indefinite storage is not guaranteed unless agreed.</p>
+<h3>16. Revisions</h3><p>Included revisions are set by the quotation. Extra revisions or scope changes may attract additional charges.</p>
+<h3>17. Payment</h3><p>The Creator pays fees on the quotation, invoice or schedule via <strong>Pochi la Biashara 0181185334</strong>. IMC may withhold final delivery where payment remains outstanding, subject to law and the project agreement.</p>
+<h3>18. Distribution</h3><p>Unless IMC is engaged as a distribution or rights-management provider, the Creator remains responsible for distribution. If IMC assists, the Parties shall agree separately on fees, accounts, ownership, royalties, reporting, term, withdrawal and termination.</p>
+<h3>19. Revenue and Royalties</h3><p>No revenue share, royalty or ownership percentage is implied merely because IMC provides production. Any revenue-sharing arrangement must be agreed in writing.</p>
+<h3>20. Creator Name and Likeness</h3><p>Where authorised, the Creator permits IMC to use professional name, approved biography, photograph, logo and project information for portfolio and promotion. Broader commercial uses may need separate consent.</p>
+<h3>21. Minors</h3><p>Where the Creator or participant is below 18, a parent or legally authorised guardian must sign or approve consent documentation.</p>
+<h3>22. Termination</h3><p>Either Party may request termination subject to the quotation. Termination does not cancel accrued payment obligations or rights already granted. Confidentiality, IP, payment, liability and dispute clauses may survive.</p>
+<h3>23. Dispute Resolution</h3><p>The Parties shall first attempt good-faith discussion, then mediation, arbitration or court proceedings as permitted by Kenyan law.</p>
+<h3>24. Governing Law</h3><p>This Agreement is governed by the laws of the Republic of Kenya.</p>
+<h3>25. Entire Agreement</h3><p>This Agreement together with any quotation, invoice, project brief, consent form or written amendment is the understanding for the project. A specific project agreement may prevail where expressly stated.</p>
+<h3>26. Amendments</h3><p>Amendments affecting ownership, revenue sharing, licensing, exclusivity or other material rights should be in writing and acknowledged by both Parties.</p>
+<h3>27. Signatures</h3><p>By signing (on paper or as otherwise agreed at booking), IMC and the Creator confirm they have read and agree to these terms. Parent/guardian signs where applicable.</p>
+<p>Contact: <a href="tel:0181185334">0181185334</a> · <a href="#/terms">Terms</a> · <a href="#/privacy">Privacy</a></p>
+</article>`;
+const pages = { '/':'home','/explore':'explore','/creators':'creators','/categories':'categories','/events':'events','/become-a-creator':'become','/signin':'signin','/signup':'signup','/forgot-password':'forgot','/reset-password':'reset','/account':'account','/help':'help','/about':'about','/contact':'contact','/imc':'imc','/imc-services':'imcServices','/imc-quote':'imcQuote','/copyright':'copyright','/terms':'terms','/creator-agreement':'creatorAgreement','/privacy':'privacy','/admin/bookings':'adminBookings','/admin/availability':'adminAvail','/search':'searchPage','/payments':'payPage','/admin/inquiries':'adminInbox','/admin/creators':'adminCreators','/reviews':'reviewsPage','/admin/reviews':'adminReviews' };
+const creatorPages=['/creator/dashboard','/creator/products','/creator/products/new','/creator/profile','/creator/settings','/creator/orders','/creator/customers','/creator/reviews','/creator/analytics','/creator/payouts','/creator/storefront'];
+function greet(){ const h=new Date().getHours(); return h<12?'Good morning':h<18?'Good afternoon':'Good evening'; }
+function sideNav(cur){
+  const p=myProfile();
+  const items=[
+    ['/creator/dashboard','Overview'],['/creator/products','My Products'],['/creator/products/new','Add Product'],
+    ['/creator/orders','Orders'],['/creator/customers','Customers'],['/creator/reviews','Reviews'],
+    ['/creator/analytics','Analytics'],['/creator/storefront','My Storefront'],['/creator/payouts','Payouts'],['/creator/settings','Settings']
+  ];
+  return `<aside class="side">${items.map(([h,l])=>`<a class="${cur===h?'on':''}" href="#${h}">${l}</a>`).join('')}<a href="#/creator/${esc(p?p.username:'')}">Preview Storefront</a></aside>`;
+}
+function dashWrap(cur, inner){
+  return `<div class="dash">${sideNav(cur)}<div>${inner}</div></div>`;
+}
+function comingSoonBox(t,d){ return `<div class="card cbody"><div class="kicker">Coming soon</div><h2>${t}</h2><p class="sub">${d}</p></div>`; }
+function renderCreatorDash(path){
+  const s=session();
+  if(!s){ location.hash='#/signin'; return; }
+  if(s.role!=='creator'){ document.getElementById('creatorShell').innerHTML=`<div class="coming"><h1>Creators only</h1><p class="lead">This area is for creator accounts.</p><a class="btn btn-p" href="#/">Back home</a></div>`; return; }
+  ensureCreatorProfile(s);
+  const p=myProfile();
+  const products=myProducts();
+  const followers=followsOf(p.id).length;
+  const pending = p.approval_status!=='approved';
+  const banner = pending ? `<div class="banner"><strong>Creator approval pending</strong><br>Your profile is currently being reviewed by the INSPIRED team. You can prepare your storefront and products while you wait.</div>` : '';
+  let inner='';
+  if(path==='/creator/dashboard'){
+    inner=`${banner}<h1>${greet()}, ${esc(p.display_name)}.</h1><p class="lead">Here's how your INSPIRED creator journey is going.</p>
+      <div class="kpis"><div class="kpi"><span>Total Sales</span><b>KSh 0</b></div><div class="kpi"><span>Products</span><b>${products.length}</b></div><div class="kpi"><span>Customers</span><b>0</b></div><div class="kpi"><span>Rating</span><b>—</b></div></div>
+      <h2 style="margin-top:28px">What would you like to do?</h2>
+      <div class="qacts">
+        <div class="card cbody"><h3>Add a Product</h3><p class="sub">Share something you've created.</p><a class="btn btn-p" href="#/creator/products/new">Create Product</a></div>
+        <div class="card cbody"><h3>View Storefront</h3><p class="sub">See how your audience sees your creator page.</p><a class="btn btn-g" href="#/creator/${esc(p.username)}">View Storefront</a></div>
+        <div class="card cbody"><h3>Complete Profile</h3><p class="sub">Make your creator profile stand out.</p><a class="btn btn-g" href="#/creator/profile">Edit Profile</a></div>
+      </div>`;
+  } else if(path==='/creator/products'){
+    inner=banner+renderProductList(products,p);
+  } else if(path==='/creator/products/new'){
+    inner=banner+renderNewProduct(p, pending);
+  } else if(path==='/creator/profile' || path==='/creator/settings'){
+    inner=banner+renderSettings(p,s);
+  } else if(path==='/creator/storefront'){
+    go('/creator/'+p.username); return;
+  } else if(path==='/creator/orders'){ inner=comingSoonBox('Orders','Order tracking will appear when marketplace sales are enabled.'); }
+  else if(path==='/creator/customers'){ inner=comingSoonBox('Customers','Customer lists will appear after real purchases.'); }
+  else if(path==='/creator/reviews'){ inner=comingSoonBox('Reviews','Reviews will show here once readers leave them.'); }
+  else if(path==='/creator/analytics'){ inner=comingSoonBox('Analytics','Full analytics arrives in a later step.'); }
+  else if(path==='/creator/payouts'){ inner=comingSoonBox('Payouts','Payment and payout setup will become available when marketplace sales are enabled.'); }
+  document.getElementById('creatorShell').innerHTML=dashWrap(path, inner);
+  bindCreatorForms(p, pending);
+}
+function renderProductList(products,p){
+  if(!products.length){
+    return `<h1>Your first idea belongs here.</h1><p class="lead">Create your first book, article, or document and share your knowledge with the INSPIRED community.</p><a class="btn btn-p" href="#/creator/products/new">Create Your First Product</a>`;
+  }
+  return `<h1>My Products</h1><div class="table-wrap"><table class="prod"><thead><tr><th>Cover</th><th>Title</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th><th>Sales</th><th>Actions</th></tr></thead><tbody>${products.map(pr=>`<tr>
+    <td><img src="cover.jpg" alt="Cover for ${esc(pr.title)}" style="width:48px;height:48px;object-fit:cover;border-radius:8px"></td>
+    <td>${esc(pr.title)}</td><td>${esc(pr.product_type)}</td><td>KSh ${esc(pr.price||'0')}</td><td>${esc(pr.status)}</td><td>${new Date(pr.created_at).toLocaleDateString()}</td><td>0</td>
+    <td><button class="btn btn-g" type="button" onclick="editHint()">Edit</button> ${pr.status==='Published'?`<a href="#/creator/${esc(p.username)}">View Storefront</a>`:`<button class="btn btn-g" type="button" onclick="viewProduct('${pr.id}')">View</button>`} <button class="btn btn-g" type="button" onclick="deleteProduct('${pr.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>`;
+}
+function renderNewProduct(p, pending){
+  return `<h1>Create a Product</h1><p class="lead">Turn your knowledge into something people can discover, read and learn from.</p>
+    <div class="rolepick" id="typePick">
+      <button type="button" class="rolecard on" data-type="Book" onclick="pickType('Book')"><strong>Book</strong><p class="field-hint">A complete digital book or publication.</p></button>
+      <button type="button" class="rolecard" data-type="Article" onclick="pickType('Article')"><strong>Article</strong><p class="field-hint">A written article or short-form publication.</p></button>
+      <button type="button" class="rolecard" data-type="Document" onclick="pickType('Document')"><strong>Document</strong><p class="field-hint">A guide, report, template or other downloadable document.</p></button>
+    </div>
+    <form class="form" id="prodForm" style="max-width:640px">
+      <input type="hidden" id="pType" value="Book">
+      <label>Product title<input id="pTitle" required></label>
+      <label>Description<textarea id="pDesc" rows="4" style="width:100%;border-radius:12px;border:1px solid var(--line);padding:12px"></textarea></label>
+      <label>Category<input id="pCat" value="${esc(p.category_id||'Entrepreneurship')}"></label>
+      <label>Tags<input id="pTags" placeholder="founders, writing"></label>
+      <label>Cover image<input id="pCover" placeholder="Describe cover (storage next step)"></label>
+      <label>Price (KES)<input id="pPrice" type="number" min="0" value="0"> <span class="field-hint">Price: KSh ___ · Payments are not connected yet.</span></label>
+      <div class="card cbody"><strong>Upload your file</strong><p class="sub">PDF or EPUB where applicable. File upload will be connected to secure storage in the next marketplace step.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-g" type="submit" data-mode="draft">Save Draft</button>
+        <button class="btn btn-p" type="submit" data-mode="review" ${pending?'disabled title="Approval required to submit"':''}>Submit for Review</button>
+      </div>
+      ${pending?'<p class="field-hint">You can save drafts while your creator profile is pending approval. Publishing is reserved for admins after review.</p>':''}
+    </form>`;
+}
+function renderSettings(p,s){
+  const st = p.approval_status==='approved'?'Approved':p.approval_status==='suspended'?'Suspended':'Pending Approval';
+  return `<h1>Creator profile</h1>${p.approval_status==='pending'?`<p class="banner">Your creator profile is being reviewed. You can prepare your storefront while you wait for approval.</p>`:''}
+    <form class="form" id="profForm" style="max-width:560px">
+      <label>Display name<input id="dName" value="${esc(p.display_name)}"></label>
+      <label>Bio<textarea id="dBio" rows="4" style="width:100%;border-radius:12px;border:1px solid var(--line);padding:12px">${esc(p.bio)}</textarea></label>
+      <label>Creative category<select id="dCat">${CATS.map(([id,n])=>`<option value="${esc(n)}" ${p.category_id===n||p.category_id===id?'selected':''}>${esc(n)}</option>`).join('')}</select></label>
+      <label>Profile photo URL or local path<input id="dPhoto" value="${esc(p.profile_image||'')}" placeholder="./photo.jpg"></label>
+      <label>Location (optional)<input id="dLoc" value="${esc(p.location)}"></label>
+      <label>Website<input id="dWeb" value="${esc(p.website)}"></label>
+      <label>Instagram<input id="dIg" value="${esc(p.instagram)}"></label>
+      <label>LinkedIn<input id="dLi" value="${esc(p.linkedin)}"></label>
+      <label>X<input id="dX" value="${esc(p.x)}"></label>
+      <p class="field-hint">Paste a photo path you uploaded, or leave blank to use a generated avatar until file hosting is connected.</p>
+      <p>Account email: ${esc(s.email)} · Status: <strong>${st==='Pending Approval'?'Pending Review':st}</strong></p>
+      <button class="btn btn-p" type="submit">Save profile</button>
+    </form>
+    <div class="card cbody" style="margin-top:20px;max-width:560px"><h3>Payout Settings</h3><p class="sub">Payment and payout setup will become available when marketplace sales are enabled.</p><button class="btn btn-g" disabled>Coming soon</button></div>`;
+}
+let lastSubmit='draft';
+function pickType(t){ document.getElementById('pType').value=t; document.querySelectorAll('#typePick .rolecard').forEach(el=>el.classList.toggle('on', el.dataset.type===t)); }
+function bindCreatorForms(p, pending){
+  const pf=document.getElementById('prodForm');
+  if(pf){
+    pf.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>lastSubmit=b.dataset.mode));
+    pf.addEventListener('submit', e=>{
+      e.preventDefault();
+      const title=document.getElementById('pTitle').value.trim();
+      if(!title){ toast('Add a title'); return; }
+      let status='Draft';
+      if(lastSubmit==='review'){
+        if(pending){ toast('Wait for creator approval before submitting'); return; }
+        status='Pending Review';
+      }
+      const all=loadJSON(PRODUCTS_KEY,[]);
+      all.push({ id:'pr_'+Date.now(), creator_id:p.id, title, slug:slugify(title), description:document.getElementById('pDesc').value, product_type:document.getElementById('pType').value, category_id:document.getElementById('pCat').value, cover_image:document.getElementById('pCover').value, price:document.getElementById('pPrice').value||'0', currency:'KES', content_file:'', status, created_at:Date.now(), updated_at:Date.now() });
+      saveJSON(PRODUCTS_KEY, all);
+      toast(status==='Pending Review'?'Your product has been submitted for review.':'Draft saved');
+      go('/creator/products');
+    });
+  }
+  const pr=document.getElementById('profForm');
+  if(pr){
+    pr.addEventListener('submit', e=>{
+      e.preventDefault();
+      p.display_name=document.getElementById('dName').value.trim()||p.display_name;
+      p.bio=document.getElementById('dBio').value; p.category_id=document.getElementById('dCat').value;
+      p.profile_image=document.getElementById('dPhoto').value.trim();
+      p.location=document.getElementById('dLoc').value; p.website=document.getElementById('dWeb').value;
+      p.instagram=document.getElementById('dIg').value; p.linkedin=document.getElementById('dLi').value; p.x=document.getElementById('dX').value;
+      saveProfile(p); toast('Profile saved');
+    });
+  }
+}
+function deleteProduct(id){
+  const p=myProfile(); if(!p) return;
+  saveJSON(PRODUCTS_KEY, loadJSON(PRODUCTS_KEY,[]).filter(x=>!(x.id===id && x.creator_id===p.id)));
+  toast('Product removed'); renderCreatorDash('/creator/products');
+}
+function viewProduct(id){ const pr=myProducts().find(x=>x.id===id); if(pr) openModal(pr.title, pr.description||'Draft product');
+}
+function editHint(){ toast('Open Add Product to create a new version — inline edit arrives next'); }
+function renderPublicStore(username){
+  const p=loadJSON(PROFILES_KEY,[]).find(x=>x.username===username);
+  const box=document.getElementById('publicStore');
+  const s0=session(); const own=s0&&p&&s0.email===p.user_id;
+  if(!p || (p.approval_status!=='approved' && !own)){ box.innerHTML=`<div class="coming"><h1>Creator not found</h1><p class="lead">Public storefronts appear after IMC approval.</p><a class="btn btn-p" href="#/creators">Creators</a></div>`; return; }
+  const works=loadJSON(PRODUCTS_KEY,[]).filter(x=>x.creator_id===p.id && x.status==='Published');
+  const fol=followsOf(p.id);
+  const s=s0||session();
+  const following=s && fol.some(f=>f.follower_id===s.email);
+  const badge=p.approval_status==='approved'?' · Approved':'';
+  box.innerHTML=`<div class="store-hero">
+    <img class="avatar" src="${creatorPhoto(p)}" alt="Portrait of ${esc(p.display_name)}">
+    <div><h1 style="margin:0">${esc(p.display_name)}</h1>
+      <p>${esc(p.category_id||'Creator')}${p.location?' · '+esc(p.location):''}${badge}</p>
+      <p class="lead">${esc(p.bio||'Helping people discover ideas that inspire them.')}</p>
+      <p class="field-hint">${p.website?esc(p.website)+' · ':''}${p.instagram?'Ig ':''}${p.linkedin?'In ':''}${p.x?'X':''}</p>
+    </div>
+    <button class="btn btn-p" type="button" onclick="toggleFollow('${p.id}')">${following?'Following':'Follow'}</button>
+  </div>
+  <p class="sub" style="margin-top:16px">${works.length} Works · ${fol.length} Followers · No ratings yet</p>
+  <div class="tabs">
+    <button class="on" type="button" onclick="storeTab('about')">About</button>
+    <button type="button" onclick="storeTab('products')">Products</button>
+    <button type="button" onclick="storeTab('articles')">Articles</button>
+    <button type="button" onclick="storeTab('classes')">Classes</button>
+    <button type="button" onclick="storeTab('events')">Events</button>
+  </div>
+  <div id="storeTab">${storeAbout(p)}</div>`;
+  window.__storeP=p; window.__storeWorks=works;
+}
+function storeAbout(p){ return `<div class="card cbody"><h3>About</h3><p>${esc(p.bio||'This creator is preparing their INSPIRED storefront.')}</p></div>`; }
+function storeTab(t){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.textContent.toLowerCase()===t));
+  const el=document.getElementById('storeTab');
+  if(t==='products'){
+    const works=window.__storeWorks||[];
+    el.innerHTML = works.length? `<div class="grid3">${works.map(w=>workCard({type:w.product_type,title:w.title,creator:window.__storeP.display_name,rating:'—',price:'KSh '+w.price,alt:'Cover of '+w.title})).join('')}</div>` : `<div class="card cbody"><h3>Products</h3><p>No published products yet.</p></div>`;
+  } else if(t==='about') el.innerHTML=storeAbout(window.__storeP);
+  else el.innerHTML=`<div class="card cbody"><h3>More from this creator is coming soon.</h3><p class="sub">${t[0].toUpperCase()+t.slice(1)} will live here in a later step.</p></div>`;
+}
+function toggleFollow(cid){
+  const s=session();
+  if(!s){ go('/signin'); return; }
+  let all=loadJSON(FOLLOWS_KEY,[]);
+  const i=all.findIndex(f=>f.creator_id===cid && f.follower_id===s.email);
+  if(i>=0) all.splice(i,1); else all.push({id:'fl_'+Date.now(), creator_id:cid, follower_id:s.email, created_at:Date.now()});
+  saveJSON(FOLLOWS_KEY, all);
+  const p=loadJSON(PROFILES_KEY,[]).find(x=>x.id===cid);
+  if(p) renderPublicStore(p.username);
+}
+function route(){
+  const path = (location.hash.replace('#','') || '/') ;
+  const store = path.match(/^\/creator\/([^/]+)$/);
+  if(store && !path.startsWith('/creator/dashboard') && !creatorPages.includes(path) && store[1] && !['dashboard','products','profile','settings','orders','customers','reviews','analytics','payouts','storefront'].includes(store[1])){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('publicStore').classList.add('on');
+    renderPublicStore(store[1]); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(creatorPages.includes(path) || path.startsWith('/creator/products')){
+    if(!session()){ location.hash='#/signin'; return; }
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('creatorShell').classList.add('on');
+    renderCreatorDash(path); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/account' && !session()){ location.hash='#/signin'; return; }
+  const svc = path.match(/^\/imc-service\/([^/]+)$/);
+  if(svc){
+    const s=IMC_AUDIO.find(x=>x.id===svc[1]);
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('imcServiceDetail');
+    el.classList.add('on');
+    if(!s){ el.innerHTML='<div class="coming"><h1>Service not found</h1><a class="btn btn-p" href="#/imc-services">Back</a></div>'; }
+    else {
+      el.innerHTML=`<div class="kicker">IMC service</div><h1>${s.name}</h1><img class="cover" src="${s.img}" alt="${s.alt}" style="width:100%;max-height:360px;object-fit:cover;border-radius:16px;margin:16px 0"><p class="lead">${s.long}</p><p class="sub">Rates are quoted per project. Pay via Pochi la Biashara 0181185334, KCB Paybill 522533 account 8023975, or Equity Paybill 247247 account 0791716872.</p><div class="cta"><a class="btn btn-p" href="#/imc-quote?service=${s.id}">${s.id==='hire'?'Hire Sound System':(s.id==='event'?'Request a Quote':'Book Now')}</a><a class="btn btn-g" href="#/imc-services">All services</a></div>`;
+    }
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path.startsWith('/search')){
+    const q=new URLSearchParams((location.hash.split('?')[1]||'')).get('q')||'';
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('searchPage');
+    el.classList.add('on');
+    const term=q.trim().toLowerCase();
+    const hits=[];
+    if(term){
+      IMC_AUDIO.forEach(s=>{ if((s.name+' '+s.short).toLowerCase().includes(term)) hits.push({kind:'Service', title:s.name, href:'#/imc-quote?service='+s.id}); });
+      IMC_LISTINGS.forEach(w=>{ if((w.title+' '+w.type).toLowerCase().includes(term)) hits.push({kind:w.type, title:w.title, href:w.href||'#/explore'}); });
+      CATS.forEach(c=>{ if(c[1].toLowerCase().includes(term)) hits.push({kind:'Category', title:c[1], href:'#/category/'+c[0]}); });
+      loadJSON(PROFILES_KEY,[]).filter(p=>p.approval_status==='approved').forEach(p=>{ if((p.display_name+' '+(p.bio||'')).toLowerCase().includes(term)) hits.push({kind:'Creator', title:p.display_name, href:'#/creator/'+p.username}); });
+      loadJSON(PRODUCTS_KEY,[]).filter(p=>p.status==='published').forEach(p=>{ if((p.title+' '+(p.description||'')).toLowerCase().includes(term)) hits.push({kind:'Product', title:p.title, href:'#/explore'}); });
+      if('peace concert'.includes(term)||'event'.includes(term)||term.includes('concert')) hits.push({kind:'Event', title:'The Peace Concert Season 2', href:'#/events'});
+    }
+    el.innerHTML=`<div class="kicker">Search</div><h1>${term?esc(q):'Search INSPIRED'}</h1><p class="sub">Find creators, products, courses, services, and events. Empty results stay empty — we do not invent listings.</p>
+      <form class="form" id="srForm"><label>Search<input id="srQ" value="${esc(q)}"></label><button class="btn btn-p" type="submit">Search</button></form>
+      <div class="grid3" style="margin-top:24px">${term?(hits.length?hits.map(h=>`<article class="card cbody"><span class="badge">${esc(h.kind)}</span><h3>${esc(h.title)}</h3><a class="btn btn-p" href="${h.href}">Open</a></article>`).join(''):`<article class="card cbody"><h3>No matches</h3><p>Nothing on INSPIRED matches that search yet. Try a service name such as recording, or browse Inspired Music Centre.</p><a class="btn btn-g" href="#/imc">Inspired Music Centre</a></article>`):'<article class="card cbody"><p>Type a word and search.</p></article>'}</div>`;
+    document.getElementById('srForm').onsubmit=e=>{ e.preventDefault(); go('/search?q='+encodeURIComponent(document.getElementById('srQ').value.trim())); };
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/payments'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('payPage');
+    el.classList.add('on');
+    el.innerHTML=`<div class="coming" style="max-width:640px"><div class="kicker">Payments</div><h1>How to pay IMC</h1><p class="lead">Live M-Pesa checkout is not switched on. Do not enter PIN or card details on this website.</p><p><strong>Pochi la Biashara:</strong> 0181185334</p><p><strong>KCB Paybill:</strong> 522533 · Account 8023975</p><p><strong>Equity Paybill:</strong> 247247 · Account 0791716872</p><p class="sub">After paying, tell us the name used on Events bookings or WhatsApp 0791716872. Creator payouts and refunds need a connected payment provider later.</p><a class="btn btn-p" href="#/events">Concert tickets</a> <a class="btn btn-g" href="#/contact">Contact</a></div>`;
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/reviews'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('reviewsPage').classList.add('on');
+    renderReviewsPage(); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/admin/reviews'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('adminReviews').classList.add('on');
+    renderAdminReviews(); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/admin/creators'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('adminCreators').classList.add('on');
+    renderAdminCreators(); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/admin/inquiries'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('adminInbox');
+    el.classList.add('on');
+    if(!session()||session().role!=='admin'){ el.innerHTML=`<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>`; renderAuth(); return; }
+    const rows=JSON.parse(localStorage.getItem('inspired.inquiries')||'[]');
+    el.innerHTML=`<div class="kicker">Administrator</div><h1>Inquiries</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/creators">Creators</a></p><div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody"><h3>${esc(r.name)}</h3><p>${esc(r.phone)} · ${esc(r.email)}</p><p>${esc(r.message)}</p><p class="sub">${new Date(r.at).toLocaleString()}</p></article>`).join(''):'<article class="card cbody"><h3>No inquiries yet</h3></article>'}</div>`;
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path.startsWith('/signup')){
+    const role=new URLSearchParams((location.hash.split('?')[1]||'')).get('role');
+    if(role==='creator') setPick('creator');
+  }
+  if(path==='/admin/bookings'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('adminBookings').classList.add('on');
+    renderAdminBookings(); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/admin/availability'){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById('adminAvail').classList.add('on');
+    renderAdminAvail(); renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path.startsWith('/imc-quote')){
+    const q=new URLSearchParams((location.hash.split('?')[1]||''));
+    const pre=q.get('service')||'live';
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('imcQuote');
+    el.classList.add('on');
+    el.innerHTML=quoteFormHtml(pre);
+    bindQuoteForm();
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  if(path==='/explore'){ renderExplore(); }
+  if(path==='/imc-services'){
+    document.getElementById('imcServices').innerHTML=`<div class="kicker">Inspired Music Centre</div><h1>Professional Audio Production & Event Sound Solutions</h1><p class="lead">At Inspired Music Centre, we bring sound, creativity, and professional production together. From memorable commercial jingles and advertising recordings to live studio sessions, mobile recording, and event sound solutions, we help individuals, businesses, artists, and event organizers bring their ideas to life.</p><div class="grid3" style="margin-top:24px">${IMC_AUDIO.map(audioCard).join('')}</div><div class="promo" style="margin-top:36px"><div><h2>Your Sound. Our Expertise.</h2><p style="opacity:.85;margin-top:10px;max-width:520px">Whether you're creating your next hit, promoting your business, recording a live performance, or organizing an unforgettable event, Inspired Music Centre is ready to help bring your sound to life.</p></div><div class="cta"><a class="btn" style="background:#fff;color:var(--ink)" href="#/imc-quote?service=live">Book a recording session</a><a class="btn btn-g" style="border-color:#fff;color:#fff" href="#/imc-quote?service=hire">Request sound system quotation</a><a class="btn btn-g" style="border-color:#fff;color:#fff" href="#/contact">Contact IMC</a></div></div>`;
+  }
+  const cat = path.match(/^\/category\/([^/]+)$/);
+  if(cat){
+    const row = CATS.find(c=>c[0]===cat[1]);
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=document.getElementById('categories');
+    el.classList.add('on');
+    const items = IMC_LISTINGS.filter(x=>x.cat===cat[1]);
+    const audio = IMC_AUDIO.filter(x=>x.cat===cat[1]);
+    el.innerHTML = `<div class="kicker">Category</div><h1>${row?row[1]:'Category'}</h1><p class="sub">Real Inspired Music Centre listings in this group. Independent products will appear after approval.</p><div class="grid3">${items.map(imcCard).join('')}${audio.map(audioCard).join('')}${(items.length||audio.length)?'':`<article class="card cbody"><h3>Nothing listed here yet</h3><p>Check Explore or Inspired Music Centre.</p></article>`}</div><p style="margin-top:20px"><a class="btn btn-g" href="#/categories">All categories</a></p>`;
+    renderAuth(); window.scrollTo(0,0); return;
+  }
+  const id = pages[path] || 'home';
+  if(id==='account'){
+    const s=session();
+    const r=ROLES[s.role]||ROLES.buyer;
+    document.getElementById('accountBox').innerHTML=`<div class="kicker">${esc(s.role)}</div><h1>Hello, ${esc(s.name)}</h1><p class="lead">You’re signed in as ${esc(r.label)}.</p><p class="sub">${r.can.join(' · ')}</p>${s.role==='creator'?`<a class="btn btn-p" href="#/creator/dashboard">Creator Dashboard</a> `:''}${s.role==='admin'?`<a class="btn btn-p" href="#/admin/bookings">Bookings</a> <a class="btn btn-g" href="#/admin/creators">Creators</a> `:''}<button class="btn btn-g" type="button" onclick="signOut()">Sign Out</button>`;
+  }
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(id==='creators') renderCreatorsDirectory();
+  if(id==='explore') renderExplore();
+  if(id==='home') renderHomeReviews();
+  document.getElementById('mobileMenu').style.display='none';
+  renderAuth();
+  window.scrollTo(0,0);
+}
+renderAuth();
+function go(p){ location.hash = '#'+p; }
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  m.style.display = m.style.display==='block'?'none':'block';
+}
+function openModal(t,b){ document.getElementById('mTitle').textContent=t; document.getElementById('mBody').textContent=b; document.getElementById('modal').classList.add('on'); }
+function closeModal(){ document.getElementById('modal').classList.remove('on'); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2200); }
+ensureAdminAccount();
+document.getElementById('yearCopy').textContent=String(new Date().getFullYear());
+document.getElementById('q').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){ e.preventDefault(); const v=e.target.value.trim(); go(v?'/search?q='+encodeURIComponent(v):'/search'); }
+});
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
+
+<script>/*aha-img-guard v2.1:user-relative-no-stock*/(function(){var API="https://skycastle.ai/api/img-search?q=";var bad=/images\.unsplash\.com|source\.unsplash\.com|picsum\.photos|loremflickr\.com|placekitten/;function tile(i){try{var d=document.createElement("div");d.style.cssText="width:100%;height:100%;min-height:120px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e9dfd2,#cdb89a);color:#6b5d49;font:600 14px system-ui;text-align:center;padding:10px;box-sizing:border-box";d.textContent=i.getAttribute("alt")||"";if(i.parentNode)i.parentNode.replaceChild(d,i);}catch(e){}}function real(i){var q=(i.getAttribute("alt")||"").trim();if(!q){tile(i);return;}fetch(API+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){if(d&&d.url){i.onerror=function(){tile(i);};i.src=d.url;}else tile(i);}).catch(function(){tile(i);});}function userRel(sa){return!!sa&&!/^https?:\/\//i.test(sa)&&!/^\/\//.test(sa)&&!/^data:/i.test(sa)&&!/^blob:/i.test(sa);}function chk(i){if(i.__ag)return;try{if(i.closest&&i.closest("nav,footer"))return;if(i.closest&&i.closest("header")&&/\b(logo|brand|icon|wordmark)\b/i.test(i.getAttribute("alt")||""))return;}catch(e){}var s=(i.currentSrc||i.src||i.getAttribute("src")||"").trim();var sa=(i.getAttribute("src")||"").trim();var alt=(i.getAttribute("alt")||"").trim();if(bad.test(s)){i.__ag=1;real(i);return;}if(/^https?:\/\//.test(s)){i.__ag=1;i.addEventListener("error",function(){real(i);});return;}if(!sa){if(alt){i.__ag=1;real(i);}return;}i.__ag=1;var fail=function(){if(userRel(sa))tile(i);else real(i);};if(i.complete&&i.naturalWidth===0){fail();return;}i.addEventListener("error",fail);}function scan(){document.querySelectorAll("img").forEach(chk);}try{new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:["src"]});}catch(e){}document.addEventListener("DOMContentLoaded",scan);window.addEventListener("load",function(){scan();setTimeout(scan,800);setTimeout(scan,2000);});})();</script>
