@@ -1169,20 +1169,34 @@ async function renderAdminBookings(){
     </article>`).join(''):'<article class="card cbody"><h3>No bookings yet</h3><p>Submitted requests will appear here.</p></article>'}</div>`;
   document.getElementById('abGo').onclick=()=>renderAdminBookings();
   el.querySelectorAll('[data-save]').forEach(btn=>{
-    btn.onclick=()=>{
-      const card=btn.closest('[data-id]');
-      const id=card.getAttribute('data-id');
-      const all=loadSvcBookings();
-      const i=all.findIndex(x=>x.id===id);
-      if(i<0) return;
-      const status=card.querySelector('.abSet').value;
-      const notes=card.querySelector('.abNotes').value;
-      all[i].status=status; all[i].notes=notes;
-      all[i].history=all[i].history||[]; all[i].history.push({at:Date.now(), status});
-      saveSvcBookings(all);
-      toast('Booking updated');
-      renderAdminBookings();
-    };
+ btn.onclick=async()=>{
+  const card=btn.closest('[data-id]');
+  const id=card.getAttribute('data-id');
+  const status=card.querySelector('.abSet').value;
+  const notes=card.querySelector('.abNotes').value;
+
+  btn.disabled=true;
+  btn.textContent='Saving...';
+
+  const {error}=await supabaseClient
+    .from('service_bookings')
+    .update({
+      status: status,
+      notes: notes
+    })
+    .eq('id',id);
+
+  if(error){
+    console.error('Booking update failed:',error);
+    btn.disabled=false;
+    btn.textContent='Save';
+    toast('Could not update booking');
+    return;
+  }
+
+  toast('Booking updated successfully');
+  await renderAdminBookings();
+};
   });
 }
 async function renderAdminAvail(){
