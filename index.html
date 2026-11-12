@@ -1205,7 +1205,21 @@ function renderAdminAvail(){
   };
 }
 
-function isAdminSession(){ const s=session(); return !!(s && s.role==='admin'); }
+
+async function isAdminSession(){
+  const {data:{session},error}=await supabaseClient.auth.getSession();
+
+  if(error || !session) return false;
+
+  const {data:admin,error:adminError}=await supabaseClient
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id',session.user.id)
+    .maybeSingle();
+
+  return !adminError && !!admin;
+}
+
 function setCreatorApproval(id, status){
   const all=loadJSON(PROFILES_KEY,[]);
   const i=all.findIndex(p=>p.id===id); if(i<0) return;
