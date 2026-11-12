@@ -1185,10 +1185,10 @@ function renderAdminBookings(){
     };
   });
 }
-function renderAdminAvail(){
+async function renderAdminAvail(){
   ensureAdminAccount();
   const el=document.getElementById('adminAvail');
-  if(!isAdminSession()){
+  if(!(await isAdminSession())){
     el.innerHTML=`<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>`; return;
   }
   const av=loadAvail();
