@@ -528,6 +528,7 @@ table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid
 <div class="toast" id="toast"></div>
 
 <script>
+  let reviewsCache = [];
   // SUPABASE CONNECTION
 const SUPABASE_URL = 'https://qysvyfejfnxjfnbztxhw.supabase.co';
 const SUPABASE_ANON_KEY = ' sb_publishable_Ckd1NhAqVuEoaT1-M7OOvg_441heUFH ';
@@ -702,7 +703,7 @@ function bindQuoteForm(){
     toast('Booking saved · '+rec.ref);
   });
 }
-let reviewsCache = [];
+
 
 function loadReviews(){
   return reviewsCache;
