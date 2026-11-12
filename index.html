@@ -673,7 +673,7 @@ function bindQuoteForm(){
     wa.href='https://wa.me/'+WA_IMC+'?text='+encodeURIComponent('Hello Inspired Music Centre, I would like to inquire about booking '+name+'. Please share availability and pricing information.');
   }
   sel.addEventListener('change', syncWa); syncWa();
-  document.getElementById('quoteForm').addEventListener('submit', e=>{
+  document.getElementById('quoteForm').addEventListener('submit', async e=>{
     e.preventDefault();
     const err=document.getElementById('qErr');
     const name=document.getElementById('qName').value.trim();
@@ -693,14 +693,65 @@ function bindQuoteForm(){
     const av=loadAvail();
     if((av.closedDates||[]).includes(date)){ err.textContent='That date is marked unavailable. Please choose another preferred date.'; return; }
     err.textContent='';
-    const rec={ id:'bk_'+Date.now(), ref:nextRef(), name, phone, email, serviceId:svcId, service:svcName, preferredDate:date, preferredTime:time, location:loc, audience:aud, message:more, status:'Pending Confirmation', notes:'', createdAt:Date.now(), history:[{at:Date.now(), status:'Pending Confirmation'}] };
-    const all=loadSvcBookings(); all.unshift(rec); saveSvcBookings(all);
-    const saved=loadSvcBookings().some(x=>x.ref===rec.ref);
-    if(!saved){ err.textContent='Could not save this booking. Please try again.'; return; }
-    document.getElementById('quoteForm').style.display='none';
-    const ok=document.getElementById('qOk'); ok.style.display='block';
-    ok.innerHTML='Thank you for choosing Inspired Music Centre! Your booking request has been received successfully. Our team will contact you to confirm availability, pricing, and the next steps.<br><br><strong>Booking reference: '+rec.ref+'</strong><br>Status: Pending Confirmation. Preferred date '+rec.preferredDate+(rec.preferredTime?' at '+rec.preferredTime:'')+' is a request, not a confirmed reservation.<br><br>Email alerts are not connected in this environment, so staff should check the Bookings dashboard. You can also message us on WhatsApp using 0791716872.';
-    toast('Booking saved · '+rec.ref);
+    
+const ref = nextRef();
+err.textContent = 'Submitting booking...';
+
+const { error } = await supabaseClient
+  .from('service_bookings')
+  .insert([{
+    booking_ref: ref,
+    name: name,
+    phone: phone,
+    email: email,
+    service_id: svcId,
+    service: svcName,
+    preferred_date: date,
+    preferred_time: time,
+    location: loc,
+    audience: aud,
+    message: more,
+    status: 'Pending Confirmation',
+    notes: ''
+  }]);
+
+if(error){
+  console.error('Booking submission failed:', error);
+  err.textContent = 'We could not save your booking. Please try again.';
+  return;
+}
+
+const rec={
+  id: 'bk_'+Date.now(),
+  ref: ref,
+  name,
+  phone,
+  email,
+  serviceId: svcId,
+  service: svcName,
+  preferredDate: date,
+  preferredTime: time,
+  location: loc,
+  audience: aud,
+  message: more,
+  status: 'Pending Confirmation',
+  notes: '',
+  createdAt: Date.now(),
+  history: [{at: Date.now(), status: 'Pending Confirmation'}]
+};
+
+const all = loadSvcBookings();
+all.unshift(rec);
+saveSvcBookings(all);
+
+document.getElementById('quoteForm').style.display='none';
+const ok=document.getElementById('qOk');
+ok.style.display='block';
+
+ok.innerHTML='Thank you for choosing Inspired Music Centre! Your booking request has been received successfully. Our team will contact you to confirm availability, pricing, and the next steps.<br><br><strong>Booking reference: '+rec.ref+'</strong><br>Status: Pending Confirmation. Preferred date '+rec.preferredDate+(rec.preferredTime?' at '+rec.preferredTime:'')+' is a request, not a confirmed reservation.<br><br>Email alerts are not connected in this environment, so staff should check the Bookings dashboard. You can also message us on WhatsApp using 0791716872.';
+
+toast('Booking saved · '+rec.ref);
+
   });
 }
 
