@@ -1141,7 +1141,7 @@ async function renderAdminBookings(){
   const q=(document.getElementById('abSearch')||{value:''}).value.toLowerCase();
   const st=(document.getElementById('abStatus')||{value:''}).value;
   const svc=(document.getElementById('abSvc')||{value:''}).value;
-  let rows=loadSvcBookings();
+   const {data:bookingData,error:bookingError}=await supabaseClient   .from('service_bookings')   .select('*')   .order('created_at',{ascending:false});  if(bookingError){   console.error('Could not load bookings:',bookingError);   el.innerHTML='<p class="err">Could not load bookings. Please refresh or sign in again.</p>';   return; }  let rows=(bookingData || []).map(r=>({   id:r.id,   ref:r.booking_ref,   name:r.name,   phone:r.phone,   email:r.email,   serviceId:r.service_id,   service:r.service,   preferredDate:r.preferred_date,   preferredTime:r.preferred_time,   location:r.location,   audience:r.audience,   message:r.message,   status:r.status,   notes:r.notes,   createdAt:new Date(r.created_at).getTime() }));
   if(q) rows=rows.filter(r=>[r.name,r.phone,r.email,r.ref,r.service].join(' ').toLowerCase().includes(q));
   if(st) rows=rows.filter(r=>r.status===st);
   if(svc) rows=rows.filter(r=>r.serviceId===svc);
