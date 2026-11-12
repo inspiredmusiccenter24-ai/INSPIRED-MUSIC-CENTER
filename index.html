@@ -1130,11 +1130,11 @@ function ensureAdminAccount(){
   users.push({ name:'IMC Admin', email:'admin@inspired.local', pass:hashPass('inspired-admin'), role:'admin', created:Date.now() });
   saveUsers(users);
 }
-function renderAdminBookings(){
+async function renderAdminBookings(){
   ensureAdminAccount();
   const s=session();
   const el=document.getElementById('adminBookings');
-  if(!s || s.role!=='admin'){
+  if(!(await isAdminSession())){
     el.innerHTML=`<div class="coming" style="max-width:520px"><div class="kicker">Staff only</div><h1>Bookings</h1><p class="lead">Sign in with an administrator account to view customer booking details.</p><p class="sub">Staff sign-in: admin@inspired.local · password inspired-admin. Change this after first login in a later security step.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`;
     return;
   }
