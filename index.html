@@ -1410,22 +1410,71 @@ document.getElementById('signupForm').addEventListener('submit', e=>{
   go(pickRole==='creator'?'/creator/dashboard':'/account');
 });
 
-document.getElementById('signinForm').addEventListener('submit', e=>{
+
+document.getElementById('signinForm').addEventListener('submit', async e=>{
   e.preventDefault();
+
   const email=document.getElementById('siEmail').value.trim().toLowerCase();
   const p=document.getElementById('siPass').value;
+
   let ok=true;
-  const set=(id,m)=>{ document.getElementById(id).textContent=m; if(m) ok=false; };
-  set('siE', email? '':'Email is required');
-  set('siP', p? '':'Password is required');
+  const set=(id,m)=>{
+    document.getElementById(id).textContent=m;
+    if(m) ok=false;
+  };
+
+  set('siE', email ? '' : 'Email is required');
+  set('siP', p ? '' : 'Password is required');
+
   if(!ok) return;
+
+  // Administrator signs in through Supabase
+  if(email==='inspiredmusiccenter24@gmail.com'){
+
+    const {data,error}=await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: p
+    });
+
+    if(error){
+      set('siP','Administrator email or password is incorrect');
+      return;
+    }
+
+    const {data:admin,error:adminError}=await supabaseClient
+      .from('admin_users')
+      .select('user_id')
+      .eq('user_id',data.user.id)
+      .maybeSingle();
+
+    if(adminError || !admin){
+      await supabaseClient.auth.signOut();
+      set('siP','This account is not authorised as an administrator');
+      return;
+    }
+
+    localStorage.setItem('inspired.adminAuth','true');
+
+    toast('Administrator signed in');
+    go('/admin/bookings');
+    return;
+  }
+
+  // Existing customer and creator login remains unchanged
   const u=loadUsers().find(x=>x.email===email && x.pass===hashPass(p));
-  if(!u){ set('siP','Email or password is incorrect'); return; }
-  setSession(u, document.getElementById('siRemember').checked);
+
+  if(!u){
+    set('siP','Email or password is incorrect');
+    return;
+  }
+
+  setSession(u,document.getElementById('siRemember').checked);
+
   toast('Welcome back');
   renderAuth();
   go(u.role==='creator'?'/creator/dashboard':'/account');
 });
+
 
 document.getElementById('forgotForm').addEventListener('submit', e=>{
   e.preventDefault();
