@@ -1324,8 +1324,26 @@ function renderReviewsPage(){
 
   toast('Review submitted for moderation');
 };
+
+async function setReviewStatus(id, status){
+  const {error}=await supabaseClient
+    .from('reviews')
+    .update({status:status})
+    .eq('id',id);
+
+  if(error){
+    console.error('Review update failed:',error);
+    toast('Could not update review');
+    return;
+  }
+
+  toast(status==='published'
+    ? 'Review published successfully'
+    : 'Review rejected and hidden');
+
+  await renderAdminReviews();
 }
-function setReviewStatus(id, status){
+
   const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
   all[i].status=status; saveReviews(all); renderAdminReviews();
 }
