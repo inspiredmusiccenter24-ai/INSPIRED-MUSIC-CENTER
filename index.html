@@ -772,7 +772,7 @@ function publishedReviews(){
 async function refreshReviews(){
   const {data, error} = await supabaseClient
     .from('reviews')
-    .select('*')
+    .select('id,name,target,stars,body,status,reply,created_at')
     .eq('status','published')
     .order('created_at',{ascending:false});
 
@@ -1266,66 +1266,94 @@ function renderHomeReviews(){
   if(!rows.length){ el.innerHTML='<article class="card cbody"><p>No reviews yet</p><p class="sub">Signed-in customers can share an experience after a booking or purchase.</p></article>'; return; }
   el.innerHTML='<div class="grid3">'+rows.map(r=>'<article class="card cbody"><div class="badge">'+esc(r.target)+'</div><h3>'+esc(r.name)+'</h3><p>'+starsHtml(r.stars)+'</p><p>'+esc(r.body)+'</p><p class="sub">'+new Date(r.at).toLocaleDateString()+(r.reply?'<br>IMC: '+esc(r.reply):'')+'</p></article>').join('')+'</div>';
 }
+
 function renderReviewsPage(){
   const el=document.getElementById('reviewsPage');
-  const s=session();
   const rows=publishedReviews();
   const opts=reviewTargets().map(t=>'<option>'+esc(t.name)+'</option>').join('');
-  el.innerHTML=`<div class="explore-page"><div class="kicker">Reviews</div><h1>What Our Community Says</h1><p class="lead">Real experiences from students, customers, and creators who have engaged with INSPIRED MUSIC CENTRE.</p>
-  <div id="revList">${rows.length?`<div class="grid3">${rows.map(r=>`<article class="card cbody"><div class="badge">${esc(r.target)}</div><h3>${esc(r.name)}</h3><p>${starsHtml(r.stars)}</p><p>${esc(r.body)}</p><p class="sub">${new Date(r.at).toLocaleDateString()}${r.reply?' · IMC reply: '+esc(r.reply):''}</p></article>`).join('')}</div>`:`<article class="card cbody"><h3>No reviews yet</h3><p>Be the first to share a genuine experience after using an IMC service or product.</p></article>`}</div>
-  ${s?`<form class="form" id="revForm" style="max-width:560px;margin-top:28px"><h2>Write a Review</h2><label>Display name<input id="rvName" required value="${esc(s.name)}"></label><label>Related service or product<select id="rvTarget">${opts}</select></label><label>Stars<select id="rvStars"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></label><label>Your feedback<textarea id="rvBody" required style="min-height:90px;padding:12px;border-radius:12px;border:1px solid var(--line);font:inherit"></textarea></label><button class="btn btn-p" type="submit">Submit review</button><p class="err" id="rvErr"></p></form>`:`<p class="sub" style="margin-top:20px">Please <a href="#/signin">sign in</a> to write a review.</p>`}</div>`;
+
+  el.innerHTML=`<div class="explore-page">
+    <div class="kicker">Reviews</div>
+    <h1>What Our Community Says</h1>
+    <p class="lead">Real experiences from students, customers, and creators who have engaged with INSPIRED MUSIC CENTRE.</p>
+
+    <div id="revList">${rows.length?`<div class="grid3">${rows.map(r=>`<article class="card cbody">
+      <div class="badge">${esc(r.target)}</div>
+      <h3>${esc(r.name)}</h3>
+      <p>${starsHtml(r.stars)}</p>
+      <p>${esc(r.body)}</p>
+      <p class="sub">${new Date(r.at).toLocaleDateString()}${r.reply?' · IMC reply: '+esc(r.reply):''}</p>
+    </article>`).join('')}</div>`:`<article class="card cbody"><h3>No reviews yet</h3><p>Be the first to share a genuine experience after using an IMC service or product.</p></article>`}</div>
+
+    <form class="form" id="revForm" style="max-width:560px;margin-top:28px">
+      <h2>Write a Review</h2>
+      <label>Display name<input id="rvName" required></label>
+      <label>Email address<input id="rvEmail" type="email" required></label>
+      <label>Related service or product<select id="rvTarget" required>${opts}</select></label>
+      <label>Stars<select id="rvStars">
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select></label>
+      <label>Your feedback<textarea id="rvBody" required style="min-height:90px;padding:12px;border-radius:12px;border:1px solid var(--line);font:inherit"></textarea></label>
+      <button class="btn btn-p" type="submit">Submit review</button>
+      <p class="err" id="rvErr"></p>
+    </form>
+  </div>`;
+
   const f=document.getElementById('revForm');
-  if(f) f.onsubmit = async e => {
-  e.preventDefault();
 
-  const email = s.email;
-  const target = document.getElementById('rvTarget').value;
-  const body = document.getElementById('rvBody').value.trim();
-  const name = document.getElementById('rvName').value.trim();
-  const stars = Number(document.getElementById('rvStars').value);
-  const err = document.getElementById('rvErr');
+  f.onsubmit=async e=>{
+    e.preventDefault();
 
-  if(!name || !body || !stars){
-    err.textContent = 'Please complete name, stars, and feedback.';
-    return;
-  }
+    const email=document.getElementById('rvEmail').value.trim();
+    const name=document.getElementById('rvName').value.trim();
+    const target=document.getElementById('rvTarget').value;
+    const stars=Number(document.getElementById('rvStars').value);
+    const body=document.getElementById('rvBody').value.trim();
+    const err=document.getElementById('rvErr');
+    const btn=f.querySelector('button[type="submit"]');
 
-  if(!reviewerEligible(email, target)){
-    err.textContent = 'Reviews are for signed-in customers. Complete a booking first.';
-    return;
-  }
+    if(!name || !email || !target || !body || !stars){
+      err.textContent='Please complete all fields.';
+      return;
+    }
 
-  err.textContent = 'Submitting...';
+    err.textContent='Submitting...';
+    btn.disabled=true;
 
-  const {error} = await supabaseClient
-    .from('reviews')
-    .insert([{
-      email: email,
-      name: name,
-      target: target,
-      stars: stars,
-      body: body,
-      status: 'pending'
-    }]);
+    const {error}=await supabaseClient
+      .from('reviews')
+      .insert([{
+        email:email,
+        name:name,
+        target:target,
+        stars:stars,
+        body:body,
+        status:'pending'
+      }]);
 
-  if(error){
-    console.error(error);
-    err.textContent = 'Review submission failed. Please try again.';
-    return;
-  }
+    if(error){
+      console.error('Review submission failed:',error);
+      err.textContent='Review submission failed. Please try again.';
+      btn.disabled=false;
+      return;
+    }
 
-  err.textContent = '';
-  f.style.display = 'none';
+    f.style.display='none';
 
-  const note = document.createElement('p');
-  note.className = 'sub';
-  note.textContent = 'Thank you. Your review was received and will appear after IMC moderation.';
-  f.parentNode.appendChild(note);
+    const note=document.createElement('p');
+    note.className='sub';
+    note.textContent='Thank you! Your review has been received and will appear after IMC administrator approval.';
+    f.parentNode.appendChild(note);
 
-  toast('Review submitted for moderation');
-};
+    toast('Review submitted for moderation');
+  };
+}
 
-async function setReviewStatus(id, status){
+async function setReviewStatus(id,status){
   const {error}=await supabaseClient
     .from('reviews')
     .update({status:status})
@@ -1344,14 +1372,6 @@ async function setReviewStatus(id, status){
   await renderAdminReviews();
 }
 
-  const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
-  all[i].status=status; saveReviews(all); renderAdminReviews();
-}
-function replyReview(id){
-  const txt=prompt('Reply as IMC');
-  if(txt==null) return;
-  const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
-  all[i].reply=txt.trim(); saveReviews(all); renderAdminReviews();
 
 async function renderAdminReviews(){
   const el=document.getElementById('adminReviews');
