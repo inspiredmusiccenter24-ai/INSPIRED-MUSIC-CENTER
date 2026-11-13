@@ -188,9 +188,28 @@ footer .logo span{color:#D4AF37}
 .fgrid a:focus-visible{outline:2px solid #D4AF37;outline-offset:3px;border-radius:4px}
 .f-brand p{color:#B9B5AF;margin-top:10px;max-width:320px;font-size:14.5px}
 .f-brand .motto{color:#F8F5EF;font-weight:600;margin-top:12px}
-.social{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.social a{width:40px;height:40px;border-radius:50%;border:1px solid #3a3a3a;display:grid;place-items:center;color:#F8F5EF;font-size:12px;font-weight:600;margin:0}
-.social a:hover{border-color:#D4AF37;color:#D4AF37}
+
+.social{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.social a{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #3a3a3a;
+  display:grid;
+  place-items:center;
+  color:#F8F5EF;
+  transition:all .25s ease;
+  margin:0;
+}
+.social a:nth-child(1),
+.social a:nth-child(2){color:#FF0000}
+.social a:nth-child(3){color:#25D366}
+.social a:hover{
+  transform:translateY(-4px);
+  border-color:#D4AF37;
+  background:#252525;
+}
+
 .fbar{border-top:1px solid #2c2c2c;padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#B9B5AF;font-size:13px}
 .page{display:none;padding:40px 0 48px}
 .page.on{display:block}
