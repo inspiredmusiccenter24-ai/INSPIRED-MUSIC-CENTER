@@ -1334,13 +1334,54 @@ function replyReview(id){
   if(txt==null) return;
   const all=loadReviews(); const i=all.findIndex(r=>r.id===id); if(i<0) return;
   all[i].reply=txt.trim(); saveReviews(all); renderAdminReviews();
-}
-function renderAdminReviews(){
+
+async function renderAdminReviews(){
   const el=document.getElementById('adminReviews');
-  if(!isAdminSession()){ el.innerHTML='<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>'; return; }
-  const rows=loadReviews();
-  el.innerHTML=`<div class="kicker">Administrator</div><h1>Review moderation</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/creators">Creators</a></p><div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody"><span class="badge">${esc(r.status)}</span><h3>${esc(r.name)}</h3><p>${starsHtml(r.stars)} · ${esc(r.target)}</p><p>${esc(r.body)}</p><p class="sub">${esc(r.email)} · ${new Date(r.at).toLocaleString()}${r.reply?'<br>Reply: '+esc(r.reply):''}</p><div class="cta">${r.status!=='published'?`<button class="btn btn-p" type="button" onclick="setReviewStatus('${r.id}','published')">Publish</button>`:''}<button class="btn btn-g" type="button" onclick="setReviewStatus('${r.id}','hidden')">Hide</button><button class="btn btn-g" type="button" onclick="replyReview('${r.id}')">Reply</button></div></article>`).join(''):'<article class="card cbody"><h3>No reviews submitted yet</h3></article>'}</div>`;
+
+  if(!(await isAdminSession())){
+    el.innerHTML='<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>';
+    return;
+  }
+
+  el.innerHTML='<p>Loading reviews...</p>';
+
+  const {data, error}=await supabaseClient
+    .from('reviews')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  if(error){
+    console.error('Could not load admin reviews:',error);
+    el.innerHTML='<p>Could not load reviews. Please try again.</p>';
+    return;
+  }
+
+  const rows=(data||[]).map(r=>({
+    ...r,
+    at:new Date(r.created_at).getTime()
+  }));
+
+  el.innerHTML=`<div class="kicker">Administrator</div>
+  <h1>Review moderation</h1>
+  <p class="sub">
+    <a href="#/admin/bookings">Bookings</a> ·
+    <a href="#/admin/creators">Creators</a>
+  </p>
+  <div class="grid3">
+  ${rows.length?rows.map(r=>`<article class="card cbody">
+    <span class="badge">${esc(r.status)}</span>
+    <h3>${esc(r.name)}</h3>
+    <p>${starsHtml(r.stars)} · ${esc(r.target)}</p>
+    <p>${esc(r.body)}</p>
+    <p class="sub">${esc(r.email||'No email')} · ${new Date(r.at).toLocaleString()}</p>
+    <div class="cta">
+      ${r.status!=='published'?`<button class="btn btn-p" type="button" onclick="setReviewStatus('${r.id}','published')">Publish</button>`:''}
+      ${r.status!=='hidden'?`<button class="btn btn-g" type="button" onclick="setReviewStatus('${r.id}','hidden')">Reject / Hide</button>`:''}
+    </div>
+  </article>`).join(''):'<article class="card cbody"><h3>No reviews submitted yet</h3></article>'}
+  </div>`;
 }
+
 function renderAuth(){
   const s=session();
   const desk=document.getElementById('navAuth');
