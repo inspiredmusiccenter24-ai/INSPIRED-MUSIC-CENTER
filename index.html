@@ -1178,7 +1178,16 @@ async function renderAdminBookings(){
   btn.disabled=true;
   btn.textContent='Saving...';
 
- .update({
+ const {error}=await supabaseClient
+  .from('service_bookings')
+  .update({
+    status: status,
+    notes: notes,
+    approved_at: status === 'Confirmed'
+      ? new Date().toISOString()
+      : null
+  })
+  .eq('id',id);
   status: status,
   notes: notes,
   approved_at: status === 'Confirmed'
