@@ -1278,11 +1278,9 @@ function renderReviewsPage(){
   el.innerHTML=`<div class="explore-page">
     <div class="kicker">Reviews</div>
     <h1>What Our Community Says</h1>
+    <div style="text-align:center;margin:20px 0"><h2>Our Customer Rating</h2><p style="font-size:28px;color:#D4AF37">${starsHtml(averageRating)}</p></div>
     <p class="lead">Real experiences from students, customers, and creators who have engaged with INSPIRED MUSIC CENTRE.</p>
-    <div class="card cbody" style="margin:20px 0;text-align:center">
-  <h2>Our Customer Rating</h2>
-  <p style="font-size:28px;color:#D4AF37">${starsHtml(averageRating)}</p>
-</div>
+   
 
     <div id="revList">${rows.length?`<div class="grid3">${rows.map(r=>`<article class="card cbody">
       <div class="badge">${esc(r.target)}</div>
