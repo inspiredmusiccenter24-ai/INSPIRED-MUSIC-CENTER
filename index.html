@@ -1299,7 +1299,32 @@ function renderHomeReviews(){
   if(!el) return;
   const rows=publishedReviews().slice(0,6);
   if(!rows.length){ el.innerHTML='<article class="card cbody"><p>No reviews yet</p><p class="sub">Signed-in customers can share an experience after a booking or purchase.</p></article>'; return; }
-  el.innerHTML='<div class="grid3">'+rows.map(r=>'<article class="card cbody"><div class="badge">'+esc(r.target)+'</div><h3>'+esc(r.name)+'</h3><p>'+starsHtml(r.stars)+'</p><p>'+esc(r.body)+'</p><p class="sub">'+new Date(r.at).toLocaleDateString()+(r.reply?'<br>IMC: '+esc(r.reply):'')+'</p></article>').join('')+'</div>';
+ function renderHomeReviews(){
+  const el=document.getElementById('homeReviews');
+  if(!el) return;
+
+  const rows=publishedReviews().slice(0,6);
+
+  if(!rows.length){
+    el.innerHTML='<article class="card cbody"><p>No reviews yet</p><p class="sub">Signed-in customers can share an experience after a booking or purchase.</p></article>';
+    return;
+  }
+
+  el.innerHTML=
+    '<div style="text-align:center;margin:15px 0 25px">'+
+    '<div style="font-size:30px;color:#D4AF37;letter-spacing:5px">★★★★★</div>'+
+    '<p class="sub">Customer experiences at Inspired Music Centre</p>'+
+    '</div>'+
+    '<div class="grid3">'+
+    rows.map(r=>'<article class="card cbody">'+
+    '<div class="badge">'+esc(r.target)+'</div>'+
+    '<h3>'+esc(r.name)+'</h3>'+
+    '<p>'+starsHtml(r.stars)+'</p>'+
+    '<p>'+esc(r.body)+'</p>'+
+    '<p class="sub">'+new Date(r.at).toLocaleDateString()+
+    (r.reply?'<br>IMC: '+esc(r.reply):'')+
+    '</p></article>').join('')+
+    '</div>';
 }
 
 function renderReviewsPage(){
