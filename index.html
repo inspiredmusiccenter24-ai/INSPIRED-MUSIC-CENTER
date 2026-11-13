@@ -1188,14 +1188,7 @@ async function renderAdminBookings(){
       : null
   })
   .eq('id',id);
-  status: status,
-  notes: notes,
-  approved_at: status === 'Confirmed'
-    ? new Date().toISOString()
-    : null
-})
-    })
-    .eq('id',id);
+ 
 
   if(error){
     console.error('Booking update failed:',error);
