@@ -982,22 +982,15 @@ document.getElementById('events').innerHTML = `<div class="events-page">
     <article class="card cbody"><h3>Three wheelers</h3><b>KSh 1,200</b></article>
     <article class="card cbody"><h3>VIP</h3><b>KSh 2,000</b></article>
     <article class="card cbody"><h3>Children</h3><b>KSh 300</b></article>
-  </div>
-  <form class="form" id="bookForm" style="max-width:480px;margin-top:8px;scroll-margin-top:88px">
-    <h2 id="peace-book">Register / Book a seat</h2>
-    <p class="field-hint">Pay via Pochi la Biashara <strong>0181185334</strong>, KCB Paybill 522533 account 8023975, or Equity Paybill 247247 account 0791716872, then tell us so we can hold your seat.</p>
-    <label>Full name<input id="bkName" required></label>
-    <label>Phone<input id="bkPhone" required placeholder="07…"></label>
-    <label>Ticket
-      <select id="bkTicket">
-        <option value="400">Early birds — KSh 400</option>
-        <option value="500">Regular — KSh 500</option>
-        <option value="800">Duo — KSh 800</option>
-        <option value="1200">Three wheelers — KSh 1,200</option>
-        <option value="2000">VIP — KSh 2,000</option>
-        <option value="300">Children — KSh 300</option>
-      </select>
-    </label>
+ <label>Ticket
+  <select id="bkTicket" required>
+    <option value="2000">VIP — KSh 2,000</option>
+    <option value="500">Regular — KSh 500</option>
+    <option value="300">Kid — KSh 300</option>
+    <option value="800">Duo — KSh 800</option>
+    <option value="1200">Three wheeler — KSh 1,200</option>
+  </select>
+</label>
     <label>Preferred time / note<input id="bkNote" placeholder="e.g. evening, two seats"></label>
     <label>M-Pesa / Pochi name used<input id="bkPayName" required></label>
     <button class="btn btn-p btn-wide" type="submit">Confirm booking & payment</button>
