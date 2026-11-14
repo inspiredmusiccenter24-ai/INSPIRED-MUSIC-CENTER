@@ -1130,24 +1130,64 @@ if (ticketSelect && priceDisplay) {
   ticketSelect.addEventListener('change', updateTicketPrice);
   updateTicketPrice();
 }
+
 const bookForm = document.getElementById('bookForm');
 
 if (bookForm) {
-  bookForm.addEventListener('submit', e=>{
-  e.preventDefault();
-  const name=document.getElementById('bkName').value.trim();
-  const phone=document.getElementById('bkPhone').value.trim();
-  const ticket=document.getElementById('bkTicket');
-  const pay=document.getElementById('bkPayName').value.trim();
-  const err=document.getElementById('bkErr');
-  if(!name||!phone||!pay){ err.textContent='Please fill name, phone, and Pochi name.'; return; }
-  err.textContent='';
-  const rec={ id:'bk_'+Date.now(), name, phone, ticket:ticket.options[ticket.selectedIndex].text, amount:ticket.value, note:document.getElementById('bkNote').value.trim(), payName:pay, at:Date.now(), method:'Pochi la Biashara 0181185334' };
-  const all=JSON.parse(localStorage.getItem('inspired.bookings')||'[]'); all.unshift(rec); localStorage.setItem('inspired.bookings', JSON.stringify(all));
-  document.getElementById('bookForm').style.display='none';
-  const ok=document.getElementById('bkOk'); ok.style.display='block';
-  ok.innerHTML='Booking received for <strong>'+name+'</strong>. Pay <strong>KSh '+ticket.value+'</strong> via Pochi la Biashara <a href="tel:0181185334">0181185334</a>. We will confirm your slot.';
-  toast('Slot booked — complete Pochi payment');
+  bookForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const name = document.getElementById('bkName').value.trim();
+    const phone = document.getElementById('bkPhone').value.trim();
+    const ticket = document.getElementById('bkTicket');
+    const pay = document.getElementById('bkPayName').value.trim();
+    const err = document.getElementById('bkErr');
+    const ok = document.getElementById('bkOk');
+    const amount = Number(ticket.value);
+
+    if (!name || !phone || !pay) {
+      err.textContent = 'Please fill name, phone, and Pochi name.';
+      return;
+    }
+
+    err.textContent = '';
+    const submitButton = bookForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting booking...';
+
+    const { data, error } = await supabaseClient
+      .from('peace_concert_bookings')
+      .insert([{
+        full_name: name,
+        phone: phone,
+        ticket: ticket.options[ticket.selectedIndex].text,
+        amount: amount,
+        note: document.getElementById('bkNote').value.trim(),
+        payment_name: pay,
+        payment_method: 'Pochi la Biashara',
+        payment_status: 'pending'
+      }])
+      .select();
+
+    if (error) {
+      console.error('Booking submission error:', error);
+      err.textContent = 'Booking could not be submitted. Please try again.';
+      submitButton.disabled = false;
+      submitButton.textContent = 'Confirm booking & payment';
+      return;
+    }
+
+    bookForm.style.display = 'none';
+    ok.style.display = 'block';
+    ok.innerHTML = 'Booking received for <strong>' +
+      name.replace(/[&<>"']/g, c => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;',
+        '"':'&quot;', "'":'&#39;'
+      }[c])) +
+      '</strong>. Pay <strong>KSh ' + amount.toLocaleString('en-KE') +
+      '</strong> via Pochi la Biashara <a href="tel:0181185334">0181185334</a>. We will confirm your slot.';
+
+    toast('Booking submitted successfully — complete Pochi payment');
   });
 }
 
