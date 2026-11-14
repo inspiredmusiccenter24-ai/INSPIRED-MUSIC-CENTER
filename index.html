@@ -1155,6 +1155,13 @@ if (bookForm) {
     submitButton.disabled = true;
     submitButton.textContent = 'Submitting booking...';
 
+    console.log('BOOKING TEST:', {
+  namePresent: !!name,
+  phonePresent: !!phone,
+  paymentNamePresent: !!pay,
+  amount: amount,
+  paymentStatus: 'pending'
+});
     const { data, error } = await supabaseClient
       .from('peace_concert_bookings')
       .insert([{
