@@ -1326,24 +1326,6 @@ function renderHomeReviews(){
     </div>
   `;
 }
-
-  el.innerHTML=
-    '<div style="text-align:center;margin:15px 0 25px">'+
-    '<div style="font-size:30px;color:#D4AF37;letter-spacing:5px">★★★★★</div>'+
-    '<p class="sub">Customer experiences at Inspired Music Centre</p>'+
-    '</div>'+
-    '<div class="grid3">'+
-    rows.map(r=>'<article class="card cbody">'+
-    '<div class="badge">'+esc(r.target)+'</div>'+
-    '<h3>'+esc(r.name)+'</h3>'+
-    '<p>'+starsHtml(r.stars)+'</p>'+
-    '<p>'+esc(r.body)+'</p>'+
-    '<p class="sub">'+new Date(r.at).toLocaleDateString()+
-    (r.reply?'<br>IMC: '+esc(r.reply):'')+
-    '</p></article>').join('')+
-    '</div>';
-}
-
 function renderReviewsPage(){
   const el=document.getElementById('reviewsPage');
   const rows=publishedReviews();
