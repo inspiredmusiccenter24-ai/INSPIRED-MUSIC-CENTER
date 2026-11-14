@@ -2001,6 +2001,15 @@ function toggleFollow(cid){
 }
 function route(){
   const path = (location.hash.replace('#','') || '/') ;
+    if(path === 'peace-book' || path === 'peace-details'){
+    const anchorId = path;
+    location.hash = '#/events';
+    setTimeout(()=>{
+      const target = document.getElementById(anchorId);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 200);
+    return;
+  }
   const store = path.match(/^\/creator\/([^/]+)$/);
   if(store && !path.startsWith('/creator/dashboard') && !creatorPages.includes(path) && store[1] && !['dashboard','products','profile','settings','orders','customers','reviews','analytics','payouts','storefront'].includes(store[1])){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
