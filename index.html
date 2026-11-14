@@ -1573,7 +1573,8 @@ document.getElementById('reset').innerHTML = `<div class="coming">
 
 document.getElementById('account').innerHTML = `<div class="coming" id="accountBox"></div>`;
 
-document.getElementById('signupForm').addEventListener('submit', e=>{
+const signupForm = document.getElementById('signupForm');
+if (signupForm) signupForm.addEventListener('submit', e=>{
   e.preventDefault();
   const name=document.getElementById('suName').value.trim();
   const email=document.getElementById('suEmail').value.trim().toLowerCase();
@@ -1598,7 +1599,8 @@ document.getElementById('signupForm').addEventListener('submit', e=>{
 });
 
 
-document.getElementById('signinForm').addEventListener('submit', async e=>{
+const signinForm = document.getElementById('signinForm');
+if (signinForm) signinForm.addEventListener('submit', async e=>{
   e.preventDefault();
 
   const email=document.getElementById('siEmail').value.trim().toLowerCase();
