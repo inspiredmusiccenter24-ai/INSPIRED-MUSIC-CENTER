@@ -991,6 +991,9 @@ document.getElementById('events').innerHTML = `<div class="events-page">
     <option value="1200">Three wheeler — KSh 1,200</option>
   </select>
 </label>
+<p class="field-hint" id="bkPriceDisplay">
+  Selected ticket price: <strong>KSh 2,000</strong>
+</p>
     <label>Preferred time / note<input id="bkNote" placeholder="e.g. evening, two seats"></label>
     <label>M-Pesa / Pochi name used<input id="bkPayName" required></label>
     <button class="btn btn-p btn-wide" type="submit">Confirm booking & payment</button>
@@ -1103,6 +1106,16 @@ document.getElementById('imc').innerHTML = `<div class="kicker">Founding institu
 </div>
 <a class="btn btn-p" style="margin-top:20px" href="#/imc-services">All audio & event sound services</a>
 </div>`;
+  const ticketSelect = document.getElementById('bkTicket');
+const priceDisplay = document.getElementById('bkPriceDisplay');
+
+function updateTicketPrice(){
+  const amount = Number(ticketSelect.value).toLocaleString('en-KE');
+  priceDisplay.innerHTML = 'Selected ticket price: <strong>KSh ' + amount + '</strong>';
+}
+
+ticketSelect.addEventListener('change', updateTicketPrice);
+updateTicketPrice();
 document.getElementById('bookForm').addEventListener('submit', e=>{
   e.preventDefault();
   const name=document.getElementById('bkName').value.trim();
