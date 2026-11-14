@@ -1106,17 +1106,22 @@ document.getElementById('imc').innerHTML = `<div class="kicker">Founding institu
 </div>
 <a class="btn btn-p" style="margin-top:20px" href="#/imc-services">All audio & event sound services</a>
 </div>`;
-  const ticketSelect = document.getElementById('bkTicket');
+ const ticketSelect = document.getElementById('bkTicket');
 const priceDisplay = document.getElementById('bkPriceDisplay');
 
-function updateTicketPrice(){
-  const amount = Number(ticketSelect.value).toLocaleString('en-KE');
-  priceDisplay.innerHTML = 'Selected ticket price: <strong>KSh ' + amount + '</strong>';
-}
+if (ticketSelect && priceDisplay) {
+  function updateTicketPrice(){
+    const amount = Number(ticketSelect.value).toLocaleString('en-KE');
+    priceDisplay.innerHTML = 'Selected ticket price: <strong>KSh ' + amount + '</strong>';
+  }
 
-ticketSelect.addEventListener('change', updateTicketPrice);
-updateTicketPrice();
-document.getElementById('bookForm').addEventListener('submit', e=>{
+  ticketSelect.addEventListener('change', updateTicketPrice);
+  updateTicketPrice();
+}
+const bookForm = document.getElementById('bookForm');
+
+if (bookForm) {
+  bookForm.addEventListener('submit', e=>{
   e.preventDefault();
   const name=document.getElementById('bkName').value.trim();
   const phone=document.getElementById('bkPhone').value.trim();
@@ -1131,7 +1136,8 @@ document.getElementById('bookForm').addEventListener('submit', e=>{
   const ok=document.getElementById('bkOk'); ok.style.display='block';
   ok.innerHTML='Booking received for <strong>'+name+'</strong>. Pay <strong>KSh '+ticket.value+'</strong> via Pochi la Biashara <a href="tel:0181185334">0181185334</a>. We will confirm your slot.';
   toast('Slot booked — complete Pochi payment');
-});
+  });
+}
 
 const USERS_KEY='inspired.users';
 const SESSION_KEY='inspired.session';
