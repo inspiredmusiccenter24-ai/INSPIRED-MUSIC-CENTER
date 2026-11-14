@@ -975,14 +975,28 @@ document.getElementById('events').innerHTML = `<div class="events-page">
       </div>
     </div>
   </div>
- <div class="grid3" style="margin:8px 0 28px">
+ <div id="peace-book" style="scroll-margin-top:100px">
+  <h2>Book Your Peace Concert Ticket</h2>
+  <div class="grid3" style="margin:8px 0 28px">
     <article class="card cbody"><h3>VIP</h3><b>KSh 2,000</b></article>
     <article class="card cbody"><h3>Regular</h3><b>KSh 500</b></article>
     <article class="card cbody"><h3>Kid</h3><b>KSh 300</b></article>
     <article class="card cbody"><h3>Duo</h3><b>KSh 800</b></article>
     <article class="card cbody"><h3>Three wheeler</h3><b>KSh 1,200</b></article>
 </div>
- <label>Ticket
+<div id="peace-book" style="scroll-margin-top:100px">
+  <h2>Book Your Peace Concert Ticket</h2>
+
+  <form class="form" id="bookForm">
+    <label>Full Name
+      <input id="bkName" required>
+    </label>
+
+    <label>Phone Number
+      <input id="bkPhone" type="tel" required>
+    </label>
+
+    <label>Ticket
   <select id="bkTicket" required>
     <option value="2000">VIP — KSh 2,000</option>
     <option value="500">Regular — KSh 500</option>
@@ -1000,6 +1014,7 @@ document.getElementById('events').innerHTML = `<div class="events-page">
     <p class="err" id="bkErr"></p>
   </form>
   <p id="bkOk" class="sub" style="display:none"></p>
+  </div>
   <div class="ev-section">
     <h2>Past Events</h2>
     <p class="sub">We only show concerts IMC has already published here.</p>
