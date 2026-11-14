@@ -951,9 +951,9 @@ document.getElementById('events').innerHTML = `<div class="events-page">
         </div>
         <p>Gather, listen, and stand for peace. Pay via Pochi la Biashara <strong>0181185334</strong>, KCB Paybill <strong>522533</strong> (account <strong>8023975</strong>), or Equity Paybill <strong>247247</strong> (account <strong>0791716872</strong>).</p>
         <div class="ev-actions">
-          <a class="btn btn-g" href="#peace-details">View Details</a>
+        <a class="btn btn-g" href="#/events" onclick="setTimeout(()=>document.getElementById('peace-details')?.scrollIntoView({behavior:'smooth'}),300)">View Details</a>
           <a class="btn btn-g" href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Get Directions</a>
-          <a class="btn btn-p" href="#peace-book">Register / Book</a>
+         <a class="btn btn-p" href="#/events" onclick="setTimeout(()=>document.getElementById('peace-book')?.scrollIntoView({behavior:'smooth'}),300)">Register / Book</a>
         </div>
       </div>
     </article>
@@ -971,7 +971,7 @@ document.getElementById('events').innerHTML = `<div class="events-page">
       <p class="sub">This is the only IMC event currently listed with tickets. Venue map matches the centre location we already share on Contact.</p>
       <div class="ev-actions">
         <a class="btn btn-g" href="https://maps.app.goo.gl/MesBW7nvGrsi1uZt6?g_st=aw" target="_blank" rel="noopener">Get Directions</a>
-        <a class="btn btn-p" href="#peace-book">Register / Book</a>
+      <a class="btn btn-p" href="#/events" onclick="setTimeout(()=>document.getElementById('peace-book')?.scrollIntoView({behavior:'smooth'}),300)">Register / Book</a>
       </div>
     </div>
   </div>
@@ -984,8 +984,6 @@ document.getElementById('events').innerHTML = `<div class="events-page">
     <article class="card cbody"><h3>Duo</h3><b>KSh 800</b></article>
     <article class="card cbody"><h3>Three wheeler</h3><b>KSh 1,200</b></article>
 </div>
-<div id="peace-book" style="scroll-margin-top:100px">
-  <h2>Book Your Peace Concert Ticket</h2>
 
   <form class="form" id="bookForm">
     <label>Full Name
@@ -2001,15 +1999,7 @@ function toggleFollow(cid){
 }
 function route(){
   const path = (location.hash.replace('#','') || '/') ;
-    if(path === 'peace-book' || path === 'peace-details'){
-    const anchorId = path;
-    location.hash = '#/events';
-    setTimeout(()=>{
-      const target = document.getElementById(anchorId);
-      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-    }, 200);
-    return;
-  }
+
   const store = path.match(/^\/creator\/([^/]+)$/);
   if(store && !path.startsWith('/creator/dashboard') && !creatorPages.includes(path) && store[1] && !['dashboard','products','profile','settings','orders','customers','reviews','analytics','payouts','storefront'].includes(store[1])){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
