@@ -1353,6 +1353,70 @@ async function isAdminSession(){
 }
 
 
+async function submitMerchandiseOrder(event){
+  event.preventDefault();
+
+  const form = document.getElementById('merchandiseOrderForm');
+const message = document.getElementById('merchandiseOrderMessage');
+
+if(!form || !message) return;
+
+const button = form.querySelector('button[type="submit"]');
+if(!button) return;
+  const data = new FormData(form);
+
+  const order = {
+    customer_name: String(data.get('customer_name') || '').trim(),
+    phone: String(data.get('phone') || '').trim(),
+    email: String(data.get('email') || '').trim() || null,
+    product_name: String(data.get('product_name') || ''),
+    size: String(data.get('size') || ''),
+    quantity: Number(data.get('quantity')),
+    unit_price: Number(data.get('unit_price')),
+    notes: String(data.get('notes') || '').trim() || null
+  };
+
+  if(!order.customer_name || !order.phone || !order.size ||
+     !Number.isInteger(order.quantity) || order.quantity < 1 ||
+     order.quantity > 10){
+    message.textContent = 'Please complete all required fields correctly.';
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = 'Submitting...';
+  message.textContent = '';
+
+  try {
+    const { error } = await supabaseClient
+      .from('merchandise_orders')
+      .insert([order]);
+
+    if(error) throw error;
+
+    form.innerHTML = `
+      <h2>Thank you for your order!</h2>
+      <p>Your merchandise order has been received.</p>
+      <p><strong>Product:</strong> ${order.product_name}</p>
+      <p><strong>Quantity:</strong> ${order.quantity}</p>
+      <p><strong>Total:</strong> KSh ${(order.quantity * order.unit_price).toLocaleString()}</p>
+      <h3>How to pay IMC</h3>
+      <p>Live M-Pesa checkout is not switched on. Do not enter PIN or card details on this website.</p>
+      <p><strong>Pochi la Biashara:</strong> 0181185334</p>
+      <p><strong>KCB Paybill:</strong> 522533 · Account 8023975</p>
+      <p><strong>Equity Paybill:</strong> 247247 · Account 0791716872</p>
+      <p>After paying, send the name used for payment to WhatsApp 0791716872.</p>
+      <a class="btn btn-g" href="#/explore">Back to Marketplace</a>
+    `;
+
+  } catch(error) {
+    console.error('Merchandise order error:', error);
+    message.textContent = 'We could not submit your order. Please try again or contact IMC.';
+    button.disabled = false;
+    button.textContent = 'Submit Order';
+  }
+}
+
 async function renderAdminDashboard(){
   const el=document.getElementById('adminDashboard');
   if(!el) return;
@@ -2451,7 +2515,41 @@ function route(){
         <h1>Order ${product}</h1>
         <p class="lead">Complete your merchandise order below.</p>
         <p>Unit price: KSh ${products[product].toLocaleString()}</p>
-        <p>Order form coming next.</p>
+        
+<form id="merchandiseOrderForm" onsubmit="submitMerchandiseOrder(event)">
+  <input type="hidden" name="product_name" value="${product}">
+  <input type="hidden" name="unit_price" value="${products[product]}">
+
+  <label>Full name *</label>
+  <input type="text" name="customer_name" required placeholder="Your full name">
+
+  <label>Phone number *</label>
+  <input type="tel" name="phone" required placeholder="e.g. 0712345678">
+
+  <label>Email address (optional)</label>
+  <input type="email" name="email" placeholder="Your email">
+
+  <label>Size *</label>
+  <select name="size" required>
+    <option value="">Select size</option>
+    <option value="XS">XS</option>
+    <option value="S">S</option>
+    <option value="M">M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+    <option value="XXL">XXL</option>
+  </select>
+
+  <label>Quantity *</label>
+  <input type="number" name="quantity" min="1" max="10" value="1" required>
+
+  <label>Additional notes (optional)</label>
+  <textarea name="notes" placeholder="Any special instructions"></textarea>
+
+  <button type="submit" class="btn btn-p">Submit Order</button>
+  <p id="merchandiseOrderMessage"></p>
+</form>
+
         <a class="btn btn-g" href="#/explore">Back to Marketplace</a>
       </div>`;
   }
