@@ -1345,6 +1345,7 @@ async function isAdminSession(){
   return !adminError && !!admin;
 }
 
+
 function renderAdminDashboard(){
   const el=document.getElementById('adminDashboard');
   if(!el) return;
@@ -1358,21 +1359,7 @@ function renderAdminDashboard(){
       </div>`;
     return;
   }
-  function renderAdminMerchandise(){
-  const el=document.getElementById('adminMerchandise');
-  if(!el) return;
 
-  if(!isAdminSession()){
-    el.innerHTML=`
-      <div class="coming">
-        <h1>Staff only</h1>
-        <p class="lead">Sign in as an IMC administrator to continue.</p>
-        <a class="btn btn-p" href="#/signin">Sign in</a>
-      </div>`;
-    return;
-  }
-
- 
   el.innerHTML=`
     <div class="kicker">INSPIRED MUSIC CENTRE</div>
     <h1>Administrator Dashboard</h1>
@@ -1410,7 +1397,8 @@ function renderAdminDashboard(){
       <a href="#/admin/inquiries">Customer Inquiries</a>
     </p>`;
 }
-  function renderAdminMerchandise(){
+
+function renderAdminMerchandise(){
   const el=document.getElementById('adminMerchandise');
   if(!el) return;
 
@@ -1434,6 +1422,7 @@ function renderAdminDashboard(){
     </article>
     <p><a class="btn btn-g" href="#/admin">Back to Administrator Dashboard</a></p>`;
 }
+
   function setCreatorApproval(id, status){
   const all=loadJSON(PROFILES_KEY,[]);
   const i=all.findIndex(p=>p.id===id); if(i<0) return;
