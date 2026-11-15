@@ -484,6 +484,7 @@ table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid
   <section class="page wrap" id="imcServiceDetail"></section>
   <section class="page wrap" id="imcQuote"></section>
   <section class="page wrap" id="adminDashboard"></section>
+  <section class="page wrap" id="adminMerchandise"></section>
   <section class="page wrap" id="adminBookings"></section>
   <section class="page wrap" id="adminAvail"></section>
   <section class="page wrap" id="searchPage"></section>
@@ -1344,7 +1345,58 @@ async function isAdminSession(){
   return !adminError && !!admin;
 }
 
-function setCreatorApproval(id, status){
+function renderAdminDashboard(){
+  const el=document.getElementById('adminDashboard');
+  if(!el) return;
+
+  if(!isAdminSession()){
+    el.innerHTML=`
+      <div class="coming">
+        <h1>Administrator Dashboard</h1>
+        <p class="lead">Please sign in with an administrator account.</p>
+        <a class="btn btn-p" href="#/signin">Sign in</a>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="kicker">INSPIRED MUSIC CENTRE</div>
+    <h1>Administrator Dashboard</h1>
+    <p class="lead">Manage bookings, merchandise, creator applications and customer reviews.</p>
+
+    <div class="grid3">
+      <article class="card cbody">
+        <h3>Bookings</h3>
+        <p>Manage service and Peace Concert bookings.</p>
+        <a class="btn btn-p" href="#/admin/bookings">Open Bookings</a>
+      </article>
+
+      <article class="card cbody">
+        <h3>Merchandise</h3>
+        <p>Manage merchandise orders.</p>
+        <a class="btn btn-p" href="#/admin/merchandise">Open Merchandise</a>
+        <p class="sub">Order management setup pending.</p>
+      </article>
+
+      <article class="card cbody">
+        <h3>Creator Approvals</h3>
+        <p>Review and manage creator applications.</p>
+        <a class="btn btn-p" href="#/admin/creators">Open Creator Approvals</a>
+      </article>
+
+      <article class="card cbody">
+        <h3>Reviews</h3>
+        <p>Moderate and publish customer reviews.</p>
+        <a class="btn btn-p" href="#/admin/reviews">Open Reviews</a>
+      </article>
+    </div>
+
+    <p class="sub" style="margin-top:20px">
+      <a href="#/admin/availability">Availability Settings</a> ·
+      <a href="#/admin/inquiries">Customer Inquiries</a>
+    </p>`;
+}
+  function setCreatorApproval(id, status){
   const all=loadJSON(PROFILES_KEY,[]);
   const i=all.findIndex(p=>p.id===id); if(i<0) return;
   all[i].approval_status=status; all[i].updated_at=Date.now(); saveJSON(PROFILES_KEY, all);
@@ -1847,7 +1899,7 @@ document.getElementById('creatorAgreement').innerHTML = `<article class="legal" 
 <h3>27. Signatures</h3><p>By signing (on paper or as otherwise agreed at booking), IMC and the Creator confirm they have read and agree to these terms. Parent/guardian signs where applicable.</p>
 <p>Contact: <a href="tel:0181185334">0181185334</a> · <a href="#/terms">Terms</a> · <a href="#/privacy">Privacy</a></p>
 </article>`;
-const pages = { '/':'home','/explore':'explore','/creators':'creators','/categories':'categories','/events':'events','/become-a-creator':'become','/signin':'signin','/signup':'signup','/forgot-password':'forgot','/reset-password':'reset','/account':'account','/help':'help','/about':'about','/contact':'contact','/imc':'imc','/imc-services':'imcServices','/imc-quote':'imcQuote','/copyright':'copyright','/terms':'terms','/creator-agreement':'creatorAgreement','/privacy':'privacy','/admin':'adminDashboard','/admin/bookings':'adminBookings','/admin/availability':'adminAvail','/search':'searchPage','/payments':'payPage','/admin/inquiries':'adminInbox','/admin/creators':'adminCreators','/reviews':'reviewsPage','/admin/reviews':'adminReviews' };
+const pages = { '/':'home','/explore':'explore','/creators':'creators','/categories':'categories','/events':'events','/become-a-creator':'become','/signin':'signin','/signup':'signup','/forgot-password':'forgot','/reset-password':'reset','/account':'account','/help':'help','/about':'about','/contact':'contact','/imc':'imc','/imc-services':'imcServices','/imc-quote':'imcQuote','/copyright':'copyright','/terms':'terms','/creator-agreement':'creatorAgreement','/privacy':'privacy','/admin':'adminDashboard','/admin/merchandise':'adminMerchandise','/admin/bookings':'adminBookings','/admin/availability':'adminAvail','/search':'searchPage','/payments':'payPage','/admin/inquiries':'adminInbox','/admin/creators':'adminCreators','/reviews':'reviewsPage','/admin/reviews':'adminReviews' };
 const creatorPages=['/creator/dashboard','/creator/products','/creator/products/new','/creator/profile','/creator/settings','/creator/orders','/creator/customers','/creator/reviews','/creator/analytics','/creator/payouts','/creator/storefront'];
 function greet(){ const h=new Date().getHours(); return h<12?'Good morning':h<18?'Good afternoon':'Good evening'; }
 function sideNav(cur){
@@ -2127,6 +2179,14 @@ function route(){
     const role=new URLSearchParams((location.hash.split('?')[1]||'')).get('role');
     if(role==='creator') setPick('creator');
   }
+  if(path==='/admin'){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('adminDashboard').classList.add('on');
+  renderAdminDashboard();
+  renderAuth();
+  window.scrollTo(0,0);
+  return;
+}
   if(path==='/admin/bookings'){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
     document.getElementById('adminBookings').classList.add('on');
