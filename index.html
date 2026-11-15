@@ -1398,12 +1398,75 @@ async function renderAdminDashboard(){
     </p>`;
 }
 
+
+async function updateMerchandiseOrderStatus(id, status){
+  const allowed = ['pending','confirmed','processing','completed','cancelled'];
+
+  if(!allowed.includes(status)){
+    toast('Invalid order status');
+    return;
+  }
+
+  if(!(await isAdminSession())){
+    toast('Administrator access required');
+    return;
+  }
+
+  const {error} = await supabaseClient
+    .from('merchandise_orders')
+    .update({
+      order_status: status,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', id);
+
+  if(error){
+    console.error('Order update error:', error);
+    toast('Could not update order');
+    return;
+  }
+
+  toast('Order status updated');
+  renderAdminMerchandise();
+}
+
+
+async function updateMerchandiseOrderStatus(id, status){
+  const allowed = ['pending','confirmed','processing','completed','cancelled'];
+
+  if(!allowed.includes(status)){
+    toast('Invalid order status');
+    return;
+  }
+
+  if(!(await isAdminSession())){
+    toast('Administrator access required');
+    return;
+  }
+
+  const {error} = await supabaseClient
+    .from('merchandise_orders')
+    .update({
+      order_status: status,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', id);
+
+  if(error){
+    console.error('Order update error:', error);
+    toast('Could not update order');
+    return;
+  }
+
+  toast('Order status updated');
+  renderAdminMerchandise();
+}
 async function renderAdminMerchandise(){
-  const el=document.getElementById('adminMerchandise');
+  const el = document.getElementById('adminMerchandise');
   if(!el) return;
 
   if(!(await isAdminSession())){
-    el.innerHTML=`
+    el.innerHTML = `
       <div class="coming">
         <h1>Staff only</h1>
         <p class="lead">Sign in as an IMC administrator to continue.</p>
@@ -1412,15 +1475,125 @@ async function renderAdminMerchandise(){
     return;
   }
 
-  el.innerHTML=`
+  el.innerHTML = `
     <div class="kicker">INSPIRED MUSIC CENTRE</div>
     <h1>Merchandise Orders</h1>
-    <p class="lead">Manage merchandise orders from this section.</p>
-    <article class="card cbody">
-      <h3>Order management not yet connected</h3>
-      <p>No merchandise orders table has been set up in the database yet. Orders will appear here once the order system is connected.</p>
-    </article>
-    <p><a class="btn btn-g" href="#/admin">Back to Administrator Dashboard</a></p>`;
+    <p class="lead">View and manage customer merchandise orders.</p>
+    <div class="cta" style="margin:20px 0">
+      <input id="moSearch" type="search" placeholder="Search customer, phone or product..." style="flex:1;min-width:220px">
+      <button class="btn btn-p" type="button" id="moRefresh">Refresh Orders</button>
+    </div>
+    <div id="moMessage" class="sub">Loading merchandise orders...</div>
+    <div id="moResults"></div>
+    <p style="margin-top:24px">
+      <a class="btn btn-g" href="#/admin">Back to Administrator Dashboard</a>
+    </p>`;
+
+  const results = document.getElementById('moResults');
+  const message = document.getElementById('moMessage');
+  const search = document.getElementById('moSearch');
+
+  const {data:orders, error} = await supabaseClient
+    .from('merchandise_orders')
+    .select('*')
+    .order('created_at', {ascending:false});
+
+  if(error){
+    console.error('Merchandise orders error:', error);
+    message.textContent = 'Could not load orders. Please check Supabase permissions.';
+    return;
+  }
+
+  message.textContent = `${orders.length} merchandise order(s) found.`;
+
+  if(!orders.length){
+    results.innerHTML = `
+      <article class="card cbody">
+        <h3>No merchandise orders yet</h3>
+        <p>Customer orders will appear here once the merchandise ordering form is connected.</p>
+      </article>`;
+    document.getElementById('moRefresh').onclick = renderAdminMerchandise;
+    return;
+  }
+
+  const statuses = [
+    'pending',
+    'confirmed',
+    'processing',
+    'completed',
+    'cancelled'
+  ];
+
+  function displayOrders(){
+    const term = search.value.trim().toLowerCase();
+
+    const filtered = orders.filter(o =>
+      [o.order_number,o.customer_name,o.phone,o.product_name,o.email]
+        .some(v => String(v || '').toLowerCase().includes(term))
+    );
+
+    if(!filtered.length){
+      results.innerHTML = '<article class="card cbody"><p>No matching orders found.</p></article>';
+      return;
+    }
+
+    results.innerHTML = `
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:850px">
+          <thead>
+            <tr>
+              <th align="left">Order</th>
+              <th align="left">Customer</th>
+              <th align="left">Product</th>
+              <th align="left">Quantity</th>
+              <th align="left">Total</th>
+              <th align="left">Payment</th>
+              <th align="left">Order status</th>
+              <th align="left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${filtered.map(o => `
+              <tr>
+                <td>${esc(o.order_number)}</td>
+                <td>
+                  <strong>${esc(o.customer_name)}</strong><br>
+                  ${esc(o.phone)}<br>
+                  <small>${esc(o.email || '')}</small>
+                </td>
+                <td>
+                  ${esc(o.product_name)}<br>
+                  <small>Size: ${esc(o.size || 'N/A')}</small>
+                </td>
+                <td>${o.quantity}</td>
+                <td>KSh ${Number(o.total_amount).toLocaleString('en-KE')}</td>
+                <td>${esc(o.payment_status)}</td>
+                <td>
+                  <select id="mo-status-${o.id}">
+                    ${statuses.map(s => `
+                      <option value="${s}" ${o.order_status===s?'selected':''}>
+                        ${s.charAt(0).toUpperCase()+s.slice(1)}
+                      </option>
+                    `).join('')}
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-p" type="button"
+                    onclick="updateMerchandiseOrderStatus('${o.id}',document.getElementById('mo-status-${o.id}').value)">
+                    Save
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  displayOrders();
+
+  search.addEventListener('input', displayOrders);
+  document.getElementById('moRefresh').onclick = renderAdminMerchandise;
 }
 
   function setCreatorApproval(id, status){
