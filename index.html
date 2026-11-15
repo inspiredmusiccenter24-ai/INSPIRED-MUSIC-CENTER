@@ -483,6 +483,7 @@ table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid
   <section class="page wrap" id="imcServices"></section>
   <section class="page wrap" id="imcServiceDetail"></section>
   <section class="page wrap" id="imcQuote"></section>
+  <section class="page wrap" id="adminDashboard"></section>
   <section class="page wrap" id="adminBookings"></section>
   <section class="page wrap" id="adminAvail"></section>
   <section class="page wrap" id="searchPage"></section>
@@ -1846,7 +1847,7 @@ document.getElementById('creatorAgreement').innerHTML = `<article class="legal" 
 <h3>27. Signatures</h3><p>By signing (on paper or as otherwise agreed at booking), IMC and the Creator confirm they have read and agree to these terms. Parent/guardian signs where applicable.</p>
 <p>Contact: <a href="tel:0181185334">0181185334</a> · <a href="#/terms">Terms</a> · <a href="#/privacy">Privacy</a></p>
 </article>`;
-const pages = { '/':'home','/explore':'explore','/creators':'creators','/categories':'categories','/events':'events','/become-a-creator':'become','/signin':'signin','/signup':'signup','/forgot-password':'forgot','/reset-password':'reset','/account':'account','/help':'help','/about':'about','/contact':'contact','/imc':'imc','/imc-services':'imcServices','/imc-quote':'imcQuote','/copyright':'copyright','/terms':'terms','/creator-agreement':'creatorAgreement','/privacy':'privacy','/admin/bookings':'adminBookings','/admin/availability':'adminAvail','/search':'searchPage','/payments':'payPage','/admin/inquiries':'adminInbox','/admin/creators':'adminCreators','/reviews':'reviewsPage','/admin/reviews':'adminReviews' };
+const pages = { '/':'home','/explore':'explore','/creators':'creators','/categories':'categories','/events':'events','/become-a-creator':'become','/signin':'signin','/signup':'signup','/forgot-password':'forgot','/reset-password':'reset','/account':'account','/help':'help','/about':'about','/contact':'contact','/imc':'imc','/imc-services':'imcServices','/imc-quote':'imcQuote','/copyright':'copyright','/terms':'terms','/creator-agreement':'creatorAgreement','/privacy':'privacy','/admin':'adminDashboard','/admin/bookings':'adminBookings','/admin/availability':'adminAvail','/search':'searchPage','/payments':'payPage','/admin/inquiries':'adminInbox','/admin/creators':'adminCreators','/reviews':'reviewsPage','/admin/reviews':'adminReviews' };
 const creatorPages=['/creator/dashboard','/creator/products','/creator/products/new','/creator/profile','/creator/settings','/creator/orders','/creator/customers','/creator/reviews','/creator/analytics','/creator/payouts','/creator/storefront'];
 function greet(){ const h=new Date().getHours(); return h<12?'Good morning':h<18?'Good afternoon':'Good evening'; }
 function sideNav(cur){
