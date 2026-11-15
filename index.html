@@ -1346,11 +1346,11 @@ async function isAdminSession(){
 }
 
 
-function renderAdminDashboard(){
+async function renderAdminDashboard(){
   const el=document.getElementById('adminDashboard');
   if(!el) return;
 
-  if(!isAdminSession()){
+  if(!(await isAdminSession())){
     el.innerHTML=`
       <div class="coming">
         <h1>Administrator Dashboard</h1>
