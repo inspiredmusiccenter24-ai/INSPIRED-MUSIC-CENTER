@@ -1358,7 +1358,21 @@ function renderAdminDashboard(){
       </div>`;
     return;
   }
+  function renderAdminMerchandise(){
+  const el=document.getElementById('adminMerchandise');
+  if(!el) return;
 
+  if(!isAdminSession()){
+    el.innerHTML=`
+      <div class="coming">
+        <h1>Staff only</h1>
+        <p class="lead">Sign in as an IMC administrator to continue.</p>
+        <a class="btn btn-p" href="#/signin">Sign in</a>
+      </div>`;
+    return;
+  }
+
+ 
   el.innerHTML=`
     <div class="kicker">INSPIRED MUSIC CENTRE</div>
     <h1>Administrator Dashboard</h1>
@@ -1395,6 +1409,30 @@ function renderAdminDashboard(){
       <a href="#/admin/availability">Availability Settings</a> ·
       <a href="#/admin/inquiries">Customer Inquiries</a>
     </p>`;
+}
+  function renderAdminMerchandise(){
+  const el=document.getElementById('adminMerchandise');
+  if(!el) return;
+
+  if(!isAdminSession()){
+    el.innerHTML=`
+      <div class="coming">
+        <h1>Staff only</h1>
+        <p class="lead">Sign in as an IMC administrator to continue.</p>
+        <a class="btn btn-p" href="#/signin">Sign in</a>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="kicker">INSPIRED MUSIC CENTRE</div>
+    <h1>Merchandise Orders</h1>
+    <p class="lead">Manage merchandise orders from this section.</p>
+    <article class="card cbody">
+      <h3>Order management not yet connected</h3>
+      <p>No merchandise orders table has been set up in the database yet. Orders will appear here once the order system is connected.</p>
+    </article>
+    <p><a class="btn btn-g" href="#/admin">Back to Administrator Dashboard</a></p>`;
 }
   function setCreatorApproval(id, status){
   const all=loadJSON(PROFILES_KEY,[]);
@@ -2183,6 +2221,14 @@ function route(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.getElementById('adminDashboard').classList.add('on');
   renderAdminDashboard();
+  renderAuth();
+  window.scrollTo(0,0);
+  return;
+}
+  if(path==='/admin/merchandise'){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('adminMerchandise').classList.add('on');
+  renderAdminMerchandise();
   renderAuth();
   window.scrollTo(0,0);
   return;
