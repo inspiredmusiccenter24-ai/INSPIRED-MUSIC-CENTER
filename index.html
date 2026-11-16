@@ -1249,7 +1249,17 @@ function myProfile(){ const s=session(); if(!s) return null; return loadJSON(PRO
 function saveProfile(p){ const all=loadJSON(PROFILES_KEY,[]); const i=all.findIndex(x=>x.id===p.id); if(i<0) return; p.updated_at=Date.now(); all[i]=p; saveJSON(PROFILES_KEY, all); }
 function myProducts(){ const p=myProfile(); if(!p) return []; return loadJSON(PRODUCTS_KEY,[]).filter(x=>x.creator_id===p.id); }
 function followsOf(cid){ return loadJSON(FOLLOWS_KEY,[]).filter(f=>f.creator_id===cid); }
-function signOut(){ localStorage.removeItem(SESSION_KEY); toast('Signed out'); renderAuth(); go('/'); }
+
+async function signOut(){
+  await supabaseClient.auth.signOut();
+  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem('inspired.adminAuth');
+  sessionStorage.removeItem('inspired.temp');
+  toast('Signed out');
+  renderAuth();
+  go('/');
+}
+
 function hashPass(p){ let h=0; for(let i=0;i<p.length;i++) h=((h<<5)-h)+p.charCodeAt(i)|0; return String(h); }
 function ensureAdminAccount(){
   const users=loadUsers();
