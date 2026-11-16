@@ -2153,30 +2153,85 @@ document.getElementById('reset').innerHTML = `<div class="coming">
 
 document.getElementById('account').innerHTML = `<div class="coming" id="accountBox"></div>`;
 
+
 const signupForm = document.getElementById('signupForm');
-if (signupForm) signupForm.addEventListener('submit', e=>{
+
+if (signupForm) signupForm.addEventListener('submit', async e=>{
   e.preventDefault();
+
   const name=document.getElementById('suName').value.trim();
   const email=document.getElementById('suEmail').value.trim().toLowerCase();
   const p1=document.getElementById('suPass').value;
   const p2=document.getElementById('suPass2').value;
+
   let ok=true;
-  const set=(id,m)=>{ document.getElementById(id).textContent=m; if(m) ok=false; };
-  set('eName', name? '':'Full name is required');
-  set('eEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)? '':'Enter a valid email');
-  set('ePass', p1.length>=8? '':'Password must be at least 8 characters');
-  set('ePass2', p1===p2? '':'Passwords must match');
-  if(pickRole!=='buyer' && pickRole!=='creator') set('eRole','Choose Reader or Creator');
+
+  const set=(id,m)=>{
+    document.getElementById(id).textContent=m;
+    if(m) ok=false;
+  };
+
+  set('eName', name ? '' : 'Full name is required');
+  set('eEmail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'Enter a valid email');
+  set('ePass', p1.length>=8 ? '' : 'Password must be at least 8 characters');
+  set('ePass2', p1===p2 ? '' : 'Passwords must match');
+
+  if(pickRole!=='buyer' && pickRole!=='creator'){
+    set('eRole','Choose Reader or Creator');
+  }
+
   if(!ok) return;
+
+  // NEW CREATOR REGISTRATION THROUGH SUPABASE
+  if(pickRole==='creator'){
+
+    const {data,error}=await supabaseClient.auth.signUp({
+      email: email,
+      password: p1,
+      options: {
+        data: {
+          full_name: name,
+          role: 'creator'
+        }
+      }
+    });
+
+    if(error){
+      set('eEmail',error.message);
+      return;
+    }
+
+    toast('Account created. Check your email to confirm your account, then sign in.');
+
+    go('/signin');
+    return;
+  }
+
+  // EXISTING BUYER REGISTRATION REMAINS UNCHANGED
   const users=loadUsers();
-  if(users.some(u=>u.email===email)){ set('eEmail','An account with this email already exists'); return; }
-  users.push({ name, email, pass:hashPass(p1), role:pickRole, created:Date.now() });
+
+  if(users.some(u=>u.email===email)){
+    set('eEmail','An account with this email already exists');
+    return;
+  }
+
+  users.push({
+    name,
+    email,
+    pass:hashPass(p1),
+    role:pickRole,
+    created:Date.now()
+  });
+
   saveUsers(users);
-  setSession({name,email,role:pickRole}, true);
+
+  setSession({name,email,role:pickRole},true);
+
   toast('Account created');
   renderAuth();
-  go(pickRole==='creator'?'/creator/dashboard':'/account');
+  go('/account');
 });
+
 
 
 const signinForm = document.getElementById('signinForm');
