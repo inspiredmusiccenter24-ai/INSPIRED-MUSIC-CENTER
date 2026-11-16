@@ -2284,20 +2284,108 @@ if (signinForm) signinForm.addEventListener('submit', async e=>{
     return;
   }
 
-  // Existing customer and creator login remains unchanged
-  const u=loadUsers().find(x=>x.email===email && x.pass===hashPass(p));
+  
+  // Keep existing local buyer and legacy accounts working
+  const localUser=loadUsers().find(
+    x=>x.email===email && x.pass===hashPass(p)
+  );
 
-  if(!u){
-    set('siP','Email or password is incorrect');
+  if(localUser){
+    setSession(localUser,document.getElementById('siRemember').checked);
+    toast('Welcome back');
+    renderAuth();
+    go(localUser.role==='creator'?'/creator/dashboard':'/account');
     return;
   }
 
-  setSession(u,document.getElementById('siRemember').checked);
+  // New creator accounts sign in through Supabase
+  const {data,error}=await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: p
+  });
+
+  if(error){
+    set('siP','Email or password is incorrect. If you just registered, confirm your email first.');
+    return;
+  }
+
+  const user=data.user;
+  const creatorName=user.user_metadata?.full_name || email.split('@')[0];
+
+  // Check whether this creator already has an application
+  let {data:profile,error:profileError}=await supabaseClient
+    .from('creator_profiles')
+    .select('*')
+    .eq('user_id',user.id)
+    .maybeSingle();
+
+  if(profileError){
+    console.error('Could not load creator profile:',profileError);
+    await supabaseClient.auth.signOut();
+    set('siP','Could not load your creator application. Please try again.');
+    return;
+  }
+
+  // Create a pending application for a newly confirmed creator
+  if(!profile){
+    if(user.user_metadata?.role!=='creator'){
+      await supabaseClient.auth.signOut();
+      set('siP','This account is not registered as a creator.');
+      return;
+    }
+
+    const username=slugify(creatorName)+'-'+user.id.slice(0,6);
+
+    const {data:newProfile,error:insertError}=await supabaseClient
+      .from('creator_profiles')
+      .insert({
+        user_id:user.id,
+        email:email,
+        username:username,
+        display_name:creatorName,
+        approval_status:'pending'
+      })
+      .select()
+      .single();
+
+    if(insertError){
+      console.error('Could not create creator application:',insertError);
+      await supabaseClient.auth.signOut();
+      set('siP','Your creator application could not be created. Please try again.');
+      return;
+    }
+
+    profile=newProfile;
+  }
+
+  // Temporary local profile copy for the existing creator dashboard
+  const profiles=loadJSON(PROFILES_KEY,[]);
+  const localProfile={
+    ...profile,
+    user_id:email
+  };
+
+  const existingIndex=profiles.findIndex(x=>x.user_id===email);
+
+  if(existingIndex>=0){
+    profiles[existingIndex]=localProfile;
+  }else{
+    profiles.push(localProfile);
+  }
+
+  saveJSON(PROFILES_KEY,profiles);
+
+  // Keep the existing dashboard session system working
+  setSession({
+    name:profile.display_name,
+    email:email,
+    role:'creator'
+  },document.getElementById('siRemember').checked);
 
   toast('Welcome back');
   renderAuth();
-  go(u.role==='creator'?'/creator/dashboard':'/account');
-});
+  go('/creator/dashboard');
+
 
 
 document.getElementById('forgotForm').addEventListener('submit', e=>{
