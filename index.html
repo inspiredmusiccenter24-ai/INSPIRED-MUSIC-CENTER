@@ -2114,19 +2114,49 @@ async function renderAdminReviews(){
   </div>`;
 }
 
+
 function renderAuth(){
   const s=session();
+  const isAdmin=localStorage.getItem('inspired.adminAuth')==='true';
   const desk=document.getElementById('navAuth');
   const mob=document.getElementById('navAuthMobile');
-  if(s){
-    const extra = s.role==='creator' ? `<a class="btn btn-g" href="#/creator/dashboard">Creator Dashboard</a>` : (s.role==='admin' ? `<a class="btn btn-g" href="#/admin/bookings">Bookings</a><a class="btn btn-g" href="#/admin/creators">Creators</a><a class="btn btn-g" href="#/admin/reviews">Reviews</a>` : '');
+
+  if(isAdmin){
+    desk.innerHTML=`
+      <a class="btn btn-g" href="#/admin/bookings">Bookings</a>
+      <a class="btn btn-g" href="#/admin/creators">Creators</a>
+      <a class="btn btn-g" href="#/admin/reviews">Reviews</a>`;
+
+    mob.innerHTML=`
+      <a href="#/admin/bookings">Bookings</a>
+      <a href="#/admin/creators">Creators</a>
+      <a href="#/admin/reviews">Reviews</a>
+      <button type="button" onclick="signOut()">Sign Out</button>`;
+
+  }else if(s){
+    const extra=s.role==='creator'
+      ? `<a class="btn btn-g" href="#/creator/dashboard">Creator Dashboard</a>`
+      : '';
+
     desk.innerHTML=`${extra}<a class="btn btn-g" href="#/account">Account</a>`;
-    mob.innerHTML=`${s.role==='creator'?`<a href="#/creator/dashboard">Creator Dashboard</a><a href="#/creator/products">My Products</a><a href="#/creator/settings">Settings</a>`:''}${s.role==='admin'?`<a href="#/admin/bookings">Bookings</a><a href="#/admin/creators">Creators</a><a href="#/admin/reviews">Reviews</a>`:''}<a href="#/account">Account (${esc(s.role)})</a><button type="button" onclick="signOut()">Sign Out</button>`;
-  } else {
+
+    mob.innerHTML=`
+      ${s.role==='creator'
+        ? `<a href="#/creator/dashboard">Creator Dashboard</a>
+           <a href="#/creator/products">My Products</a>
+           <a href="#/creator/settings">Settings</a>`
+        : ''}
+      <a href="#/account">Account (${esc(s.role)})</a>
+      <button type="button" onclick="signOut()">Sign Out</button>`;
+
+  }else{
     desk.innerHTML=`<a class="btn btn-g" href="#/signin">Account</a>`;
-    mob.innerHTML=`<a href="#/signin">Sign In</a><a href="#/signup">Get Started</a>`;
+    mob.innerHTML=`
+      <a href="#/signin">Sign In</a>
+      <a href="#/signup">Get Started</a>`;
   }
 }
+
 function esc(t){ return String(t||'').replace(/[&<>"]/g, c=>({'&':'&','<':'<','>':'>','"':'"'}[c])); }
 
 let pickRole='buyer';
