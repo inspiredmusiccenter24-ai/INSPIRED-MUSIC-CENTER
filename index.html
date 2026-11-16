@@ -1822,17 +1822,33 @@ async function renderAdminMerchandise(){
   document.getElementById('moRefresh').onclick = renderAdminMerchandise;
 }
 
-  function setCreatorApproval(id, status){
-  const all=loadJSON(PROFILES_KEY,[]);
-  const i=all.findIndex(p=>p.id===id); if(i<0) return;
-  all[i].approval_status=status; all[i].updated_at=Date.now(); saveJSON(PROFILES_KEY, all);
-  toast(status==='approved'?'Creator approved':status==='rejected'?'Application rejected':'Updated');
-  renderAdminCreators();
+  
+async function setCreatorApproval(id,status){
+  if(!(await isAdminSession())){
+    toast('Administrator access required');
+    return;
+  }
+
+  const {error}=await supabaseClient
+    .from('creator_profiles')
+    .update({
+      approval_status:status,
+      updated_at:new Date().toISOString()
+    })
+    .eq('id',id);
+
+  if(error){
+    console.error('Could not update creator application:',error);
+    toast('Could not update application. Please try again.');
+    return;
+  }
+
+  toast(status==='approved'?'Creator approved':'Application rejected');
+  await renderAdminCreators();
 }
 
-async function renderAdminCreators(){
-  ensureAdminAccount();
 
+async function renderAdminCreators(){
   const el=document.getElementById('adminCreators');
   if(!el) return;
 
@@ -1846,8 +1862,18 @@ async function renderAdminCreators(){
     return;
   }
 
-  const rows=loadJSON(PROFILES_KEY,[]);
-  const pending=rows.filter(p=>p.approval_status==='pending');
+  const {data:rows,error}=await supabaseClient
+    .from('creator_profiles')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  if(error){
+    console.error('Could not load creator applications:',error);
+    el.innerHTML='<p class="err">Could not load creator applications. Please refresh or sign in again.</p>';
+    return;
+  }
+
+  const pending=(rows||[]).filter(p=>p.approval_status==='pending');
 
   el.innerHTML=`
     <div class="kicker">Administrator</div>
@@ -1865,11 +1891,12 @@ async function renderAdminCreators(){
           <img class="avatar" src="${creatorPhoto(p)}" alt="">
           <h3>${esc(p.display_name)}</h3>
           <p class="badge">Pending Review</p>
+          <p>${esc(p.email||'')}
+          </p>
           <p>${esc(p.category_id||'')}
             ${p.location?' · '+esc(p.location):''}
           </p>
           <p class="sub">${esc(p.bio||'No biography yet.')}</p>
-          <p class="sub">${esc(p.user_id)}</p>
           <div class="cta">
             <button class="btn btn-p" type="button"
               onclick="setCreatorApproval('${p.id}','approved')">
@@ -1890,6 +1917,7 @@ async function renderAdminCreators(){
     </div>
   `;
 }
+
 
 function reviewTargets(){
   const list=[{id:'lessons',name:'Music Lessons'},{id:'live',name:'Live Studio Recording'},{id:'jingle',name:'Jingle Production'},{id:'events',name:'The Peace Concert Season 2'},{id:'hoodie',name:'IMC custom hoodie'}];
