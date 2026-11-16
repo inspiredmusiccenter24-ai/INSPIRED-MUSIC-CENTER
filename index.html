@@ -1819,39 +1819,68 @@ async function renderAdminMerchandise(){
   toast(status==='approved'?'Creator approved':status==='rejected'?'Application rejected':'Updated');
   renderAdminCreators();
 }
+
 async function renderAdminCreators(){
   ensureAdminAccount();
+
   const el=document.getElementById('adminCreators');
   if(!el) return;
- if(!(await isAdminSession())){ el.innerHTML=`<div class="coming"><h1>Staff only</h1><p class="lead">Sign in as IMC admin to review creator applications.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`; return; }
+
+  if(!(await isAdminSession())){
+    el.innerHTML=`
+      <div class="coming">
+        <h1>Staff only</h1>
+        <p class="lead">Sign in as IMC admin to review creator applications.</p>
+        <a class="btn btn-p" href="#/signin">Sign in</a>
+      </div>`;
+    return;
+  }
+
   const rows=loadJSON(PROFILES_KEY,[]);
-  const label=s=>({pending:'Pending Review',approved:'Approved',rejected:'Rejected',suspended:'Suspended'}[s]||s);
-  el.innerHTML=`<div class="kicker">Administrator</div><h1>Creator applications</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/inquiries">Inquiries</a></p><div class="grid3">${rows.length?rows.map(p=>`<article class="card cbody"><img class="avatar" src="${creatorPhoto(p)}" alt=""><h3>${esc(p.display_name)}</h3><p class="badge">${esc(label(p.approval_status))}</p><p>${esc(p.category_id||'')} ${p.location?' · '+esc(p.location):''}</p><p class="sub">${esc(p.bio||'No biography yet.')}</p><p class="sub">${esc(p.user_id)}</p><div class="cta">${p.approval_status!=='approved'?`<button class="btn btn-p" type="button" onclick="setCreatorApproval('${p.id}','approved')">Approve</button>`:''}${p.approval_status!=='rejected'?`<button class="btn btn-g" type="button" onclick="setCreatorApproval('${p.id}','rejected')">Reject</button>`:''}</div></article>`).join(''):'<article class="card cbody"><h3>No applications yet</h3></article>'}</div>
+  const pending=rows.filter(p=>p.approval_status==='pending');
 
-<h2 style="margin-top:36px">Concert Bookings</h2>
-<p class="lead">Peace Concert ticket reservations and payment details.</p>
+  el.innerHTML=`
+    <div class="kicker">Administrator</div>
+    <h1>Creator applications</h1>
+    <p class="sub">
+      <a href="#/admin/bookings">Bookings</a> ·
+      <a href="#/admin/inquiries">Inquiries</a>
+    </p>
 
-<div class="grid3">
-  ${concertData && concertData.length ? concertData.map(r=>`
-    <article class="card cbody">
-      <span class="badge">${esc(r.payment_status || 'Pending')}</span>
-      <h3 style="margin:8px 0">${esc(r.full_name || 'Customer')}</h3>
-      <p><strong>Phone:</strong> ${esc(r.phone || '')}</p>
-      <p><strong>Ticket:</strong> ${esc(r.ticket || '')}</p>
-      <p><strong>Amount:</strong> KSh ${Number(r.amount || 0).toLocaleString()}</p>
-      <p><strong>Payment name:</strong> ${esc(r.payment_name || 'Not provided')}</p>
-      <p><strong>Payment method:</strong> ${esc(r.payment_method || 'Not specified')}</p>
-      <p><strong>Note:</strong> ${esc(r.note || 'None')}</p>
-      <p class="sub">Submitted ${r.created_at ? new Date(r.created_at).toLocaleString() : ''}</p>
-    </article>
-  `).join('') : `
-    <article class="card cbody">
-      <h3>No concert bookings yet</h3>
-      <p>Peace Concert reservations will appear here.</p>
-    </article>
-  `}
-</div>`;
+    <h2>Awaiting Approval (${pending.length})</h2>
+
+    <div class="grid3">
+      ${pending.length ? pending.map(p=>`
+        <article class="card cbody">
+          <img class="avatar" src="${creatorPhoto(p)}" alt="">
+          <h3>${esc(p.display_name)}</h3>
+          <p class="badge">Pending Review</p>
+          <p>${esc(p.category_id||'')}
+            ${p.location?' · '+esc(p.location):''}
+          </p>
+          <p class="sub">${esc(p.bio||'No biography yet.')}</p>
+          <p class="sub">${esc(p.user_id)}</p>
+          <div class="cta">
+            <button class="btn btn-p" type="button"
+              onclick="setCreatorApproval('${p.id}','approved')">
+              Approve
+            </button>
+            <button class="btn btn-g" type="button"
+              onclick="setCreatorApproval('${p.id}','rejected')">
+              Reject
+            </button>
+          </div>
+        </article>
+      `).join('') : `
+        <article class="card cbody">
+          <h3>No pending applications</h3>
+          <p>New creator applications awaiting review will appear here.</p>
+        </article>
+      `}
+    </div>
+  `;
 }
+
 function reviewTargets(){
   const list=[{id:'lessons',name:'Music Lessons'},{id:'live',name:'Live Studio Recording'},{id:'jingle',name:'Jingle Production'},{id:'events',name:'The Peace Concert Season 2'},{id:'hoodie',name:'IMC custom hoodie'}];
   IMC_AUDIO.forEach(s=>{ if(!list.some(x=>x.name===s.name)) list.push({id:s.id,name:s.name}); });
