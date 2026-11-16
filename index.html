@@ -2537,12 +2537,50 @@ function dashWrap(cur, inner){
   return `<div class="dash">${sideNav(cur)}<div>${inner}</div></div>`;
 }
 function comingSoonBox(t,d){ return `<div class="card cbody"><div class="kicker">Coming soon</div><h2>${t}</h2><p class="sub">${d}</p></div>`; }
-function renderCreatorDash(path){
+async function renderCreatorDash(path){
   const s=session();
   if(!s){ location.hash='#/signin'; return; }
   if(s.role!=='creator'){ document.getElementById('creatorShell').innerHTML=`<div class="coming"><h1>Creators only</h1><p class="lead">This area is for creator accounts.</p><a class="btn btn-p" href="#/">Back home</a></div>`; return; }
   ensureCreatorProfile(s);
-  const p=myProfile();
+let p=myProfile();
+
+// Refresh creator application from Supabase
+const {data:{user}}=await supabaseClient.auth.getUser();
+
+if(user){
+  const {data:remoteProfile,error}=await supabaseClient
+    .from('creator_profiles')
+    .select('*')
+    .eq('user_id',user.id)
+    .maybeSingle();
+
+  if(error){
+    console.error('Could not refresh creator profile:',error);
+  }else if(remoteProfile){
+    const profiles=loadJSON(PROFILES_KEY,[]);
+    const index=profiles.findIndex(x=>x.user_id===s.email);
+
+    const updatedProfile={
+      ...remoteProfile,
+      user_id:s.email
+    };
+
+    if(index>=0){
+      profiles[index]=updatedProfile;
+    }else{
+      profiles.push(updatedProfile);
+    }
+
+    saveJSON(PROFILES_KEY,profiles);
+    p=updatedProfile;
+  }
+}
+
+if(!p){
+  document.getElementById('creatorShell').innerHTML=
+    '<p class="err">Creator profile could not be loaded. Please sign in again.</p>';
+  return;
+}
   const products=myProducts();
   const followers=followsOf(p.id).length;
   const pending = p.approval_status!=='approved';
