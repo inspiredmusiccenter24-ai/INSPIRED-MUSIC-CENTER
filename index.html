@@ -1299,7 +1299,31 @@ let rows=(bookingData || []).map(r=>({   id:r.id,   ref:r.booking_ref,   name:r.
       <label>Internal notes<textarea class="abNotes" style="min-height:70px;width:100%;padding:8px;border-radius:10px;border:1px solid var(--line);font:inherit">${esc(r.notes||'')}</textarea></label>
       <button class="btn btn-p" type="button" data-save="${r.id}">Save</button>
       <p class="sub">Submitted ${new Date(r.createdAt).toLocaleString()}</p>
-    </article>`).join(''):'<article class="card cbody"><h3>No bookings yet</h3><p>Submitted requests will appear here.</p></article>'}</div>`;
+   </article>`).join(''):'<article class="card cbody"><h3>No bookings yet</h3><p>Submitted requests will appear here.</p></article>'}</div>
+
+<h2 style="margin-top:36px">Concert Bookings</h2>
+<p class="lead">Peace Concert ticket reservations and payment details.</p>
+
+<div class="grid3">
+  ${concertData && concertData.length ? concertData.map(r=>`
+    <article class="card cbody">
+      <span class="badge">${esc(r.payment_status || 'Pending')}</span>
+      <h3 style="margin:8px 0">${esc(r.full_name || 'Customer')}</h3>
+      <p><strong>Phone:</strong> ${esc(r.phone || '')}</p>
+      <p><strong>Ticket:</strong> ${esc(r.ticket || '')}</p>
+      <p><strong>Amount:</strong> KSh ${Number(r.amount || 0).toLocaleString()}</p>
+      <p><strong>Payment name:</strong> ${esc(r.payment_name || 'Not provided')}</p>
+      <p><strong>Payment method:</strong> ${esc(r.payment_method || 'Not specified')}</p>
+      <p><strong>Note:</strong> ${esc(r.note || 'None')}</p>
+      <p class="sub">Submitted ${r.created_at ? new Date(r.created_at).toLocaleString() : ''}</p>
+    </article>
+  `).join('') : `
+    <article class="card cbody">
+      <h3>No concert bookings yet</h3>
+      <p>Peace Concert reservations will appear here.</p>
+    </article>
+  `}
+</div>`;
   document.getElementById('abGo').onclick=()=>renderAdminBookings();
   el.querySelectorAll('[data-save]').forEach(btn=>{
  btn.onclick=async()=>{
