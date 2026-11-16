@@ -1313,8 +1313,22 @@ let rows=(bookingData || []).map(r=>({   id:r.id,   ref:r.booking_ref,   name:r.
       <p><strong>Ticket:</strong> ${esc(r.ticket || '')}</p>
       <p><strong>Amount:</strong> KSh ${Number(r.amount || 0).toLocaleString()}</p>
       <p><strong>Payment name:</strong> ${esc(r.payment_name || 'Not provided')}</p>
-      <p><strong>Payment method:</strong> ${esc(r.payment_method || 'Not specified')}</p>
-      <p><strong>Note:</strong> ${esc(r.note || 'None')}</p>
+     <p><strong>Payment method:</strong> ${esc(r.payment_method || 'Not specified')}</p>
+
+<label style="display:block;margin:12px 0">
+  Payment status
+  <select class="concertPaymentStatus" data-id="${r.id}">
+    <option value="pending" ${r.payment_status==='pending'?'selected':''}>Pending</option>
+    <option value="paid" ${r.payment_status==='paid'?'selected':''}>Paid</option>
+    <option value="failed" ${r.payment_status==='failed'?'selected':''}>Failed</option>
+  </select>
+</label>
+
+<button class="btn btn-p" type="button" data-concert-save="${r.id}">
+  Save Payment Status
+</button>
+
+<p><strong>Note:</strong> ${esc(r.note || 'None')}</p>
       <p class="sub">Submitted ${r.created_at ? new Date(r.created_at).toLocaleString() : ''}</p>
     </article>
   `).join('') : `
@@ -1358,6 +1372,42 @@ let rows=(bookingData || []).map(r=>({   id:r.id,   ref:r.booking_ref,   name:r.
   toast('Booking updated successfully');
   await renderAdminBookings();
 };
+  });
+    el.querySelectorAll('[data-concert-save]').forEach(btn=>{
+    btn.onclick=async()=>{
+      const id=btn.getAttribute('data-concert-save');
+      const select=el.querySelector(
+        `.concertPaymentStatus[data-id="${id}"]`
+      );
+
+      if(!select) return;
+
+      const paymentStatus=select.value;
+
+      if(!['pending','paid','failed'].includes(paymentStatus)){
+        toast('Invalid payment status');
+        return;
+      }
+
+      btn.disabled=true;
+      btn.textContent='Saving...';
+
+      const {error}=await supabaseClient
+        .from('peace_concert_bookings')
+        .update({payment_status:paymentStatus})
+        .eq('id',id);
+
+      if(error){
+        console.error('Concert payment update failed:',error);
+        btn.disabled=false;
+        btn.textContent='Save Payment Status';
+        toast('Could not update payment status');
+        return;
+      }
+
+      toast('Concert payment status updated');
+      await renderAdminBookings();
+    };
   });
 }
 async function renderAdminAvail(){
