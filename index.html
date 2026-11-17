@@ -2364,7 +2364,7 @@ if (signinForm) signinForm.addEventListener('submit', async e=>{
     renderAuth();
     go(localUser.role==='creator'?'/creator/dashboard':'/account');
     return;
-  }});
+  }
 
   // New creator accounts sign in through Supabase
   const {data,error}=await supabaseClient.auth.signInWithPassword({
@@ -2453,8 +2453,7 @@ if (signinForm) signinForm.addEventListener('submit', async e=>{
   toast('Welcome back');
   renderAuth();
   go('/creator/dashboard');
-
-
+});
 
 document.getElementById('forgotForm').addEventListener('submit', e=>{
   e.preventDefault();
