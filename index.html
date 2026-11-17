@@ -1261,18 +1261,11 @@ async function signOut(){
 }
 
 function hashPass(p){ let h=0; for(let i=0;i<p.length;i++) h=((h<<5)-h)+p.charCodeAt(i)|0; return String(h); }
-function ensureAdminAccount(){
-  const users=loadUsers();
-  if(users.some(u=>u.role==='admin')) return;
-  users.push({ name:'IMC Admin', email:'admin@inspired.local', pass:hashPass('inspired-admin'), role:'admin', created:Date.now() });
-  saveUsers(users);
-}
 async function renderAdminBookings(){
-  ensureAdminAccount();
   const s=session();
   const el=document.getElementById('adminBookings');
   if(!(await isAdminSession())){
-    el.innerHTML=`<div class="coming" style="max-width:520px"><div class="kicker">Staff only</div><h1>Bookings</h1><p class="lead">Sign in with an administrator account to view customer booking details.</p><p class="sub">Staff sign-in: admin@inspired.local · password inspired-admin. Change this after first login in a later security step.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`;
+    el.innerHTML=`<div class="coming" style="max-width:520px"><div class="kicker">Staff only</div><h1>Bookings</h1><p class="lead">Sign in with an administrator account to view customer booking details.</p><p class="sub">Administrator access is restricted to authorised IMC staff.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`;
     return;
   }
   const q=(document.getElementById('abSearch')||{value:''}).value.toLowerCase();
@@ -1473,7 +1466,6 @@ let rows=(bookingData || []).map(r=>({   id:r.id,   ref:r.booking_ref,   name:r.
   });
 }
 async function renderAdminAvail(){
-  ensureAdminAccount();
   const el=document.getElementById('adminAvail');
   if(!(await isAdminSession())){
     el.innerHTML=`<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>`; return;
@@ -2115,31 +2107,41 @@ async function renderAdminReviews(){
 }
 
 
-function renderAuth(){
+async function renderAuth(){
   const s=session();
-  const isAdmin=localStorage.getItem('inspired.adminAuth')==='true';
   const desk=document.getElementById('navAuth');
   const mob=document.getElementById('navAuthMobile');
+  if(!desk || !mob) return;
+
+  // Never trust a browser-stored flag for administrator access.
+  // Verify the current Supabase user against the admin_users table.
+  desk.innerHTML='';
+  mob.innerHTML='';
+  const isAdmin=await isAdminSession();
 
   if(isAdmin){
+    localStorage.setItem('inspired.adminAuth','true');
     desk.innerHTML=`
+      <a class="btn btn-g" href="#/admin">Admin Dashboard</a>
       <a class="btn btn-g" href="#/admin/bookings">Bookings</a>
       <a class="btn btn-g" href="#/admin/creators">Creators</a>
-      <a class="btn btn-g" href="#/admin/reviews">Reviews</a>`;
-
+      <a class="btn btn-g" href="#/admin/reviews">Reviews</a>
+      <button class="btn btn-g" type="button" onclick="signOut()">Sign Out</button>`;
     mob.innerHTML=`
+      <a href="#/admin">Admin Dashboard</a>
       <a href="#/admin/bookings">Bookings</a>
       <a href="#/admin/creators">Creators</a>
       <a href="#/admin/reviews">Reviews</a>
       <button type="button" onclick="signOut()">Sign Out</button>`;
+    return;
+  }
 
-  }else if(s){
+  localStorage.removeItem('inspired.adminAuth');
+  if(s && s.role!=='admin'){
     const extra=s.role==='creator'
       ? `<a class="btn btn-g" href="#/creator/dashboard">Creator Dashboard</a>`
       : '';
-
     desk.innerHTML=`${extra}<a class="btn btn-g" href="#/account">Account</a>`;
-
     mob.innerHTML=`
       ${s.role==='creator'
         ? `<a href="#/creator/dashboard">Creator Dashboard</a>
@@ -2148,7 +2150,6 @@ function renderAuth(){
         : ''}
       <a href="#/account">Account (${esc(s.role)})</a>
       <button type="button" onclick="signOut()">Sign Out</button>`;
-
   }else{
     desk.innerHTML=`<a class="btn btn-g" href="#/signin">Account</a>`;
     mob.innerHTML=`
@@ -2348,7 +2349,8 @@ if (signinForm) signinForm.addEventListener('submit', async e=>{
     localStorage.setItem('inspired.adminAuth','true');
 
     toast('Administrator signed in');
-    go('/admin/bookings');
+    renderAuth();
+    go('/admin');
     return;
   }
 
@@ -2812,7 +2814,7 @@ function toggleFollow(cid){
   const p=loadJSON(PROFILES_KEY,[]).find(x=>x.id===cid);
   if(p) renderPublicStore(p.username);
 }
-function route(){
+async function route(){
   const path = (location.hash.replace('#','').split('?')[0] || '/');
   const store = path.match(/^\/creator\/([^/]+)$/);
   if(store && !path.startsWith('/creator/dashboard') && !creatorPages.includes(path) && store[1] && !['dashboard','products','profile','settings','orders','customers','reviews','analytics','payouts','storefront'].includes(store[1])){
@@ -2886,7 +2888,7 @@ function route(){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
     const el=document.getElementById('adminInbox');
     el.classList.add('on');
-    if(!session()||session().role!=='admin'){ el.innerHTML=`<div class="coming"><h1>Staff only</h1><a class="btn btn-p" href="#/signin">Sign in</a></div>`; renderAuth(); return; }
+    if(!(await isAdminSession())){ el.innerHTML=`<div class="coming"><h1>Staff only</h1><p>Please sign in with an authorised administrator account.</p><a class="btn btn-p" href="#/signin">Sign in</a></div>`; renderAuth(); return; }
     const rows=JSON.parse(localStorage.getItem('inspired.inquiries')||'[]');
     el.innerHTML=`<div class="kicker">Administrator</div><h1>Inquiries</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/creators">Creators</a></p><div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody"><h3>${esc(r.name)}</h3><p>${esc(r.phone)} · ${esc(r.email)}</p><p>${esc(r.message)}</p><p class="sub">${new Date(r.at).toLocaleString()}</p></article>`).join(''):'<article class="card cbody"><h3>No inquiries yet</h3></article>'}</div>`;
     renderAuth(); window.scrollTo(0,0); return;
@@ -3076,7 +3078,6 @@ function toggleMenu(){
 function openModal(t,b){ document.getElementById('mTitle').textContent=t; document.getElementById('mBody').textContent=b; document.getElementById('modal').classList.add('on'); }
 function closeModal(){ document.getElementById('modal').classList.remove('on'); }
 function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2200); }
-ensureAdminAccount();
 document.getElementById('yearCopy').textContent=String(new Date().getFullYear());
 document.getElementById('q').addEventListener('keydown', e=>{
   if(e.key==='Enter'){ e.preventDefault(); const v=e.target.value.trim(); go(v?'/search?q='+encodeURIComponent(v):'/search'); }
