@@ -3028,6 +3028,22 @@ if(path==='/become-a-creator'){
     el.innerHTML = `<div class="kicker">Category</div><h1>${row?row[1]:'Category'}</h1><p class="sub">Real Inspired Music Centre listings in this group. Independent products will appear after approval.</p><div class="grid3">${items.map(imcCard).join('')}${audio.map(audioCard).join('')}${(items.length||audio.length)?'':`<article class="card cbody"><h3>Nothing listed here yet</h3><p>Check Explore or Inspired Music Centre.</p></article>`}</div><p style="margin-top:20px"><a class="btn btn-g" href="#/categories">All categories</a></p>`;
     renderAuth(); window.scrollTo(0,0); return;
   }
+ 
+if(path==='/signup' || path==='/become-a-creator'){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('signup').classList.add('on');
+
+  const role = new URLSearchParams(
+    location.hash.split('?')[1] || ''
+  ).get('role');
+
+  setPick(path==='/become-a-creator' || role==='creator' ? 'creator' : 'buyer');
+
+  document.getElementById('mobileMenu').style.display='none';
+  renderAuth();
+  window.scrollTo(0,0);
+  return;
+}
   const id = pages[path] || 'home';
   if(id==='account'){
     const s=session();
