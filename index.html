@@ -2917,15 +2917,6 @@ if(path==='/admin'){
   window.scrollTo(0,0);
   return;
 }
-
-  if(path==='/admin'){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  document.getElementById('adminDashboard').classList.add('on');
-  renderAdminDashboard();
-  renderAuth();
-  window.scrollTo(0,0);
-  return;
-}
   if(path==='/admin/merchandise'){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.getElementById('adminMerchandise').classList.add('on');
