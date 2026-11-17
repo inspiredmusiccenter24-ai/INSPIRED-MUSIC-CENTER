@@ -2892,6 +2892,15 @@ function route(){
     el.innerHTML=`<div class="kicker">Administrator</div><h1>Inquiries</h1><p class="sub"><a href="#/admin/bookings">Bookings</a> · <a href="#/admin/creators">Creators</a></p><div class="grid3">${rows.length?rows.map(r=>`<article class="card cbody"><h3>${esc(r.name)}</h3><p>${esc(r.phone)} · ${esc(r.email)}</p><p>${esc(r.message)}</p><p class="sub">${new Date(r.at).toLocaleString()}</p></article>`).join(''):'<article class="card cbody"><h3>No inquiries yet</h3></article>'}</div>`;
     renderAuth(); window.scrollTo(0,0); return;
   }
+  
+if(path==='/become-a-creator'){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('signup').classList.add('on');
+  setPick('creator');
+  renderAuth();
+  window.scrollTo(0,0);
+  return;
+}
   if(path.startsWith('/signup')){
     const role=new URLSearchParams((location.hash.split('?')[1]||'')).get('role');
     if(role==='creator') setPick('creator');
