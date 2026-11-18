@@ -2375,7 +2375,8 @@ if (signinForm) signinForm.addEventListener('submit', async e=>{
   });
 
   if(error){
-    set('siP','Email or password is incorrect. If you just registered, confirm your email first.');
+    console.error('Creator sign-in failed:', error);
+    set('siP','Sign-in failed: '+(error.message || 'Unknown authentication error'));
     return;
   }
 
