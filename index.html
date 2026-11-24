@@ -907,7 +907,7 @@ function marketItems(){
 }));
   const seen=new Set(imc.map(x=>x.title.toLowerCase()));
   const svc=IMC_AUDIO.filter(s=>!seen.has(s.name.toLowerCase())).map(s=>({
-    cat:s.cat, type:s.id==='lessons'?'Music Education':(s.id==='live'||s.id==='mobile'?'Recording Services':(s.id==='jingle'||s.id==='advert'?'Audio Production':(s.id==='photo'||s.id==='video'?'Creative Services':'Creative Services'))),
+    cat:s.cat, type:s.cat==='events'?'Events & Experiences':(s.id==='lessons'?'Music Education':(s.id==='live'||s.id==='mobile'?'Recording Services':(s.id==='jingle'||s.id==='advert'?'Audio Production':(s.id==='photo'||s.id==='video'?'Photography & Videography':'Creative Services')))),
     title:s.name, creator:'Inspired Music Centre', price:'Request a Quote', img:s.img, alt:s.alt, href:'#/imc-quote?service='+s.id,
     quote:s.id==='hire'||s.id==='event'||s.id==='jingle'||s.id==='advert', kind:'service',
     group:s.id==='lessons'?'courses':(s.cat==='events'?'events':(s.cat==='music'?'music':'services')),
