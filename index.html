@@ -2658,7 +2658,8 @@ if(!p){
   } else if(path==='/creator/products'){
     inner=banner+renderProductList(products,p);
   } else if(path==='/creator/products/new'){
-    inner=banner+renderNewProduct(p, pending);
+    const editingProduct = currentProductEditId ? myProducts().find(x=>x.id===currentProductEditId) : null;
+    inner=banner+renderNewProduct(p, pending, editingProduct);
   } else if(path==='/creator/profile' || path==='/creator/settings'){
     inner=banner+renderSettings(p,s);
   } else if(path==='/creator/storefront'){
@@ -2678,27 +2679,31 @@ function renderProductList(products,p){
   return `<h1>My Products</h1><div class="table-wrap"><table class="prod"><thead><tr><th>Cover</th><th>Title</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th><th>Sales</th><th>Actions</th></tr></thead><tbody>${products.map(pr=>`<tr>
     <td><img src="cover.jpg" alt="Cover for ${esc(pr.title)}" style="width:48px;height:48px;object-fit:cover;border-radius:8px"></td>
     <td>${esc(pr.title)}</td><td>${esc(pr.product_type)}</td><td>KSh ${esc(pr.price||'0')}</td><td>${esc(pr.status)}</td><td>${new Date(pr.created_at).toLocaleDateString()}</td><td>0</td>
-    <td><button class="btn btn-g" type="button" onclick="editHint()">Edit</button> ${pr.status==='Published'?`<a href="#/creator/${esc(p.username)}">View Storefront</a>`:`<button class="btn btn-g" type="button" onclick="viewProduct('${pr.id}')">View</button>`} <button class="btn btn-g" type="button" onclick="deleteProduct('${pr.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>`;
+    <td><button class="btn btn-g" type="button" onclick="editProduct('${pr.id}')">Edit</button> ${pr.status==='Published'?`<a href="#/creator/${esc(p.username)}">View Storefront</a>`:`<button class="btn btn-g" type="button" onclick="viewProduct('${pr.id}')">View</button>`} <button class="btn btn-g" type="button" onclick="deleteProduct('${pr.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>`;
 }
-function renderNewProduct(p, pending){
-  return `<h1>Create a Product</h1><p class="lead">Turn your knowledge into something people can discover, read and learn from.</p>
+function renderNewProduct(p, pending, product=null){
+  const v=product||{};
+  const type=v.product_type||'Book';
+  const editing=!!product;
+  return `<h1>${editing?'Edit Product':'Create a Product'}</h1><p class="lead">${editing?'Update the details of your product below.':'Turn your knowledge into something people can discover, read and learn from.'}</p>
     <div class="rolepick" id="typePick">
-      <button type="button" class="rolecard on" data-type="Book" onclick="pickType('Book')"><strong>Book</strong><p class="field-hint">A complete digital book or publication.</p></button>
-      <button type="button" class="rolecard" data-type="Article" onclick="pickType('Article')"><strong>Article</strong><p class="field-hint">A written article or short-form publication.</p></button>
-      <button type="button" class="rolecard" data-type="Document" onclick="pickType('Document')"><strong>Document</strong><p class="field-hint">A guide, report, template or other downloadable document.</p></button>
+      <button type="button" class="rolecard ${type==='Book'?'on':''}" data-type="Book" onclick="pickType('Book')"><strong>Book</strong><p class="field-hint">A complete digital book or publication.</p></button>
+      <button type="button" class="rolecard ${type==='Article'?'on':''}" data-type="Article" onclick="pickType('Article')"><strong>Article</strong><p class="field-hint">A written article or short-form publication.</p></button>
+      <button type="button" class="rolecard ${type==='Document'?'on':''}" data-type="Document" onclick="pickType('Document')"><strong>Document</strong><p class="field-hint">A guide, report, template or other downloadable document.</p></button>
     </div>
     <form class="form" id="prodForm" style="max-width:640px">
-      <input type="hidden" id="pType" value="Book">
-      <label>Product title<input id="pTitle" required></label>
-      <label>Description<textarea id="pDesc" rows="4" style="width:100%;border-radius:12px;border:1px solid var(--line);padding:12px"></textarea></label>
-      <label>Category<input id="pCat" value="${esc(p.category_id||'Entrepreneurship')}"></label>
-      <label>Tags<input id="pTags" placeholder="founders, writing"></label>
-      <label>Cover image<input id="pCover" placeholder="Describe cover (storage next step)"></label>
-      <label>Price (KES)<input id="pPrice" type="number" min="0" value="0"> <span class="field-hint">Price: KSh ___ · Payments are not connected yet.</span></label>
+      <input type="hidden" id="pType" value="${esc(type)}">
+      <label>Product title<input id="pTitle" required value="${esc(v.title||'')}"></label>
+      <label>Description<textarea id="pDesc" rows="4" style="width:100%;border-radius:12px;border:1px solid var(--line);padding:12px">${esc(v.description||'')}</textarea></label>
+      <label>Category<input id="pCat" value="${esc(v.category_id||p.category_id||'Entrepreneurship')}"></label>
+      <label>Tags<input id="pTags" placeholder="founders, writing" value="${esc(Array.isArray(v.tags)?v.tags.join(', '):(v.tags||''))}"></label>
+      <label>Cover image<input id="pCover" placeholder="Describe cover (storage next step)" value="${esc(v.cover_image||v.cover||'')}"></label>
+      <label>Price (KES)<input id="pPrice" type="number" min="0" value="${esc(v.price??'0')}"> <span class="field-hint">Price: KSh ___ · Payments are not connected yet.</span></label>
       <div class="card cbody"><strong>Upload your file</strong><p class="sub">PDF or EPUB where applicable. File upload will be connected to secure storage in the next marketplace step.</p></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-g" type="submit" data-mode="draft">Save Draft</button>
-        <button class="btn btn-p" type="submit" data-mode="review" ${pending?'disabled title="Approval required to submit"':''}>Submit for Review</button>
+        <button class="btn btn-g" type="submit" data-mode="draft">${editing?'Save Changes':'Save Draft'}</button>
+        <button class="btn btn-p" type="submit" data-mode="review" ${pending?'disabled title="Approval required to submit"':''}>${editing?'Save & Submit for Review':'Submit for Review'}</button>
+        ${editing?'<a class="btn btn-g" href="#/creator/products" onclick="currentProductEditId=null">Cancel</a>':''}
       </div>
       ${pending?'<p class="field-hint">You can save drafts while your creator profile is pending approval. Publishing is reserved for admins after review.</p>':''}
     </form>`;
@@ -2723,6 +2728,7 @@ function renderSettings(p,s){
     <div class="card cbody" style="margin-top:20px;max-width:560px"><h3>Payout Settings</h3><p class="sub">Payment and payout setup will become available when marketplace sales are enabled.</p><button class="btn btn-g" disabled>Coming soon</button></div>`;
 }
 let lastSubmit='draft';
+let currentProductEditId=null;
 function pickType(t){ document.getElementById('pType').value=t; document.querySelectorAll('#typePick .rolecard').forEach(el=>el.classList.toggle('on', el.dataset.type===t)); }
 function bindCreatorForms(p, pending){
   const pf=document.getElementById('prodForm');
@@ -2732,15 +2738,39 @@ function bindCreatorForms(p, pending){
       e.preventDefault();
       const title=document.getElementById('pTitle').value.trim();
       if(!title){ toast('Add a title'); return; }
-      let status='Draft';
+      const wasEditing=!!currentProductEditId;
+      const all=loadJSON(PRODUCTS_KEY,[]);
+      const existingProduct=wasEditing?all.find(x=>x.id===currentProductEditId && x.creator_id===p.id):null;
+      if(wasEditing && !existingProduct){ toast('Product could not be found. Please return to My Products and try again.'); currentProductEditId=null; return; }
+      let status=existingProduct?existingProduct.status:'Draft';
       if(lastSubmit==='review'){
         if(pending){ toast('Wait for creator approval before submitting'); return; }
         status='Pending Review';
       }
-      const all=loadJSON(PRODUCTS_KEY,[]);
-      all.push({ id:'pr_'+Date.now(), creator_id:p.id, title, slug:slugify(title), description:document.getElementById('pDesc').value, product_type:document.getElementById('pType').value, category_id:document.getElementById('pCat').value, cover_image:document.getElementById('pCover').value, price:document.getElementById('pPrice').value||'0', currency:'KES', content_file:'', status, created_at:Date.now(), updated_at:Date.now() });
+      const now=Date.now();
+      const details={
+        title,
+        slug:slugify(title),
+        description:document.getElementById('pDesc').value,
+        product_type:document.getElementById('pType').value,
+        category_id:document.getElementById('pCat').value,
+        tags:document.getElementById('pTags').value.split(',').map(x=>x.trim()).filter(Boolean),
+        cover_image:document.getElementById('pCover').value,
+        price:document.getElementById('pPrice').value||'0',
+        currency:'KES',
+        status,
+        updated_at:now
+      };
+      if(currentProductEditId){
+        const index=all.findIndex(x=>x.id===currentProductEditId && x.creator_id===p.id);
+        if(index<0){ toast('Product could not be found. Please return to My Products and try again.'); currentProductEditId=null; return; }
+        all[index]={...all[index],...details};
+      }else{
+        all.push({ id:'pr_'+now, creator_id:p.id, ...details, content_file:'', created_at:now });
+      }
       saveJSON(PRODUCTS_KEY, all);
-      toast(status==='Pending Review'?'Your product has been submitted for review.':'Draft saved');
+      currentProductEditId=null;
+      toast(status==='Pending Review'?'Your product has been submitted for review.':(lastSubmit==='review'?'Product saved and submitted for review.':(wasEditing?'Product changes saved.':'Draft saved')));
       go('/creator/products');
     });
   }
@@ -2764,7 +2794,13 @@ function deleteProduct(id){
 }
 function viewProduct(id){ const pr=myProducts().find(x=>x.id===id); if(pr) openModal(pr.title, pr.description||'Draft product');
 }
-function editHint(){ toast('Open Add Product to create a new version — inline edit arrives next'); }
+function editProduct(id){
+  const product=myProducts().find(x=>x.id===id);
+  if(!product){ toast('Product could not be found'); return; }
+  currentProductEditId=id;
+  lastSubmit='draft';
+  go('/creator/products/new');
+}
 function renderPublicStore(username){
   const p=loadJSON(PROFILES_KEY,[]).find(x=>x.username===username);
   const box=document.getElementById('publicStore');
