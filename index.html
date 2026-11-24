@@ -668,7 +668,7 @@ const CAT_META = {
   events:['IMC concerts and experiences hosted by creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'],
   digital:['IMC merch and digital products from creators.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>']
 };
-document.getElementById('cats').innerHTML = CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>'];return `<button class="cat" type="button" style="background:${c}" onclick="go('/category/'+id)">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('');
+document.getElementById('cats').innerHTML = CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.','<svg class="ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/></svg>'];return `<button class="cat" type="button" style="background:${c}" aria-label="Browse ${n}" onclick="go('/explore?category='+encodeURIComponent('${id}'))">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('');
 const SVC_BOOKINGS_KEY='inspired.serviceBookings';
 const AVAIL_KEY='inspired.bookingAvail';
 const ADMIN_PIN_KEY='inspired.adminPin';
@@ -877,14 +877,21 @@ function listingPrice(w){
   return m?Number(m[1]):null;
 }
 const EX_GROUPS=[
-  ['','All Listings'],
-  ['merch','Products & Merchandise'],
-  ['music','Music & Audio'],
-  ['services','Creative Services'],
-  ['courses','Courses & Lessons'],
-  ['events','Events & Tickets'],
-  ['creators','Independent Creators']
+  ['','All Listings'],['music','Music & Audio'],['books','Books & Publications'],['courses','Online Courses'],['photo','Photography & Videography'],['art','Art & Design'],['services','Creative Services'],['events','Events & Experiences'],['digital','Digital Products'],['creators','Independent Creators']
 ];
+function categoryShortcutMatch(row, category){
+  const cat=String(row.cat||'').toLowerCase(), group=String(row.group||'').toLowerCase(), type=String(row.type||'').toLowerCase(), title=String(row.title||'').toLowerCase();
+  if(category==='books') return group==='creators' && (['book','books','article','document','publication'].includes(cat) || /book|article|document|publication/.test(type+' '+title));
+  if(category==='art') return group==='creators' && (['art','arts','design'].includes(cat) || /art|design|illustrat|graphic/.test(type+' '+title));
+  if(category==='photo') return (group==='services' || (group==='creators' && cat==='photo')) && (/photo|video|film|visual/.test(type+' '+title) || cat==='photo');
+  if(category==='digital') return group==='merch' || (group==='creators' && ['digital','merch','product'].includes(cat));
+  if(category==='music') return group==='music' || cat==='music';
+  if(category==='courses') return group==='courses' || cat==='courses';
+  if(category==='services') return group==='services' || (group==='creators' && cat==='services');
+  if(category==='events') return group==='events' || cat==='events';
+  if(category==='creators') return row.kind==='product';
+  return true;
+}
 function marketItems(){
   const pub=JSON.parse(localStorage.getItem('inspired.products')||'[]').filter(p=>p.status==='published').map(p=>{
     const cr=(JSON.parse(localStorage.getItem('inspired.profiles')||'[]').find(x=>x.id===p.creator_id)||{});
@@ -912,12 +919,13 @@ function marketItems(){
 }
 function renderExplore(){
   const q=(document.getElementById('exQ')||{value:''}).value.trim().toLowerCase();
-  const group=(document.getElementById('exCat')||{value:''}).value;
+  const existingCategory=(document.getElementById('exCat')||{}).value;
+  const urlCategory=new URLSearchParams((location.hash.split('?')[1]||'')).get('category')||'';
+  const group=existingCategory || urlCategory;
   const sort=(document.getElementById('exSort')||{value:'name'}).value;
   let rows=marketItems();
   if(q) rows=rows.filter(r=>(r.title+' '+r.creator+' '+r.type).toLowerCase().includes(q));
-  if(group==='creators') rows=rows.filter(r=>r.kind==='product');
-  else if(group) rows=rows.filter(r=>r.group===group);
+  if(group) rows=rows.filter(r=>categoryShortcutMatch(r,group));
   if(sort==='az') rows.sort((a,b)=>a.title.localeCompare(b.title));
   if(sort==='lo') rows.sort((a,b)=>(listingPrice(a)||999999)-(listingPrice(b)||999999));
   if(sort==='hi') rows.sort((a,b)=>(listingPrice(b)||0)-(listingPrice(a)||0));
@@ -953,7 +961,7 @@ function renderCreatorsDirectory(){
   ${empty?`<div class="card cbody" style="margin-top:12px;max-width:720px"><h2>Your Creative Journey Starts Here</h2><p class="lead" style="max-width:none">Be among the first independent creators to join the INSPIRED MUSIC CENTRE marketplace. Showcase your talent, share your work, and reach new audiences.</p><div class="cta"><a class="btn btn-p" href="#/become-a-creator">Become a Creator</a><a class="btn btn-g" href="#/imc">Visit Inspired Music Centre</a></div></div>`:`<form class="ex-search" id="crForm"><input id="crQ" value="${esc(q)}" placeholder="Search creators..." aria-label="Search creators"><button class="btn btn-p" type="submit">Search</button></form><div class="ex-chips"><button type="button" class="${!cat?'on':''}" onclick="document.getElementById('crCat').value='';renderCreatorsDirectory()">All</button>${cats.map(c=>`<button type="button" class="${cat===c?'on':''}" onclick="document.getElementById('crCat').value='${esc(c)}';renderCreatorsDirectory()">${esc(c)}</button>`).join('')}</div><input type="hidden" id="crCat" value="${esc(cat)}"><div class="grid3">${cards||`<article class="card cbody"><h3>No creators match this search</h3></article>`}</div>`}</div>`;
   const f=document.getElementById('crForm'); if(f) f.onsubmit=e=>{e.preventDefault();renderCreatorsDirectory();};
 }
-document.getElementById('categories').innerHTML = `<div class="kicker">Browse</div><h1>Categories</h1><p class="sub">Choose a craft. Each page shows real IMC listings in that group.</p><div class="grid4">${CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.',''];return `<button class="cat" type="button" style="background:${c}" onclick="go('/category/'+id)">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('')}</div>`;
+document.getElementById('categories').innerHTML = `<div class="kicker">Browse</div><h1>Categories</h1><p class="sub">Choose a craft. Each category opens filtered marketplace listings, including eligible creator products.</p><div class="grid4">${CATS.map(([id,n,c])=>{const m=CAT_META[id]||['Browse this category.',''];return `<button class="cat" type="button" style="background:${c}" aria-label="Browse ${n}" onclick="go('/explore?category='+encodeURIComponent('${id}'))">${m[1]}<strong>${n}</strong><em>${m[0]}</em></button>`;}).join('')}</div>`;
 document.getElementById('events').innerHTML = `<div class="events-page">
   <div class="kicker">Events</div>
   <h1>Gather, listen, and stand for peace.</h1>
