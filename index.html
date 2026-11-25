@@ -273,6 +273,17 @@ table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid
   .hero-mosaic{height:200px;grid-template-rows:95px 95px}
   .grid4,.grid3,.steps,.fgrid,.promo,.grid5{grid-template-columns:1fr}
 }
+
+/* IMC homepage promotional video */
+.imc-advert{padding-top:10px;padding-bottom:30px}
+.imc-advert-panel{position:relative;overflow:hidden;border-radius:22px;background:#171717;box-shadow:var(--shadow);isolation:isolate}
+.imc-advert-panel video{display:block;width:100%;max-height:560px;aspect-ratio:16/9;object-fit:cover;background:#111}
+.imc-advert-copy{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;padding:22px 26px;background:linear-gradient(110deg,#202020,#343027);color:#fff}
+.imc-advert-copy h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);line-height:1.15;color:#f6d94f}
+.imc-advert-copy p{margin-top:6px;color:rgba(255,255,255,.82);max-width:650px}
+.imc-advert-copy .cta{margin:0}
+@media(max-width:640px){.imc-advert-copy{padding:18px}.imc-advert-panel{border-radius:14px}.imc-advert-panel video{aspect-ratio:16/9}}
+
 </style>
 </head>
 <body>
@@ -347,6 +358,25 @@ table.prod th,table.prod td{padding:12px;text-align:left;border-bottom:1px solid
         <img src="./peace-concert.jpeg" alt="The Peace Concert Season 2 poster">
       </div>
     </div>
+
+    <section class="wrap sec imc-advert" aria-labelledby="imc-advert-title">
+      <div class="imc-advert-panel">
+        <video controls autoplay muted loop playsinline preload="metadata" poster="./imc_ad_preview.png" aria-label="Inspired Music Centre promotional advert">
+          <source src="./inspired_music_center_advert.mp4" type="video/mp4">
+          Your browser does not support HTML video. Please use the video controls or update your browser.
+        </video>
+        <div class="imc-advert-copy">
+          <div>
+            <h2 id="imc-advert-title">Discover Inspired Music Center</h2>
+            <p>Discover. Learn. Create. Inspire. Explore music education, professional recording, creative production, events, and opportunities at IMC.</p>
+          </div>
+          <div class="cta">
+            <a class="btn btn-p" href="#/imc-services">Explore Our Services</a>
+            <a class="btn btn-g" href="#/contact">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="wrap sec" style="padding-top:0">
       <h2>Explore a World of Creativity</h2>
